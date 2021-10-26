@@ -1,0 +1,34 @@
+#header {
+    margin-bottom: 50px;
+}
+
+#header h1 {
+    width: 100%;
+    text-align: center;
+}
+
+
+.linkBar {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.linkBar li {
+    display: inline-block;
+    width: 33%;
+    border: 1px solid black;
+}
+
+.linkBar li a {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.linkBar li a:hover {
+    background-color: purple;
+    color: white;
+}

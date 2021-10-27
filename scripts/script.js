@@ -29,6 +29,7 @@ class DesignerProduct extends Product {
 /* ------------- TEMPORARY FOR FRONT END DEVELOPMENT -------------- */
 
 /* --------- USED TO SIMULATE LOADING DATA FROM DATABASE ---------- */
+//[[4, 78, 89, 64, 75, 77]] = [[4 (productID), 78(feature1 match), 89(feature2 match), 64(feature3 match), 75(feature4 match), 77(overall match)]]
 const testProduct1 = new DesignerProduct(1, "Test Product 1", 19.99, "/resources/sample-img-1.jpg", [[4, 78, 89, 64, 75, 77]], true, true);
 const testProduct2 = new DesignerProduct(2, "Test Product 2", 39.99, "/resources/sample-img-2.jpg", [[5, 80, 74, 78, 91, 81]], true, true);
 const testProduct3 = new DesignerProduct(3, "Test Product 3", 49.99, "/resources/sample-img-3.jpg", [[6, 64, 75, 82, 91, 78]], true, true);

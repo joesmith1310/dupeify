@@ -38,6 +38,8 @@
     color: purple;
 }
 
+#searchButton:hover {cursor: pointer;}
+
 .comparisonLarge {
     margin: 0 0 50px 0;
     border-top: 1px solid black;
@@ -87,6 +89,11 @@
     
 }
 
+.comparisonRow {
+    height: 250px;
+    margin-bottom: 50px;
+}
+
 .comparisonRowBar {
     display: flex;
     width: 100%;
@@ -115,10 +122,18 @@
 
 .comparisonSmall {
     outline: 1px solid black;
-    width: 33%;
+    width: 33.33%;
     height: 200px;
     position: relative;
     float: left;
+    background-color: white;
+    transition: transform 0.2s ease-in-out;
+}
+
+.comparisonSmall:hover {
+    transform: scale(1.03);
+    z-index: 1;
+    cursor: pointer;
 }
 
 .cSImgBox {
@@ -168,7 +183,6 @@
 
 .cSPercentageBar div {
     height: 4px;
-    width: 87%;
     background-color: purple;
     margin: 0;
 }

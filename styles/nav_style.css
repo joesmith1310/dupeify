@@ -9,6 +9,7 @@
 
 
 .linkBar {
+    display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -16,8 +17,8 @@
 
 .linkBar li {
     display: inline-block;
-    width: 33%;
-    border: 1px solid black;
+    width: 33.33%;
+    outline: 1px solid black;
 }
 
 .linkBar li a {
@@ -26,6 +27,7 @@
     height: 50px;
     line-height: 50px;
     text-align: center;
+    transition: background-color 0.3s;
 }
 
 .linkBar li a:hover {

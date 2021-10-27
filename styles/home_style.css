@@ -17,11 +17,12 @@
     border-radius: 0px;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
-    border: 1px solid purple;
+    outline: 1px solid purple;
+    border: 0;
     height: 50px;
 }
 
-#searchInput:focus {outline:none;}
+#searchInput:focus {outline:1px solid purple;}
 
 #searchButton {
     width: 20%;
@@ -30,8 +31,9 @@
     border-radius: 0px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border: 1px solid purple;
-    height: 52px;
+    outline: 1px solid purple;
+    border: 0;
+    height: 50px;
     text-align: left;
     color: purple;
 }
@@ -40,14 +42,17 @@
     margin: 0 0 50px 0;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-    height: 200px;
+    height: 300px;
     padding: 20px;
 }
 
 .comparisonLarge div {
     float: left;
-    width: 33%;
     height: 100%;
+}
+
+.cLProduct {
+    width: 40%;
 }
 
 .comparisonLarge img {
@@ -67,6 +72,7 @@
 }
 
 .cLMatch {
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,3 +86,104 @@
 .cLName {
     
 }
+
+.comparisonRowBar {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    position: relative;
+    align-items: center;
+}
+
+.comparisonRowBar h2 {
+    position: absolute;
+    left:20px;
+}
+
+.comparisonRowBar a {
+    position: absolute;
+    right: 20px;
+}
+
+.comparisonRow ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comparisonSmall {
+    outline: 1px solid black;
+    width: 33%;
+    height: 200px;
+    position: relative;
+}
+
+.cSImgBox {
+    float: left;
+    height: 100%;
+    width: 25%;
+    text-align: center;
+}
+
+.comparisonSmall img {
+    height: 40%;
+    padding: 5%;
+}
+
+.cSInfo {
+    float: left;
+    width: 75%;
+    height: 100%;
+}
+
+.cSInfo h3 {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: 20%;
+}
+
+.cSInfo li {
+    float: left;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.cSInfo li p:first-child {
+    width: 30%;
+}
+
+.cSPercentageBar {
+    width: 40%;
+    height: 4px;
+    outline: 1px solid black;
+    margin: 0 20px;
+    border-radius: 2px;
+}
+
+.cSPercentageBar div {
+    height: 4px;
+    width: 87%;
+    background-color: purple;
+    margin: 0;
+}
+
+.cLOverall {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 40px;
+    width: 40px;
+    margin: 0;
+    border-radius: 50%;
+    color: white;
+    background-color: purple;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

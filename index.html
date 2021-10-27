@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
- 	<meta charset="utf-8">
-    <title>App Title</title>
+   <head>
+      <meta charset="utf-8">
+      <title>App Title</title>
 
-    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+      <link rel="stylesheet" type="text/css" href="/styles/style.css">
+      <link rel="stylesheet" type="text/css" href="/styles/home_style.css">
 
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer type="text/javascript" src="/scripts/script.js"></script>
+      <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script defer type="text/javascript" src="/scripts/script.js"></script>
 
- </head>
- <body>
-    <div id="navbar"></div>
- 	<form id="searchBar">
- 		<input id="" type="text" name="" placeholder="Search for a product">
- 		<input type="submit" value="Search">
- 	</form>
-
- </body>
+   </head>
+   <body>
+      <div id="navbar"></div>
+      <div class="searchDiv">
+         <form id="searchBar">
+            <input id="searchInput" type="text" name="" placeholder="Search for a product">
+            <input id="searchButton" type="submit" value="Search">
+         </form>
+      </div>
+      <div class="comparisonLarge">
+         <div class="cLProduct">
+            <img src="/resources/sample-img-1.jpg">
+            <h1 class="cLPrice">example</h1>
+            <h2 class="cLName">example</h2>
+         </div>
+         <div class="cLMatch">
+            <p class="percentageMatch">87%</p>
+         </div>
+         <div class="cLProduct">
+            <img src="/resources/sample-img-2.jpg">
+            <h1 class="cLPrice">example</h1>
+            <h2 class="cLName">example</h2>
+         </div>
+      </div>
+   </body>
 </html>

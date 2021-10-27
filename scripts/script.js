@@ -37,7 +37,7 @@ const testDupe1 = new Product(4, "Test Product 4", 10.99, "/resources/sample-img
 const testDupe2 = new Product(5, "Test Product 5", 24.99, "/resources/sample-img-5.jpg");
 const testDupe3 = new Product(6, "Test Product 6", 32.99, "/resources/sample-img-6.jpg");
 
-const DesignerProducts = [testProduct1, testProduct2, testProduct3];
-const DupeProducts = [testDupe1, testDupe2, testDupe3];
+const designerProducts = [testProduct1, testProduct2, testProduct3];
+const dupeProducts = [testDupe1, testDupe2, testDupe3];
 
 /* ---------------------------------------------------------------- */

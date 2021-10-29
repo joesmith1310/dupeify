@@ -2,6 +2,15 @@ window.onload = function() {
     loadProducts()
   };
 
+const searchBar = document.querySelector('#searchBar');
+searchBar.addEventListener('submit', search);
+
+function search(e) {
+    e.preventDefault();
+    console.log("OK");
+    window.location.href = "/pages/products.html";
+}
+
 let featuredProducts = [];
 let popularProducts = [];
 

@@ -1,0 +1,125 @@
+
+
+.userInfo {
+    margin: 0 0 5px 0;
+    text-align: center;
+    width: 100%;
+    font-weight: Bold ;
+}
+
+.userInfo2 {
+    margin: 0 0 10px 0px;
+    text-align: center;
+    width: 100%;
+}
+
+.titleS1 {
+    margin: 0 0 50px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    height: 30px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.resize {
+    width: 200px;
+    height: auto;
+}
+
+.resizePencil {
+    width: 25px;
+    height: auto;
+    padding-left: 200px;
+}
+.productName{
+
+}
+
+.productDescription{
+
+}
+
+.headB {
+    position: relative;
+    width: 250px;
+
+}
+.price{
+    position: absolute;
+    bottom: 5;
+    right: 0;
+    width: 10;
+    text-align: right;
+    font-weight: bold;
+    font-size: 15pt;
+    padding-right:350px ;
+
+}
+.pHeart{
+    position: absolute;
+    bottom: 5;
+    right: 0;
+    width: 10;
+    text-align: right;
+    font-weight: bold;
+    font-size: 15pt;
+    padding-right:50px ;
+
+}
+
+.seperateBorder {
+	border-bottom: 1px solid grey;
+}
+
+/* Style the big profile picture circle here. */
+#bigProfilePicCircle {
+	/* Add properties below */
+	content: url("/resources/sample-img-7.jpg");
+	
+	border-radius: 50%;
+	width: 150px;
+	border-style:solid;
+	border-color: black;
+}
+#bigProfilePicCircle33 {
+	/* Add properties below */
+	content: url("/resources/sample-img-7.jpg");
+	position: absolute;
+	top: 230px;
+	left: 5px;
+	border-radius: 50%;
+	width: 150px;
+	border-style:solid;
+	border-color: black;
+}
+
+.column3 {
+    float: left;
+    width: 33.33%;
+  }
+
+  .column4 {
+    float: left;
+    width: 25.00%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .submitButton{
+      text-align: center;
+      font-size: 30px;
+  }
+  .submitDiv{
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+  }
+
+

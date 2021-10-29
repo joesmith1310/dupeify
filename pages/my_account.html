@@ -3,11 +3,13 @@
  <head>
  	<meta charset="utf-8">
     <title>My Account</title>
+    
 
     <!-- General styles across all pages -->
     <link rel="stylesheet" type="text/css" href="/styles/style.css">
     <!-- Specific styles to this page -->
     <link rel="stylesheet" type="text/css" href="/styles/my_account_style.css">
+    <link rel="stylesheet" type="text/css" href="/styles/home_style.css">
 
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer type="text/javascript" src="/scripts/script.js"></script>
@@ -19,6 +21,130 @@
 
     <!-- code goes here-->
     <h1>My Account</h1>
+
+
+    <div class="row">
+      <div class="column4" >
+        <img id="bigProfilePicCircle">
+      </div>
+      <div class="column4" >
+        <p class="userInfo"> Username: </p>
+         <p class="userInfo2"> Lisa Xin </p>
+         <p class="userInfo"> Age: </p>
+         <p class="userInfo2"> 21 </p>
+         <p class="userInfo"> Skin Type: </p>
+         <p class="userInfo2"> Combo </p>
+         <p class="userInfo"> Eye Color: </p>
+         <p class="userInfo2"> Brown </p>
+         <p class="userInfo"> Birthday: </p>
+         <p class="userInfo2"> October 28, 2000 </p>
+      </div>
+      <div class="column4">
+         &nbsp;
+      </div>
+      <div class="column4" >
+         <input type="image" id="image" alt="Edit" class= "resizePencil"
+         src="/resources/pencil.png" >
+      </div>
+    </div>
+    
+   <div class="comparisonRowBar">
+      <h2 class="label">Favourites</h2>
+      <a href="">See All</a>
+   </div>
+   
+   <div class="row">
+      <div class="column4" >
+         <img class="resize" src="/resources/sample-img-8.jpg">
+      </div>
+      <div class="column4" >
+         <p class="userInfo"> Product Name: </p>
+         <p class="userInfo"> Product Description </p>
+      </div>
+      <div class="column4" >
+         <h3>$50.00</h3>
+      </div>
+      <div class="column4" >
+         <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/red-heart.png" >
+      </div>
+   </div>
+
+   <div class='seperateBorder'></div>
+
+   <div class="row">
+      <div class="column4">
+         <img class="resize" src="/resources/sample-img-9.jpg">
+      </div>
+      <div class="column4" >
+         <p class="userInfo"> Product Name: </p>
+         <p class="userInfo"> Product Description </p>
+      </div>
+      <div class="column4" >
+         <h3>$50.00</h3>
+      </div>
+      <div class="column4" >
+         <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/red-heart.png" >
+      </div>
+   </div>
+
+   <div class="comparisonRowBar">
+      <h2 class="label">My Reviews</h2>
+      <a href="">See All</a>
+   </div>
+   <div class="row">
+      <div class="column4">
+         <img class="resize" src="/resources/sample-img-3.jpg">
+      </div>
+      <div class="column4" >
+         <p class="userInfo"> Product Name: </p>
+         <p class="userInfo"> Product Description </p>
+      </div>
+      <div class="column4">     
+         <ul class="cSInfo">
+            <li>
+            <div class="cSPercentageBar"><div style="width: 78%;"></div></div><p>78%</p>
+            </li>
+         </ul>
+      </div>
+      <div class="column4" >
+         <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/pencil.png" >
+      </div>
+   </div>
+   
+
+      <div class='seperateBorder'></div>
+
+      <div class="row">
+         <div class="column4">
+            <img class="resize" src="/resources/sample-img-2.jpg">
+         </div>
+         <div class="column4" >
+            <p class="userInfo"> Product Name: </p>
+            <p class="userInfo"> Product Description </p>
+         </div>
+         <div class="column4">     
+            <ul class="cSInfo">
+               <li>
+               <div class="cSPercentageBar"><div style="width: 70%;"></div></div><p>70%</p>
+               </li>
+            </ul>
+         </div>
+         <div class="column4" >
+            <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+            src="/resources/pencil.png" >
+         </div>
+      </div>
+      
+ 
+   <div class="comparisonRowBar">
+      <h2 class="label">My Suggestions</h2>
+      <a href="">See All</a>
+   </div>
+
+   <div class="submitDiv"  ><input type="submit" class= "submitButton" value="Submit Your Suggestion"></div>
  	
  </body>
 </html>

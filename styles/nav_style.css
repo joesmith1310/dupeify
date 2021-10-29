@@ -1,10 +1,26 @@
+/*COLORS USED
+
+rgb(51, 51, 51) - text
+#ebebeb - light grey
+#5f3dc4 - dark
+#b197fc - medium
+#d0bfff - light
+#e5dbff - lighter
+
+*/
+
 #header {
     margin-bottom: 50px;
+    box-shadow: 0 5px 5px rgb(216, 216, 216);
 }
 
 #header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 75px;
     width: 100%;
     text-align: center;
+    margin: 20px 0;
+    color: #5f3dc4;
 }
 
 
@@ -18,7 +34,11 @@
 .linkBar li {
     display: inline-block;
     width: 33.33%;
-    outline: 1px solid black;
+    border-right: 2px solid #5f3dc4;
+}
+
+.linkBar li:last-child {
+    border-right: none;
 }
 
 .linkBar li a {
@@ -28,9 +48,10 @@
     line-height: 50px;
     text-align: center;
     transition: background-color 0.3s;
+    background-color: #f8f8f8;
 }
 
 .linkBar li a:hover {
-    background-color: purple;
+    background-color: #b197fc;
     color: white;
 }

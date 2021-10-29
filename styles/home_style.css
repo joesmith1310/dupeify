@@ -1,5 +1,16 @@
+/*COLORS USED
+
+rgb(51, 51, 51) - text
+#ebebeb - light grey
+#5f3dc4 - dark
+#b197fc - medium
+#d0bfff - light
+#e5dbff - lighter
+
+*/
+
 .searchDiv {
-    margin: 0 0 50px 0;
+    margin: 0 0 75px 0;
     text-align: center;
     width: 100%;
 }
@@ -17,12 +28,12 @@
     border-radius: 0px;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
-    outline: 1px solid purple;
+    outline: 1px solid #5f3dc4;
     border: 0;
     height: 50px;
 }
 
-#searchInput:focus {outline:1px solid purple;}
+#searchInput:focus {outline:1px solid #5f3dc4;}
 
 #searchButton {
     width: 20%;
@@ -31,21 +42,22 @@
     border-radius: 0px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    outline: 1px solid purple;
+    outline: 1px solid #5f3dc4;
     border: 0;
     height: 50px;
     text-align: left;
-    color: purple;
+    color: #5f3dc4;
 }
 
 #searchButton:hover {cursor: pointer;}
 
 .comparisonLarge {
-    margin: 0 0 50px 0;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    margin: 0 0 75px 0;
+    border-top: 1px solid #5f3dc4;
+    border-bottom: 1px solid #5f3dc4;
     height: 300px;
     padding: 20px;
+    box-shadow: 0 5px 5px rgb(216, 216, 216);
 }
 
 .comparisonLarge div {
@@ -67,7 +79,7 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: black;
+    background-color: #b197fc;
     line-height: 150px;
     color: white;
     font-size: 75px;
@@ -81,32 +93,29 @@
     text-align: center;
 }
 
-.cLPrice {
-    
-}
-
-.cLName {
-    
-}
-
 .comparisonRow {
     height: 250px;
-    margin-bottom: 50px;
+    margin-bottom: 75px;
 }
 
 .comparisonRowBar {
     display: flex;
     width: 100%;
     height: 50px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    border-top: 1px solid #d0bfff;
+    border-bottom: 1px solid #d0bfff;
     position: relative;
     align-items: center;
+    background-color: #e5dbff;
+    margin-bottom: 20px;
 }
 
 .comparisonRowBar h2 {
     position: absolute;
     left:20px;
+    background-color: white;
+    padding: 0 20px;
+    border-radius: 20px;
 }
 
 .comparisonRowBar a {
@@ -121,19 +130,20 @@
 }
 
 .comparisonSmall {
-    outline: 1px solid black;
+    outline: 1px solid #ebebeb;
     width: 33.33%;
     height: 200px;
     position: relative;
     float: left;
     background-color: white;
-    transition: transform 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .comparisonSmall:hover {
     transform: scale(1.03);
     z-index: 1;
     cursor: pointer;
+    box-shadow: 0 5px 5px rgb(216, 216, 216);
 }
 
 .cSImgBox {
@@ -176,14 +186,14 @@
 .cSPercentageBar {
     width: 40%;
     height: 4px;
-    outline: 1px solid black;
+    outline: 1px solid #5f3dc4;
     margin: 0 20px;
     border-radius: 2px;
 }
 
 .cSPercentageBar div {
     height: 4px;
-    background-color: purple;
+    background-color: #b197fc;
     margin: 0;
 }
 
@@ -196,7 +206,7 @@
     margin: 0;
     border-radius: 50%;
     color: white;
-    background-color: purple;
+    background-color: #b197fc;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -35,7 +35,8 @@ function createSmallComparison(product) {
     let dupe = null;
     dupe = dupeProducts.filter(d => d.productID == dupeID)[0]
 
-    const comparisonSmall = document.createElement('div');
+    const comparisonSmall = document.createElement('a'); //Temp should be div
+    comparisonSmall.setAttribute('href', '/pages/product_page.html')
     comparisonSmall.classList.add('comparisonSmall');
 
     const cSImgBox = document.createElement('div');

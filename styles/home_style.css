@@ -131,6 +131,7 @@ rgb(51, 51, 51) - text
 
 .comparisonSmall {
     outline: 1px solid #ebebeb;
+    color: rgb(51, 51, 51);
     width: 33.33%;
     height: 200px;
     position: relative;

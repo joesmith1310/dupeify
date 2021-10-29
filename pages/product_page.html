@@ -5,24 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Individual Product Page</title>
-    <link rel="stylesheet" href="product_page.css">
+
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/scripts/script.js"></script>
+
+    <link rel="stylesheet" href="/styles/product_page.css">
   </head>
   <body>
-	<div class="main_page">
+    <!-- Uses jquery to load navigation header -->
+    <div id="navbar"></div>
+	  <div class="main_page">
+      <div class="product_image">
+          <img src="/resources/main_image.jpg" alt="Makeup Palette Product">
+      </div>
 
-        <div class="product_image">
-            <img src="main_image.jpg" alt="Makeup Palette Product">
-        </div>
-
-        <div class="product_description">
-            <p><span class="product_key">Product Title:</span> <span class="product_title">Makeup Palette</span></p>
-            <p><span class="product_key">Product Price:</span> <span class="product_data">$20</span></p>
-            <p><span class="product_key">Similar Products:</span> <span class="product_data"><ul><li>New Makeup Palette</li><li>Mixed Palette</li></ul></span></p>
-            <p><span class="product_key">Featured:</span> <span class="product_data">Yes</span></p>
-            <p><span class="product_key">Popular:</span> <span class="product_data">Yes</span></p>
-        </div>
-
-
+      <div class="product_description">
+          <p><span class="product_key">Product Title:</span> <span class="product_title">Makeup Palette</span></p>
+          <p><span class="product_key">Product Price:</span> <span class="product_data">$20</span></p>
+          <p><span class="product_key">Similar Products:</span> <span class="product_data"><ul><li>New Makeup Palette</li><li>Mixed Palette</li></ul></span></p>
+          <p><span class="product_key">Featured:</span> <span class="product_data">Yes</span></p>
+          <p><span class="product_key">Popular:</span> <span class="product_data">Yes</span></p>
+      </div>
     </div>
   </body>
 </html>

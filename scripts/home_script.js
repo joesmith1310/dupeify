@@ -60,7 +60,7 @@ function createSmallComparison(product) {
 
     const cSInfo = document.createElement('ul');
     cSInfo.classList.add('cSInfo')
-    const productTitle = document.createElement('h3');
+    const productTitle = document.createElement('h4');
     productTitle.innerText = product.name;
     cSInfo.appendChild(productTitle);
 

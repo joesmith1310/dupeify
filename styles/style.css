@@ -12,8 +12,28 @@ rgb(51, 51, 51) - text
 body {
     font-family: 'Raleway', sans-serif;
     color: rgb(51, 51, 51);
+    font-size: 16px;
+    margin: 0;
 }
 
-body {
-    margin: 0;
+h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #5f3dc4;
+    font-size: 75px;
+}
+
+h2 {
+    color: #5f3dc4;
+    font-family: 'Dancing Script', cursive;
+    font-size: 35px;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: 400;
 }

@@ -67,12 +67,26 @@ rgb(51, 51, 51) - text
 
 .cLProduct {
     width: 40%;
+    position: relative;
 }
 
 .comparisonLarge img {
     height: 100%;
     float: left;
     margin-right: 20px;
+}
+
+.cLText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.cLText h2 {
+    margin: 0;
 }
 
 .percentageMatch {

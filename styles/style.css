@@ -66,3 +66,20 @@ a:link {
     position: absolute;
     right: 20px;
 }
+
+.button {
+    height: 44px;
+    line-height: 44px;
+    padding: 0 50px;
+    background-color: #b197fc;
+    border-radius: 22px;
+    color: white;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.button:hover {
+    background-color: white;
+    outline: 1px solid #5f3dc4;
+    color:rgb(51, 51, 51);
+}

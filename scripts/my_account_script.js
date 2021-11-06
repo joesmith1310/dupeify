@@ -1,4 +1,4 @@
-window.onload = function() {
+/*window.onload = function() {
     loadProducts()
   };
 
@@ -81,4 +81,4 @@ function createSmallComparison(product) {
 
     return comparisonSmall;
 
-}
+}*/

@@ -17,23 +17,24 @@
 
         <!--Put your links and scripts here e.g. login.js, login.css-->
         <link rel="stylesheet" type="text/css" href="/styles/login.css">
+        <script defer type="text/javascript" src="/scripts/login.js"></script>
 
    </head>
    <body>
       <div id="navbar"></div> 
       <!--This ^^^ is where JS loads navigation into page. Code below this-->
 
-      <form action="action_page.php" method="post">
+      <form name="loginForm" action="/index.html" onsubmit="validateLogin()">
          <div class="imgContainer">
            <img src="/resources/sample-img-7.jpg" alt="Avatar" class="avatar">
          </div>
        
          <div class="container">
            <label for="uname" class="label">Username</label>
-           <input type="text" placeholder="Enter Username" name="uname" required>
+           <input type="text" placeholder="Enter Username" name="uname">
        
            <label for="psw"class="label">Password</label>
-           <input type="password" placeholder="Enter Password" name="psw" required>
+           <input type="password" placeholder="Enter Password" name="psw">
        
            <button type="submit">Login</button>
            <label>
@@ -42,10 +43,9 @@
          </div>
        
          <div class="container" style="background-color:#f1f1f1">
-           <button type="button" class="cancelB">Cancel</button>
            <span class="psw">Forgot <a href="#">password?</a></span>
          </div>
-       </form>
+        </form>
       
    </body>
 </html>

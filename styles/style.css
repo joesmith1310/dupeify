@@ -9,6 +9,10 @@ rgb(51, 51, 51) - text
 
 */
 
+.hide {
+    display: none;
+}
+
 body {
     font-family: 'Raleway', sans-serif;
     color: rgb(51, 51, 51);
@@ -82,4 +86,5 @@ a:link {
     background-color: white;
     outline: 1px solid #5f3dc4;
     color:rgb(51, 51, 51);
+    cursor: pointer;
 }

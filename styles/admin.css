@@ -47,3 +47,66 @@ body {
     position: absolute;
     right: 50px
 }
+
+#newProductForm {
+    background-color: white;
+    width: 100%;
+    transition: all 0.3s ease;
+    max-height: 0px;
+    overflow: hidden;
+}
+
+#newProductForm form {
+    padding: 50px;
+}
+
+#newProductForm input {
+    display: block;
+    margin-bottom: 40px;
+}
+
+#newProductForm.expand {
+    max-height: 600px;
+}
+
+.formInput {
+    width: 50%;
+    height: 44px;
+    border-radius: 22px;
+    outline: 1px solid #b197fc;
+    padding-left: 25px;
+    border: none;
+}
+
+.formButton {
+    height: 44px;
+    border-radius: 22px;
+    width: 100px;
+}
+
+.customFileUpload {
+    background-color: #b197fc;
+    text-align: center;
+    line-height: 44px;
+    width: 150px;
+    height: 44px;
+    display: block;
+    border-radius: 22px;
+    margin-bottom: 20px;
+    color:white;
+    transition: all 0.2s;
+    margin: 20px 0 40px 0;
+}
+
+.customFileUpload:hover {
+    cursor: pointer;
+    background-color: white;
+    color: rgb(51, 51, 51);
+    outline: 1px solid #5f3dc4;
+}
+
+#newProductForm .fileUpload {
+    display: none;
+    height:100%;
+    width: 100%;
+}

@@ -73,13 +73,15 @@ a:link {
 
 .button {
     height: 44px;
+    width: 150px;
+    text-align: center;
     line-height: 44px;
-    padding: 0 50px;
     background-color: #b197fc;
     border-radius: 22px;
     color: white;
     transition: all 0.2s;
     font-weight: 500;
+    border: none;
 }
 
 .button:hover {

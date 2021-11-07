@@ -16,6 +16,7 @@
         <!--**********LINKS AND SCRIPTS SPECIFIC TO THIS PAGE**********-->
 
         <link rel="stylesheet" type="text/css" href="/styles/admin.css">
+        <script defer type="text/javascript" src="/scripts/admin.js"></script>
 
     </head>
     <body>
@@ -25,7 +26,21 @@
             <h3>PRODUCTS</h3>
             <div class="adminOption">
                 <h4>ADD NEW PRODUCT</h4>
-                <a class="button" href="">ADD</a>
+                <div class="button" id="addProductButton">ADD</div>
+            </div>
+            <div id="newProductForm">
+                <form onsubmit="addProduct()">
+                    <input type="text" name="productID" placeholder="Product ID" class="formInput">
+                    <input type="text" name="productName" placeholder="Product Name" class="formInput">
+                    <input type="text" name="productDescription" placeholder="Description" class="formInput">
+                    <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput">
+                    Upload Image:
+                    <label class="customFileUpload">
+                        Select
+                        <input type="file" name="img" class="fileUpload">
+                    </label>
+                    <input type="submit" value="Add" class="button">
+                </form>
             </div>
             <div class="adminOption">
                 <h4>EDIT EXISTING PRODUCTS</h4>

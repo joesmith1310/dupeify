@@ -1,0 +1,12 @@
+.product_entry {
+    overflow: auto;
+}
+
+.product_image {
+    float: left;
+    width: 20%;
+}
+
+.product_image img {
+    width: 100%;
+}

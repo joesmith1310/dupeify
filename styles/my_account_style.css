@@ -161,4 +161,10 @@ rgb(51, 51, 51) - text
 
 }
 
+.adjustP{
+    position: absolute;
+    right: 20px;
+
+}
+
 

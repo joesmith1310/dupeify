@@ -14,12 +14,16 @@ rgb(51, 51, 51) - text
     text-align: center;
     width: 100%;
     font-weight: Bold ;
+    font-family:'Raleway', sans-serif;
+    color:#5f3dc4;
 }
 
 .userInfo2 {
     margin: 0 0 10px 0px;
     text-align: center;
     width: 100%;
+    font-family:'Raleway', sans-serif;
+    color:rgb(51, 51, 51);
 }
 
 .titleS1 {
@@ -112,6 +116,7 @@ rgb(51, 51, 51) - text
   .column4 {
     float: left;
     width: 25.00%;
+  
   }
   
   /* Clear floats after the columns */
@@ -124,11 +129,36 @@ rgb(51, 51, 51) - text
   .submitButton{
       text-align: center;
       font-size: 30px;
+      font-family:'Raleway', sans-serif;
+      color: #5f3dc4;
+      background-color:#e5dbff;
+      border-color:#d0bfff;
+
   }
   .submitDiv{
       text-align: center;
       padding-top: 20px;
       padding-bottom: 20px;
+      
   }
+
+  .editButton{
+    text-align: center;
+    font-family:'Raleway', sans-serif;
+    color: #5f3dc4;
+
+    
+}
+.redColour{
+    color: red;
+}
+.noDisplay{
+    display: none;
+}
+.buttonRight{
+    position: absolute;
+    right: 20px;
+
+}
 
 

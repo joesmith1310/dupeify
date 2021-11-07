@@ -1,84 +1,117 @@
-/*window.onload = function() {
-    loadProducts()
-  };
+function myAccountEdit() {  
+  var b = document.getElementById("accountButton");
+  if(b.innerText=="Edit"){
+    document.getElementById("myP").contentEditable = true;
+    document.getElementById("demo").innerHTML = "Click on what you want to edit!";
+    document.getElementById("myP2").contentEditable = true;
+    document.getElementById("myP3").contentEditable = true;
+    document.getElementById("myP4").contentEditable = true;
+    document.getElementById("myP5").contentEditable = true;
+    document.getElementById("myP2").contentEditable = true;
+    b.innerText = "Save";
+  }
+  else if(b.innerText=="Save"){
+    document.getElementById("myP").contentEditable = false;
+    document.getElementById("demo").innerHTML = "";
+    document.getElementById("myP2").contentEditable = false;
+    document.getElementById("myP3").contentEditable = false;
+    document.getElementById("myP4").contentEditable = false;
+    document.getElementById("myP5").contentEditable = false;
+    document.getElementById("myP2").contentEditable = false;
+    b.innerText = "Edit";
+    
+  }
+}
+  
 
-let featuredProducts = [];
-let popularProducts = [];
+const redHeart = '\u2764';
+const whiteHeart = '\u2661';
 
-function getFeaturedProducts() {
-    featuredProducts = designerProducts.filter(f => f.featured);
+
+function favouriteProduct1Toggle() { 
+  var b = document.getElementById("favouriteProduct1Button");
+  if(b.classList.contains("redColour")) {
+    b.classList.remove("redColour");
+    document.getElementById("product1").style.display = "none";
+  }
+  else {
+    b.classList.add("redColour");
+    document.getElementById("product1").style.display = "inline-block";
+
+  }
 }
 
-function getPopularProducts() {
-    popularProducts = designerProducts.filter(p => p.popular);
-}
-
-function loadProducts() {
-    getFeaturedProducts();
-    getPopularProducts();
-    const featuredRow = document.querySelector('#featuredRow');
-    const popularRow = document.querySelector('#popularRow');
-    populateRow(featuredRow, featuredProducts);
-    populateRow(popularRow, popularProducts);
-}
-
-function populateRow(row, productList) {
-    for (let i=0; i<3; i++) {
-        if (i<productList.length) {
-            row.children[1].children[0].appendChild(createSmallComparison(productList[i]));
-        }
+  function favouriteProduct2Toggle() {
+    var b = document.getElementById("favouriteProduct2Button");
+    if(b.classList.contains("redColour")) {
+      b.classList.remove("redColour");
+      document.getElementById("product2").style.display = "none";
     }
+    else {
+      b.classList.add("redColour");
+      document.getElementById("product2").style.display = "inline-block";
+  
+    }
+  }
+
+  function myReview1Edit() {
+    var b = document.getElementById("review1Button");
+    if(b.innerText=="Edit"){
+      document.getElementById("myR").contentEditable = true;
+      document.getElementById("review1Demo").innerHTML = "Click on your review text to edit!";
+      b.innerText = "Save";
+    }
+    else if(b.innerText=="Save"){
+      document.getElementById("myP").contentEditable = false;
+      document.getElementById("review1Demo").innerHTML = "";
+      b.innerText = "Edit";
+    }
+  }
+
+  function myReview2Edit() { 
+    var b = document.getElementById("review2Button");
+    
+    if(b.innerText=="Edit"){ 
+      
+      document.getElementById("myR2").contentEditable = true;
+      document.getElementById("review2Demo").innerHTML = "Click on your review text to edit!";
+      b.innerText = "Save";
+    }
+    else if(b.innerText=="Save"){
+      document.getElementById("myP2").contentEditable = false;
+      document.getElementById("review2Demo").innerHTML = "";
+      b.innerText = "Edit";
+    }
+  }
+
+function seeAllFavourite(){
+  var b = document.getElementById("favouriteSeeAll");    
+  if(b.innerText=="See All"){     
+    document.getElementById("favourite2").style.display = "inline";
+    b.innerText = "See Less";
+  }
+  else if(b.innerText=="See Less"){
+    document.getElementById("favourite2").style.display = "none";
+    b.innerText = "See All";
+  }  
 }
 
-function createSmallComparison(product) {
-    const dupeID = product.matchingProducts[0][0];
-    let dupe = null;
-    dupe = dupeProducts.filter(d => d.productID == dupeID)[0]
+function seeAllReviews(){
+  var b = document.getElementById("reviewSeeAll");    
+  if(b.innerText=="See All"){     
+    document.getElementById("review2").style.display = "inline";
+    b.innerText = "See Less";
+  }
+  else if(b.innerText=="See Less"){
+    document.getElementById("review2").style.display = "none";
+    b.innerText = "See All";
+  }  
+}
+  // const like = b.textContent;
+  // alert(like);
+  // if(like=="&#x2764;&#xfe0f;") {alert("1")
+  //   b.textContent = whiteHeart;
+  // } else {
+  //   b.textContent = redHeart;
+  // }
 
-    const comparisonSmall = document.createElement('div');
-    comparisonSmall.classList.add('comparisonSmall');
-
-    const cSImgBox = document.createElement('div');
-    cSImgBox.classList.add('cSImgBox');
-    const img1 = document.createElement('img');
-    img1.setAttribute('src', product.image);
-    const img2 = document.createElement('img');
-    img2.setAttribute('src', dupe.image);
-
-    cSImgBox.appendChild(img1);
-    cSImgBox.appendChild(img2);
-
-    const cSInfo = document.createElement('ul');
-    cSInfo.classList.add('cSInfo')
-    const productTitle = document.createElement('h3');
-    productTitle.innerText = product.name;
-    cSInfo.appendChild(productTitle);
-
-    for (let i=1; i<product.matchingProducts[0].length - 1; i++) {
-        const li1 = document.createElement('li');
-        const cat1 = document.createElement('p');
-        cat1.innerText = 'Attribute 1';
-        const percentageBar = document.createElement('div');
-        percentageBar.classList.add('cSPercentageBar');
-        const percentageFill = document.createElement('div');
-        percentageFill.style.width = `${product.matchingProducts[0][i]}%`;
-        const percentage = document.createElement('p');
-        percentage.innerText = `${product.matchingProducts[0][i]}%`;
-        cSInfo.appendChild(li1);
-        li1.appendChild(cat1);
-        li1.appendChild(percentageBar);
-        li1.appendChild(percentage);
-        percentageBar.appendChild(percentageFill);
-    }
-
-    const overallMatch = document.createElement('p');
-    overallMatch.classList.add('cLOverall');
-    overallMatch.innerText = `${product.matchingProducts[0][3]}%`
-
-    comparisonSmall.appendChild(cSImgBox);
-    comparisonSmall.appendChild(cSInfo);
-    comparisonSmall.appendChild(overallMatch);
-
-    return comparisonSmall;
-
-}*/

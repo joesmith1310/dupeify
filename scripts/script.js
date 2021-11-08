@@ -26,6 +26,13 @@ class DesignerProduct extends Product {
         this.popular = popular;
 	}
 }
+
+class User {
+    constructor(userID, username) {
+        this.userID = userID;
+        this.username = username;
+    }
+}
 /* ------------- TEMPORARY FOR FRONT END DEVELOPMENT -------------- */
 
 /* --------- USED TO SIMULATE LOADING DATA FROM DATABASE ---------- */
@@ -39,5 +46,11 @@ const testDupe3 = new Product(6, "Test Product 6", 32.99, "/resources/sample-img
 
 const designerProducts = [testProduct1, testProduct2, testProduct3];
 const dupeProducts = [testDupe1, testDupe2, testDupe3];
+
+const user1 = new User(1, "testUser1");
+const user2 = new User(2, "testUser2");
+const user3 = new User(3, "testUser3");
+
+const users = [user1, user2, user3];
 
 /* ---------------------------------------------------------------- */

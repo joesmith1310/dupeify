@@ -1,0 +1,53 @@
+/*COLORS USED
+
+rgb(51, 51, 51) - text
+#ebebeb - light grey
+#5f3dc4 - dark purple
+#b197fc - medium purple
+#d0bfff - light purple
+#e5dbff - lighter purple
+
+*/
+
+table {
+    border-collapse: collapse;
+}
+
+#userTable {
+    width: 80%;
+    margin-left: 10%;
+}
+
+#userTable tr {
+    border-bottom: 1px solid #ebebeb;
+}
+#userTable td {
+    width: 33%;
+    text-align: center;
+    padding: 20px;
+}
+
+#userTable .button {
+    margin: 8px 0 8px 115px;
+}
+
+#searchBar {
+    height: 44px;
+    border-radius: 22px;
+    border: none;
+    outline: 1px solid #b197fc;
+    padding-left: 22px;
+}
+
+.usersPageBar {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.usersPageBar .button {
+    margin: 0 50px 0 10%;
+}
+
+
+
+

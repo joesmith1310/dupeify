@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>App Title</title>
+
+        <!--*******THESE LINKS AND SCRIPTS SHOULD BE IN ALL PAGES*******-->
+
+        <link rel="stylesheet" type="text/css" href="/styles/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+        <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script defer type="text/javascript" src="/scripts/script.js"></script>
+        
+        <!--**********LINKS AND SCRIPTS SPECIFIC TO THIS PAGE**********-->
+
+        <link rel="stylesheet" type="text/css" href="/styles/admin.css">
+        <script defer type="text/javascript" src="/scripts/admin.js"></script>
+
+    </head>
+    <body>
+        <div id="navbar"></div> 
+        <!--This ^^^ is where JS loads navigation into page. Code below this-->
+        <div class="adminSection">
+            <h3>PRODUCTS</h3>
+            <div class="adminOption">
+                <h4>ADD NEW PRODUCT</h4>
+                <div class="button" id="addProductButton">ADD</div>
+            </div>
+            <div id="newProductForm">
+                <form onsubmit="addProduct()">
+                    <input type="text" name="productID" placeholder="Product ID" class="formInput">
+                    <input type="text" name="productName" placeholder="Product Name" class="formInput">
+                    <input type="text" name="productDescription" placeholder="Description" class="formInput">
+                    <label for="isDesigner">Is Designer</label>
+                    <input type="checkbox" id="isDesigner" name="isDesigner" onclick="toggleDupes()">
+                    <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput" id="dupesField">
+                    <label id="uploadLabel">Upload Image:</label>
+                    <label class="customFileUpload">
+                        Select
+                        <input type="file" name="img" class="fileUpload">
+                    </label>
+                    <input type="submit" value="Add" class="button">
+                </form>
+            </div>
+            <div class="adminOption">
+                <h4>EDIT EXISTING PRODUCTS</h4>
+                <a class="button" href="/pages/products.html">EDIT</a>
+            </div>
+            <div class="adminOption">
+                <h4>USER SUGGESTIONS</h4>
+                <a class="button" href="">SEE</a>
+            </div>
+        </div>
+  
+        <div class="adminSection">
+            <h3>USERS</h3>
+            <div class="adminOption">
+                <h4>EDIT USERS</h4>
+                <a class="button" href="/pages/users.html">EDIT</a>
+            </div>
+        </div>
+    </body>
+</html>

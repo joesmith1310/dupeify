@@ -1,0 +1,127 @@
+/*COLORS USED
+
+rgb(51, 51, 51) - text
+#ebebeb - light grey
+#5f3dc4 - dark purple
+#b197fc - medium purple
+#d0bfff - light purple
+#e5dbff - lighter purple
+
+*/
+
+body {
+    background-color: #ebebeb;
+} 
+
+.adminSection {
+    width: 80%;
+    margin: 100px 10%;
+}
+
+.adminOption:nth-child(2) {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.adminOption:last-child {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.adminOption {
+    display: flex;
+    width: 100%;
+    background-color: white;
+    border-top: solid 1px #ebebeb;
+    padding: 30px 50px;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.adminOption h4 {
+    margin: 0;
+}
+
+.adminOption .button {
+    position: absolute;
+    right: 50px
+}
+
+#newProductForm {
+    background-color: white;
+    width: 100%;
+    transition: all 0.4s ease;
+    max-height: 0px;
+    overflow: hidden;
+}
+
+#newProductForm form {
+    padding: 50px;
+}
+
+#newProductForm input {
+    display: block;
+    margin-bottom: 40px;
+}
+
+#newProductForm.expand {
+    max-height: 700px;
+}
+
+.formInput {
+    width: 50%;
+    height: 44px;
+    border-radius: 22px;
+    outline: 1px solid #b197fc;
+    padding-left: 25px;
+    border: none;
+}
+
+.formButton {
+    height: 44px;
+    border-radius: 22px;
+    width: 100px;
+}
+
+.customFileUpload {
+    background-color: #b197fc;
+    text-align: center;
+    line-height: 44px;
+    width: 150px;
+    height: 44px;
+    display: block;
+    border-radius: 22px;
+    margin-bottom: 20px;
+    color:white;
+    transition: all 0.2s;
+    margin: 20px 0 40px 0;
+}
+
+.customFileUpload:hover {
+    cursor: pointer;
+    background-color: white;
+    color: rgb(51, 51, 51);
+    outline: 1px solid #5f3dc4;
+}
+
+#newProductForm .fileUpload {
+    display: none;
+    height:100%;
+    width: 100%;
+}
+
+#newProductForm #dupesField {
+    display:none;
+}
+
+#newProductForm #dupesField.expand {
+    display: block
+}
+
+#newProductForm input[type="checkbox"] {
+    display: inline-block;
+}
+#uploadLabel {
+    display: block;
+}

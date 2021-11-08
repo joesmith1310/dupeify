@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>App title</title>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" type="text/css" href="/styles/nav_style.css" />
+
+        <script
+            defer
+            type="text/javascript"
+            src="/scripts/nav_script.js"
+        ></script>
+    </head>
+    <body>
+        <div id="header">
+            <div class="button" id="logoutButton">Log Out</div>
+            <h1>App Name</h1>
+            <ul class="linkBar">
+                <li>
+                    <a href="/index.html">Home</a>
+                </li>
+                <li>
+                    <a
+                        href="/pages/products.html"
+                        onclick="sessionStorage.setItem('products', 'all');"
+                        >Products</a
+                    >
+                </li>
+                <li>
+                    <a href="" id="controlButton"></a>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

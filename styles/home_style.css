@@ -1,0 +1,204 @@
+/*COLORS USED
+
+rgb(51, 51, 51) - text
+#ebebeb - light grey
+#5f3dc4 - dark purple
+#b197fc - medium purple
+#d0bfff - light purple
+#e5dbff - lighter purple
+
+*/
+
+.searchDiv {
+    margin: 0 0 75px 0;
+    text-align: center;
+    width: 100%;
+}
+
+#searchBar {
+    width: 50%;
+    margin: auto;
+    font-size: 0;
+}
+
+#searchInput {
+    width: 75%;
+    margin: 0;
+    padding: 0 0 0 25px;
+    border-radius: 0px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    outline: 1px solid #5f3dc4;
+    border: 0;
+    height: 50px;
+}
+
+#searchInput:focus {outline:1px solid #5f3dc4;}
+
+#searchButton {
+    width: 20%;
+    margin: 0;
+    padding: 0 0 0 25px;
+    border-radius: 0px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    outline: 1px solid #5f3dc4;
+    border: 0;
+    height: 50px;
+    text-align: left;
+    color: #5f3dc4;
+}
+
+#searchButton:hover {cursor: pointer;}
+
+.comparisonLarge {
+    margin: 0 0 75px 0;
+    border-top: 1px solid #5f3dc4;
+    border-bottom: 1px solid #5f3dc4;
+    height: 300px;
+    padding: 20px;
+    box-shadow: 0 5px 5px rgb(216, 216, 216);
+}
+
+.comparisonLarge div {
+    float: left;
+    height: 100%;
+}
+
+.cLProduct {
+    width: 40%;
+    position: relative;
+}
+
+.comparisonLarge img {
+    height: 100%;
+    float: left;
+    margin-right: 20px;
+}
+
+.cLText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.cLText h2 {
+    margin: 0;
+}
+
+.percentageMatch {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #b197fc;
+    line-height: 150px;
+    color: white;
+    font-size: 75px;
+}
+
+.cLMatch {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.comparisonRow {
+    height: 250px;
+    margin-bottom: 75px;
+}
+
+.comparisonRow ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comparisonSmall {
+    outline: 1px solid #ebebeb;
+    color: rgb(51, 51, 51);
+    width: 33.33%;
+    height: 200px;
+    position: relative;
+    float: left;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.comparisonSmall:hover {
+    transform: scale(1.03);
+    z-index: 1;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgb(216, 216, 216);
+}
+
+.cSImgBox {
+    float: left;
+    height: 100%;
+    width: 25%;
+    text-align: center;
+}
+
+.comparisonSmall img {
+    height: 40%;
+    padding: 5%;
+}
+
+.cSInfo {
+    float: left;
+    width: 75%;
+    height: 100%;
+}
+
+.cSInfo h4 {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: 20%;
+}
+
+.cSInfo li {
+    float: left;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.cSInfo li p:first-child {
+    width: 30%;
+}
+
+.cSPercentageBar {
+    width: 40%;
+    height: 4px;
+    outline: 1px solid #5f3dc4;
+    margin: 0 20px;
+    border-radius: 2px;
+}
+
+.cSPercentageBar div {
+    height: 4px;
+    background-color: #b197fc;
+    margin: 0;
+}
+
+.cLOverall {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 40px;
+    width: 40px;
+    margin: 0;
+    border-radius: 50%;
+    color: white;
+    background-color: #b197fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ 	<meta charset="utf-8">
+    <title>My Account</title>
+    
+
+    <!-- General styles across all pages -->
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Specific styles to this page -->
+    <link rel="stylesheet" type="text/css" href="/styles/my_account_style.css">
+
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/scripts/script.js"></script>
+    <script defer type="text/javascript" src="/scripts/my_account_script.js"></script>
+
+ </head>
+ <body>
+     <!-- Uses jquery to load navigation header -->
+    <div id="navbar"></div>
+
+    <!-- code goes here-->
+    
+   <h1>My Account</h1>
+
+    <div class="row">
+      <div class="column4" >
+        <img id="bigProfilePicCircle">
+      </div>
+
+
+      <p id="demo"></p>
+      <div class="column4" >
+        <p class="userInfo" > Username: </p>
+         <p id="myP" class="userInfo2"> Lisa Xin </p>
+         <p class="userInfo"> Age: </p>
+         <p id="myP2" class="userInfo2"> 21 </p>
+         <p class="userInfo"> Skin Type: </p>
+         <p id="myP3" class="userInfo2"> Combo </p>
+         <p class="userInfo"> Eye Color: </p>
+         <p id="myP4" class="userInfo2"> Brown </p>
+         <p class="userInfo"> Birthday: </p>
+         <p id="myP5" class="userInfo2"> October 28, 2000 </p>         
+      </div>
+      <div class="column4">
+         &nbsp;
+      </div>
+      <div class="column4" >
+         <!-- <input type="image" id="image" alt="Edit" class= "resizePencil"
+         src="/resources/pencil.png" > -->
+         
+         <button id="accountButton" onclick="myAccountEdit()" class="editButton" >Edit</button>
+      </div>
+    </div>
+    
+   <div class="section">
+      <h3 class="label">Favourites</h3>
+      <button id="favouriteSeeAll" class="buttonRight editButton" onclick="seeAllFavourite()">See All</button>
+   </div>
+   
+   <div class="row">
+      <div class="column4" >
+         <img class="resize" src="/resources/sample-img-8.jpg">
+      </div>
+      <div class="column4" >
+         <p class="userInfo"> Product Name:  </p>
+         <p class="userInfo2"> Laura Mercier Translucent Loose Setting Powder </p>
+         <div id="product1">
+            <p class="userInfo"> Product Description: </p>
+            <p class="userInfo2"> This award-winning powder locks in makeup for long-lasting wear without adding weight or texture. It absorbs oil and reduces shine all day, creating a flawless, matte finish with no flashback in photos. These truly-translucent shades work on all skin tones, and create a soft-focus effect to subtly blur fine lines and imperfections.
+               Translucent is perfect for fair to medium and tan skin tones.
+               Translucent Honey is perfect for medium skin tones with olive and golden undertones. </p>
+         </div>
+      </div>
+      <div class="column4" >
+         <h3 style= "position:relative; left:100px;" >$50.00</h3>
+      </div>
+      <div class="column4" >
+      <!-- <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/red-heart.png" >  -->
+         <button id="favouriteProduct1Button" onclick="favouriteProduct1Toggle()" class="redColour">&hearts;</button>
+         <button class="editButton" onclick="location.href='/pages/product_page.html'" type="button">
+            See Product</button>
+      </div>
+   </div>
+
+   <div class='seperateBorder'></div>
+
+   <div id="favourite2" class="row noDisplay">
+      <div class="column4">
+         <img class="resize" src="/resources/sample-img-9.jpg">
+      </div>
+      <div class="column4" >
+         <p class="userInfo"> Product Name: </p>
+         <p class="userInfo2"> Yves Saint Laurent Rouge Volupté Shine Lipstick Balm </p>
+         <div id="product2">
+         <p class="userInfo"> Product Description </p>
+         <p class="userInfo2">This hydrating lipstick balm is infused with 65 percent oils, antioxidant pomegranate 
+            extract,andmacadamia butter to soothe, soften, and moisturize your lips, while leaving a brilliant, high-shine finish. 
+            The formula melts into lips for a glossy pop of color and all-day comfort.  </p>
+         </div>
+      </div>
+      <div class="column4" >
+         <h3 style= "position:relative; left:100px;">$50.00</h3>
+      </div>
+      <div class="column4" >
+         <!-- <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/red-heart.png" > -->
+         <button id="favouriteProduct2Button" onclick="favouriteProduct2Toggle()" class="redColour">&hearts;</button>
+         <button class="editButton" onclick="location.href='/pages/product_page.html'" type="button">
+            See Product</button>
+      </div>
+   </div>
+
+   <div class="section">
+      <h3 class="label">My Reviews</h3>
+      <button id="reviewSeeAll" class="buttonRight editButton" onclick="seeAllReviews()">See All</button>
+   </div>
+   <div class="row">
+      <div class="column4">
+         <img class="resize" src="/resources/sample-img-3.jpg">
+      </div>
+      <div class="column4" >
+         <p class="userInfo"> Product Name: </p>
+         <p class="userInfo2"> Mac Sheen Lipstick  </p>
+         <p id="review1Demo"></p>
+         <p class="userInfo"> My Review:  </p>
+         <p id="myR" class="userInfo2"> This was amazing </p>
+      </div>
+      <div class="column4">     
+         <ul class="cSInfo">
+            <li>
+            <p style= "position:relative; left:100px;">78%</p>
+            </li>
+         </ul>
+      </div>
+      <div class="column4" >
+         <!-- <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/pencil.png" > -->
+         <button id="review1Button" onclick="myReview1Edit()" class="editButton">Edit</button>
+         <button class="editButton" onclick="location.href='/pages/product_page.html'" type="button">
+            See Product</button>
+      </div>
+   </div>
+   
+
+   <div  class='seperateBorder'></div>
+   <div id="review2"  class="row noDisplay">
+      <div class="column4">
+         <img class="resize" src="/resources/sample-img-2.jpg">
+      </div>
+      <div  class="column4" >
+         <p class="userInfo"> Product Name:</p>
+         <p class="userInfo2"> Mascara  </p>
+         <p id="review2Demo"></p>
+         <p class="userInfo"> My Review: </p>
+         <p id="myR2" class="userInfo2"> Not good </p>
+      </div>
+      <div class="column4">     
+         <ul class="cSInfo">
+            <li>
+            <p style= "position:relative; left:100px;">70%</p>
+            </li>
+         </ul>
+      </div>
+      <div class="column4" >
+         <!-- <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/pencil.png" > -->
+         <button id="review2Button" onclick="myReview2Edit()" class="editButton">Edit</button>
+         <button class="editButton" onclick="location.href='/pages/product_page.html'" type="button">
+            See Product</button>
+      </div>
+   </div>
+      
+ 
+   <div class="section">
+      <h3 class="label">My Suggestions</h3>
+
+   </div>
+
+   <div class="submitDiv"  ><input type="submit" class= "submitButton" value="Submit Your Suggestion"></div>
+ 	
+ </body>
+</html>

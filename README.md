@@ -2,7 +2,7 @@
 
 ## Logging In
 
-You can log in as a user using credentials username = user and password = user. For admin use username = admin and password = admin. As admin you are able to add new products, edit existing ones, see user recommendations and remove users.
+You can log in as a user using credentials username = `user` and password = `user`. For admin use username = `admin` and password = `admin`. As admin you are able to add new products, edit existing ones, see user recommendations and remove users.
 
 ## Using the Home Page
 
@@ -18,6 +18,6 @@ Toggle heart button: The red heart shows that this product has been added to the
 
 See Product: The See Product button will link to the Product's page so that the user will be able to go that specific product's page for more details and information.
 
-# Products List Page
+## Products List Page
 
 The page simply displays a list of products (sometimes including dupes). Each product entry can be clicked on which will lead to the product's specific page.

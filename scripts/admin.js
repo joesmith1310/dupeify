@@ -13,3 +13,8 @@ function toggleDropdown(dropdown, button) {
 function addProduct() {
     alert('New product added!');
 }
+
+function toggleDupes() {
+    const dupesField = document.querySelector('#dupesField');
+    dupesField.classList.toggle('expand');
+}

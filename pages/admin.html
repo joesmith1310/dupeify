@@ -33,8 +33,10 @@
                     <input type="text" name="productID" placeholder="Product ID" class="formInput">
                     <input type="text" name="productName" placeholder="Product Name" class="formInput">
                     <input type="text" name="productDescription" placeholder="Description" class="formInput">
-                    <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput">
-                    Upload Image:
+                    <label for="isDesigner">Is Designer</label>
+                    <input type="checkbox" id="isDesigner" name="isDesigner" onclick="toggleDupes()">
+                    <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput" id="dupesField">
+                    <label id="uploadLabel">Upload Image:</label>
                     <label class="customFileUpload">
                         Select
                         <input type="file" name="img" class="fileUpload">

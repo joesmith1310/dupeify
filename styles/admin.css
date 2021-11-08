@@ -51,7 +51,7 @@ body {
 #newProductForm {
     background-color: white;
     width: 100%;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     max-height: 0px;
     overflow: hidden;
 }
@@ -66,7 +66,7 @@ body {
 }
 
 #newProductForm.expand {
-    max-height: 600px;
+    max-height: 700px;
 }
 
 .formInput {
@@ -109,4 +109,19 @@ body {
     display: none;
     height:100%;
     width: 100%;
+}
+
+#newProductForm #dupesField {
+    display:none;
+}
+
+#newProductForm #dupesField.expand {
+    display: block
+}
+
+#newProductForm input[type="checkbox"] {
+    display: inline-block;
+}
+#uploadLabel {
+    display: block;
 }

@@ -1,5 +1,6 @@
 .product_entry {
     overflow: auto;
+    cursor: pointer;
 }
 
 .product_image {

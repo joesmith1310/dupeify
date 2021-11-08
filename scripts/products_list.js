@@ -44,27 +44,18 @@ products.forEach((product) => {
         </div>
         <div>
             <h2>${product.name}</h2>
-            <h3>${product.price}</h3>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Morbi nec velit sem. Sed vel urna ultricies, fermentum lacus
-            ac, semper tellus. Vivamus molestie ut leo ut dignissim.
-            Integer et ullamcorper urna, vel porttitor tortor. Donec
-            venenatis nec elit a luctus. Proin egestas accumsan orci sit
-            amet elementum. Nulla quis placerat erat, at auctor tellus.
-            Integer nec eleifend diam, eget blandit eros. Praesent ante
-            leo, semper id magna a, sagittis pharetra turpis. Aliquam at
-            velit sem. Vivamus ultrices auctor euismod. Fusce tincidunt,
-            dolor sed ullamcorper maximus, tortor nunc varius odio, id
-            mattis sapien leo quis neque. Nulla facilisi.
+            <h3>$${product.price}</h3>
             <br />
-            <br />
-            ${
-                product instanceof DesignerProduct
-                    ? `Dupes: ${product.matchingProducts.length}
-            <br />
-            <button>View Dupes</button>`
-                    : ``
-            }
         </div>
     `;
+
+    div.onclick = () => (window.location.href = "/pages/product_page.html");
+
+    // ${
+    //     product instanceof DesignerProduct
+    //         ? `Dupes: ${product.matchingProducts.length}
+    // <br />
+    // <button>View Dupes</button>`
+    //         : ``
+    // }
 });

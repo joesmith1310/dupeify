@@ -18,17 +18,107 @@
   <body>
     <!-- Uses jquery to load navigation header -->
     <div id="navbar"></div>
-	  <div class="main_page">
-      <div class="product_image">
+	  <div class="product_page">
+      <div class="product">
+        <div class="product_image">
           <img src="/resources/main_image.jpg" alt="Makeup Palette Product">
+        </div>
+        <div class="product_info">
+          <h3 id="product_title">Product title</h3>
+          <h2 id="product_price">$29.99</h2>
+          <p id="product_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </div>
       </div>
-
-      <div class="product_description">
-          <p><span class="product_key">Product Title:</span> <span class="product_title">Makeup Palette</span></p>
-          <p><span class="product_key">Product Price:</span> <span class="product_data">$20</span></p>
-          <p><span class="product_key">Similar Products:</span> <span class="product_data"><ul><li>New Makeup Palette</li><li>Mixed Palette</li></ul></span></p>
-          <p><span class="product_key">Featured:</span> <span class="product_data">Yes</span></p>
-          <p><span class="product_key">Popular:</span> <span class="product_data">Yes</span></p>
+      <h3>Dupes</h3>
+      <div class="dupes">
+        <div class="dupes_list">
+          <div class="comparisonSmall">
+            <div class = "cSImgBox">
+                <img src="/resources/sample-img-3.jpg">
+            </div>
+            <ul class="cSInfo">
+                <h4>Example product title</h4>
+                <li>
+                  <p>Catgeory 1</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+                <li>
+                  <p>Catgeory 2</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+                <li>
+                  <p>Catgeory 3</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+                <li>
+                  <p>Catgeory 4</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+            </ul>
+            <p class="cSOverall">87%</p>
+            <p class="cSPrice">$14.99</p>
+          </div>
+          <div class="comparisonSmall">
+            <div class = "cSImgBox">
+                <img src="/resources/sample-img-2.jpg">
+            </div>
+            <ul class="cSInfo">
+                <h4>Example product title</h4>
+                <li>
+                  <p>Catgeory 1</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+                <li>
+                  <p>Catgeory 2</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+                <li>
+                  <p>Catgeory 3</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+                <li>
+                  <p>Catgeory 4</p>
+                  <div class="cSPercentageBar">
+                      <div></div>
+                  </div>
+                  <p>87%</p>
+                </li>
+            </ul>
+            <p class="cSOverall">87%</p>
+            <p class="cSPrice">$14.99</p>
+          </div>
+        </div>
+        <div class="dupes_form">
+          <h3>Suggest a dupe product</h3>
+          <form onsubmit="addProduct()">
+            <input type="text" name="productType" placeholder="Product Type" class="formInput">
+            <input type="text" name="productBrand" placeholder="Product Brand" class="formInput">
+            <input type="text" name="productName" placeholder="Product Name" class="formInput">
+            <input type="text" name="productComment" placeholder="Comment" class="formInput">
+            <input type="submit" value="Suggest" class="button">
+        </form>
+        </div>
       </div>
     </div>
   </body>

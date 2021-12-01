@@ -69,21 +69,6 @@ body {
     max-height: 700px;
 }
 
-.formInput {
-    width: 50%;
-    height: 44px;
-    border-radius: 22px;
-    outline: 1px solid #b197fc;
-    padding-left: 25px;
-    border: none;
-}
-
-.formButton {
-    height: 44px;
-    border-radius: 22px;
-    width: 100px;
-}
-
 .customFileUpload {
     background-color: #b197fc;
     text-align: center;

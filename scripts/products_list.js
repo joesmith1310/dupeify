@@ -42,10 +42,10 @@ products.forEach((product) => {
         <div class="product_image">
             <img src="..${product.image}" />
         </div>
-        <div>
-            <h2>${product.name}</h2>
-            <h3>$${product.price}</h3>
-            <br />
+        <div class="product_info">
+            <h4>${product.name}</h2>
+            <h4>$${product.price}</h3>
+            <div class="button favouriteButton">&hearts;</div>
         </div>
     `;
 

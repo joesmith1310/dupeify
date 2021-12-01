@@ -35,8 +35,40 @@
         <div id="navbar"></div>
 
         <!-- code goes here-->
-        <h1 id="title">Products</h1>
-
-        <div id="product_list"></div>
+        <div class="searchDiv">
+            <form id="searchBar">
+                <input
+                    id="searchInput"
+                    type="text"
+                    name=""
+                    placeholder="Search for a product"
+                />
+                <input id="searchButton" type="submit" value="Search" />
+            </form>
+        </div>
+        <div class="section">
+            <h3>Products</h3>
+            <div class="sectionDropdowns">
+                <div class="dropdown">
+                    <div class="dropbtn">Sort by</div>
+                    <div class="dropdown-content">
+                    <div>Link 1</div>
+                    <div>Link 2</div>
+                    <div>Link 3</div>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div class="dropbtn">Filter by</div>
+                    <div class="dropdown-content">
+                    <div>Link 1</div>
+                    <div>Link 2</div>
+                    <div>Link 3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="product_list">
+            <h3 id="title">Products</h3>
+        </div>
     </body>
 </html>

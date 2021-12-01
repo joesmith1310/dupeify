@@ -33,14 +33,18 @@ function loadProducts() {
     const featuredRow = document.querySelector("#featuredRow");
     const popularRow = document.querySelector("#popularRow");
     loadMainFeature();
+    showSlides();
     populateRow(featuredRow, featuredProducts);
     populateRow(popularRow, popularProducts);
 }
 
 function loadMainFeature() {
-    const randomFeature =
-        featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
-    createLargeComparison(randomFeature);
+    const randomFeature1 = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
+    const randomFeature2 = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
+    const randomFeature3 = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
+    createLargeComparison(randomFeature1);
+    createLargeComparison(randomFeature2);
+    createLargeComparison(randomFeature3);
 }
 
 function createLargeComparison(product) {
@@ -50,6 +54,12 @@ function createLargeComparison(product) {
         dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];
 
         const comparisonLarge = document.querySelector("#mainFeature");
+
+        const slide = document.createElement("a");
+        slide.setAttribute("href", "/pages/product_page.html");
+        slide.classList.add("mySlides");
+        slide.classList.add("fade");
+        slide.classList.add("comparisonLarge");
 
         const cLProduct1 = document.createElement("div");
         cLProduct1.classList.add("cLProduct");
@@ -88,12 +98,32 @@ function createLargeComparison(product) {
         cLText2.appendChild(cLPrice2);
         cLText2.appendChild(cLName2);
 
-        comparisonLarge.appendChild(cLProduct1);
-        comparisonLarge.appendChild(cLMatch);
-        comparisonLarge.appendChild(cLProduct2);
+        slide.appendChild(cLProduct1);
+        slide.appendChild(cLMatch);
+        slide.appendChild(cLProduct2);
+        comparisonLarge.appendChild(slide);
     } catch (err) {
         console.log("Error loading large comparison!");
     }
+}
+
+var slideIndex = 0;
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 3000);
 }
 
 function populateRow(row, productList) {

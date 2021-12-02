@@ -107,6 +107,72 @@ function seeAllReviews(){
     b.innerText = "See All";
   }  
 }
+
+function addName(){
+  var name = 'Lisa Xin';
+  var b = document.getElementById("myP");
+  b.innerHTML = name;
+
+}
+
+function addAge(){
+  var name = '21';
+  var b = document.getElementById("myP2");
+  b.innerHTML = name;
+
+}
+
+
+function AddSkinType(){
+  var name = 'Combo';
+  var b = document.getElementById("myP3");
+  b.innerHTML = name;
+
+}
+
+
+function addEyeC(){
+  var name = 'brown';
+  var b = document.getElementById("myP4");
+  b.innerHTML = name;
+
+}
+
+function addBirthday(){
+  var name = 'Oct 28, 2000';
+  var b = document.getElementById("myP5");
+  b.innerHTML = name;
+
+}
+
+
+
+function addAllInfo(){
+  addName();
+  addAge();
+  AddSkinType();
+  addEyeC();
+  addBirthday();
+
+}
+
+
+
+
+
+
+function myOnLoad(){
+  document.addEventListener("DOMContentLoaded", addAllInfo());
+  document.getElementById("submitSuggestion").addEventListener('click', function(){
+    var suggestForm = document.getElementById('newProductForm');
+    toggleDropdown(suggestForm);
+  });
+}
+
+function toggleDropdown(dropdown) {
+  console.log("toggle");
+  dropdown.classList.toggle('expand');
+}
   // const like = b.textContent;
   // alert(like);
   // if(like=="&#x2764;&#xfe0f;") {alert("1")

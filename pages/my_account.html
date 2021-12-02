@@ -16,9 +16,10 @@
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer type="text/javascript" src="/scripts/script.js"></script>
     <script defer type="text/javascript" src="/scripts/my_account_script.js"></script>
+    <script defer type="text/javascript" src="/scripts/admin.js"></script>
 
  </head>
- <body>
+ <body onload = "myOnLoad()">
      <!-- Uses jquery to load navigation header -->
     <div id="navbar"></div>
 
@@ -175,13 +176,47 @@
       </div>
    </div>
       
- 
+
    <div class="section">
       <h3 class="label">My Suggestions</h3>
 
+      <!-- <div id="newProductForm">
+         <form onsubmit="addProduct()">
+             <input type="text" name="productID" placeholder="Product ID" class="formInput">
+             <input type="text" name="productName" placeholder="Product Name" class="formInput">
+             <input type="text" name="productDescription" placeholder="Description" class="formInput">
+             <label for="isDesigner">Is Designer</label>
+             <input type="checkbox" id="isDesigner" name="isDesigner" onclick="toggleDupes()">
+             <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput" id="dupesField">
+             <label id="uploadLabel">Upload Image:</label>
+             <label class="customFileUpload">
+                 Select
+                 <input type="file" name="img" class="fileUpload">
+             </label>
+             <input type="submit" value="Add" class="button">
+         </form>
+     </div> -->
+
    </div>
 
-   <div class="submitDiv"  ><input type="submit" class= "submitButton" value="Submit Your Suggestion"></div>
- 	
+   <!-- <div class="submitDiv"  ><input id= "submitSuggestion" type="submit" class= "submitButton" value="Submit Your Suggestion"></div> -->
+ 	<h3> Submit your own Suggestion with our form!</h3>
+   <div id="newProductForm">
+         <form onsubmit="addProduct()">
+             <input type="text" name="productID" placeholder="Product ID" class="formInput">
+             <input type="text" name="productName" placeholder="Product Name" class="formInput">
+             <input type="text" name="productDescription" placeholder="Description" class="formInput">
+             <label for="isDesigner">Is Designer</label>
+             <input type="checkbox" id="isDesigner" name="isDesigner" onclick="toggleDupes()">
+             <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput" id="dupesField">
+             <label id="uploadLabel">Upload Image:</label>
+             <label class="customFileUpload">
+                 Select
+                 <input type="file" name="img" class="fileUpload">
+             </label>
+             <input type="submit" value="Add" class="button">
+         </form>
+     </div>
+
  </body>
 </html>

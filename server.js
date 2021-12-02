@@ -25,6 +25,10 @@ const cors = require("cors");
 //     console.log("Connected to database!");
 // });
 
+function isMongoError(error) { // checks for first error returned by promise rejection if Mongo database suddently disconnects
+	return typeof error === 'object' && error !== null && error.name === "MongoNetworkError"
+}
+
 app.use(express.json());
 
 app.set("port", process.env.PORT || 5000);
@@ -91,6 +95,44 @@ app.post("/login", async (req, res) => {
     } catch (error) {
         log(error);
         res.status(500).send("Internal Server Error");
+    }
+});
+
+app.post("/api/product", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+
+    const product = new Product({
+        name: req.body.name,
+        price: req.body.price,
+        brand: req.body.brand,
+        type: req.body.type,
+        description: req.body.description,
+        image: req.body.image,
+        matches: [],
+        designer: req.body.designer,
+        featured: false,
+        popular: false,
+    });
+
+    log(product);
+
+    // Get the students
+    try {
+        const result = await product.save();
+        res.status(200).send(result);
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+        }
     }
 });
 

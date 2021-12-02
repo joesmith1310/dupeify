@@ -29,18 +29,18 @@
                 <div class="button" id="addProductButton">ADD</div>
             </div>
             <div id="newProductForm">
-                <form onsubmit="addProduct()">
-                    <input type="text" name="productID" placeholder="Product ID" class="formInput">
+                <form onsubmit="addProduct();return false" id="addProductForm">
                     <input type="text" name="productName" placeholder="Product Name" class="formInput">
+                    <input type="text" name="productPrice" placeholder="Product Price" class="formInput">
+                    <input type="text" name="productBrand" placeholder="Product Brand" class="formInput">
+                    <label>Select type:</label>
+                    <select name="productType">
+                        <option value="Foundation">Foundation</option>
+                        <option value="Mascara">Mascara</option>
+                        <option value="Eyeliner">Eyeliner</option>
+                    </select>
                     <input type="text" name="productDescription" placeholder="Description" class="formInput">
-                    <label for="isDesigner">Is Designer</label>
-                    <input type="checkbox" id="isDesigner" name="isDesigner" onclick="toggleDupes()">
-                    <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput" id="dupesField">
-                    <label id="uploadLabel">Upload Image:</label>
-                    <label class="customFileUpload">
-                        Select
-                        <input type="file" name="img" class="fileUpload">
-                    </label>
+                    <input type="text" name="productImage" placeholder="Product Image Name e.g. img1.jpg" class="formInput">
                     <input type="submit" value="Add" class="button">
                 </form>
             </div>

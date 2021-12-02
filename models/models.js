@@ -55,6 +55,7 @@ const Product = mongoose.model("Product", {
     featured: Boolean,
     popular: Boolean,
 });
+
 //TODO product images?
 
 const Suggestion = mongoose.model("Suggestion", {
@@ -77,4 +78,40 @@ const Suggestion = mongoose.model("Suggestion", {
     comment: String,
 });
 
-module.exports = { User, Product, Suggestion };
+const Dupe = mongoose.model("Dupe", {
+    designerProduct: {
+        type: String,
+        required: true,
+        minLength: 1,
+        trim: true,
+    },
+    dupeProduct: {
+        type: String,
+        required: true,
+        minLength: 1,
+        trim: true,
+    },
+    cat1: {
+        type: Number,
+        required: true,
+    },
+    cat2: {
+        type: Number,
+        required: true,
+    },
+    cat3: {
+        type: Number,
+        required: true,
+    },
+    cat4: {
+        type: Number,
+        required: true,
+    },
+    overall: {
+        type: Number,
+        required: true,
+    },
+});
+
+
+module.exports = { User, Product, Suggestion, Dupe };

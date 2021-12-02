@@ -6,7 +6,7 @@ const { mongoose } = require("./db/mongoose");
 mongoose.set("bufferCommands", false); // don't buffer db requests if the db server isn't connected - minimizes http requests hanging if this is the case.
 
 // import the mongoose models
-const { User, Product, Suggestion } = require("./models/models");
+const { User, Product, Suggestion, Dupe } = require("./models/models");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
@@ -121,7 +121,6 @@ app.post("/api/product", async (req, res) => {
 
     log(product);
 
-    // Get the students
     try {
         const result = await product.save();
         res.status(200).send(result);
@@ -135,5 +134,85 @@ app.post("/api/product", async (req, res) => {
         }
     }
 });
+
+app.get("/api/search/:key", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    searchResults = [];
+    try {
+        const products = await Product.find()
+        if (products != null) {
+            for (let i = 0; i < products.length; i++) {
+                let search = req.params.key.toUpperCase();
+                console.log(search);
+                let productName = products[i].name.toUpperCase();
+                let productBrand = products[i].brand.toUpperCase();
+                let productType = products[i].type.toUpperCase();
+                console.log(productType);
+                let productDescription = products[i].description.toUpperCase();
+                if (productName.includes(search)) {
+                    searchResults.push(products[i]);
+                }
+                else if (productBrand.includes(search)) {
+                    searchResults.push(products[i]);
+                }
+                else if (productType.includes(search)) {
+                    searchResults.push(products[i]);
+                }
+                else if (productDescription.includes(search)) {
+                    searchResults.push(products[i]);
+                }
+            }
+        }
+        res.send({searchResults});
+    } catch (error) {
+        log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.post('/api/link', async (req, res) => {
+	// Add code here
+
+	if (!ObjectID.isValid(req.body.designerProduct) || !ObjectID.isValid(req.body.dupeProduct)) {
+        console.log("ERROR1");
+		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+		return;
+	}
+
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+    const dupe = new Dupe({
+        designerProduct: req.body.designerProduct,
+        dupeProduct: req.body.dupeProduct,
+        cat1: req.body.cat1,
+        cat2: req.body.cat2,
+        cat3: req.body.cat3,
+        cat4: req.body.cat4,
+        overall: req.body.overall,
+    });
+        
+    try {
+        const result = await dupe.save();
+        res.status(200).send(result);
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+        }
+    }
+
+})
 
 app.listen(app.get("port"));

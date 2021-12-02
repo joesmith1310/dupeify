@@ -48,7 +48,7 @@ body {
     right: 50px
 }
 
-#newProductForm {
+.expandable {
     background-color: white;
     width: 100%;
     transition: all 0.4s ease;
@@ -56,17 +56,21 @@ body {
     overflow: hidden;
 }
 
-#newProductForm form {
-    padding: 50px;
+.expandable form {
+    padding: 0 50px;
 }
 
-#newProductForm input {
+.expandable input {
     display: block;
-    margin-bottom: 40px;
+    margin: 30px 0;
 }
 
-#newProductForm.expand {
-    max-height: 700px;
+.expandable input[type=number] {
+    margin: 5px 0;
+}
+
+.expandable.expand {
+    max-height: 1000px;
 }
 
 .customFileUpload {
@@ -110,3 +114,16 @@ body {
 #uploadLabel {
     display: block;
 }
+
+.resultEntry {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-top: solid 1px #ebebeb;
+}
+
+.resultEntry label {
+    width: 20%;
+    overflow: visible;
+}
+

@@ -26,9 +26,9 @@
             <h3>PRODUCTS</h3>
             <div class="adminOption">
                 <h4>ADD NEW PRODUCT</h4>
-                <div class="button" id="addProductButton">ADD</div>
+                <div class="button" class="expandButton">ADD</div>
             </div>
-            <div id="newProductForm">
+            <div class="expandable">
                 <form onsubmit="addProduct();return false" id="addProductForm">
                     <input type="text" name="productName" placeholder="Product Name" class="formInput">
                     <input type="text" name="productPrice" placeholder="Product Price" class="formInput">
@@ -45,8 +45,48 @@
                 </form>
             </div>
             <div class="adminOption">
-                <h4>EDIT EXISTING PRODUCTS</h4>
-                <a class="button" href="/pages/products.html">EDIT</a>
+                <h4>ADD NEW DUPE</h4>
+                <div class="button" class="expandButton">ADD</div>
+            </div>
+            <div class="expandable">
+                <form onsubmit="addDupe();return false" id="addDupeForm">
+                    <input type="text" name="productName" placeholder="Product Name" class="formInput">
+                    <input type="text" name="productPrice" placeholder="Product Price" class="formInput">
+                    <input type="text" name="productBrand" placeholder="Product Brand" class="formInput">
+                    <label>Select type:</label>
+                    <select name="productType">
+                        <option value="Foundation">Foundation</option>
+                        <option value="Mascara">Mascara</option>
+                        <option value="Eyeliner">Eyeliner</option>
+                    </select>
+                    <input type="text" name="productImage" placeholder="Product Image Name e.g. img1.jpg" class="formInput">
+                    <input type="submit" value="Add" class="button">
+                </form>
+            </div>
+            <div class="adminOption">
+                <h4>LINK PRODUCT TO DUPE</h4>
+                <div class="button">EDIT</div>
+            </div>
+            <div class="expandable">
+                <form onsubmit="addDupe();return false" id="linkDupeForm">
+                    <label>Color:</label>
+                    <input type="number" name="colorMatch" min="1" max="100">
+                    <label>Texture:</label>
+                    <input type="number" name="textureMatch" min="1" max="100">
+                    <label>Ingredients:</label>
+                    <input type="number" name="ingredientsMatch" min="1" max="100">
+                    <label>Longevity:</label>
+                    <input type="number" name="longevityMatch" min="1" max="100">
+                    <input type="text" name="designerProduct" placeholder="Designer product" class="formInput">
+                    <input type="text" name="dupeProduct" placeholder="Dupe product" class="formInput">
+                    <input type="submit" value="Add" class="button">
+                </form>
+                <form onsubmit="getCodes(this.search.value);return false">
+                    Search for a product code:
+                    <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                    <input type="submit" value="Search" class="button">
+                    <div id="searchResults"></div>
+                </form>
             </div>
             <div class="adminOption">
                 <h4>USER SUGGESTIONS</h4>

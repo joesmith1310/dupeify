@@ -54,3 +54,4 @@ const user3 = new User(3, "testUser3");
 const users = [user1, user2, user3];
 
 /* ---------------------------------------------------------------- */
+

@@ -1,4 +1,6 @@
-window.onload = function () {
+window.onload = async function () {
+    await loadProductsPromise;
+    console.log("LOADING HOME PAGE");
     loadProducts();
 };
 

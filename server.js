@@ -115,8 +115,8 @@ app.post("/api/product", async (req, res) => {
         image: req.body.image,
         matches: [],
         designer: req.body.designer,
-        featured: false,
-        popular: false,
+        featured: true,
+        popular: true,
     });
 
     log(product);
@@ -142,7 +142,7 @@ app.get("/api/search/:key", async (req, res) => {
         res.status(500).send("Internal server error");
         return;
     }
-    searchResults = [];
+    let searchResults = [];
     try {
         const products = await Product.find()
         if (products != null) {
@@ -214,5 +214,47 @@ app.post('/api/link', async (req, res) => {
     }
 
 })
+
+app.get('/api/product', async (req, res) => {
+	// Add code here
+	// check mongoose connection established.
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+	try {
+		const products = await Product.find()
+		res.send({ products })
+	} catch(error) {
+		log(error)
+		res.status(500).send("Internal Server Error")
+	}
+
+})
+
+app.get("/api/dupes/:id", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    let designerId = req.params.id;
+    try {
+        const matches = await Dupe.find({designerProduct: designerId})
+        if (!matches) {
+			res.status({})  // could not find this restaurant
+		} else { 
+			res.send(matches)
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error')  // server error
+	}
+});
+
+
+
 
 app.listen(app.get("port"));

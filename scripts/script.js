@@ -1,4 +1,6 @@
+
 console.log("Script1 loaded");
+
 
 //JQUERY
 $(document).ready(function(){    
@@ -10,18 +12,21 @@ $(document).ready(function(){
 });
 
 class Product {
-	constructor(productID, name, price, image) {
+	constructor(productID, name, price, brand, type, image) {
         this.productID = productID;
 		this.name = name;
 		this.price = price;
+        this.brand = brand;
+        this.type = type;
         this.image = image;
 	}
 }
 
 class DesignerProduct extends Product {
-    constructor(productID, name, price, image, matchingProducts, featured, popular) {
-        super(productID, name, price, image);
+    constructor(productID, name, price, brand, type, image, matchingProducts, description, featured, popular) {
+        super(productID, name, price, brand, type, image);
         this.matchingProducts = matchingProducts;
+        this.description = description;
         this.featured = featured;
         this.popular = popular;
 	}
@@ -44,8 +49,10 @@ const testDupe1 = new Product(4, "Test Product 4", 10.99, "/resources/sample-img
 const testDupe2 = new Product(5, "Test Product 5", 24.99, "/resources/sample-img-5.jpg");
 const testDupe3 = new Product(6, "Test Product 6", 32.99, "/resources/sample-img-6.jpg");
 
-const designerProducts = [testProduct1, testProduct2, testProduct3];
-const dupeProducts = [testDupe1, testDupe2, testDupe3];
+//const designerProducts = [testProduct1, testProduct2, testProduct3];
+//const dupeProducts = [testDupe1, testDupe2, testDupe3];
+let designerProducts = [];
+let dupeProducts = [];
 
 const user1 = new User(1, "testUser1");
 const user2 = new User(2, "testUser2");
@@ -55,3 +62,72 @@ const users = [user1, user2, user3];
 
 /* ---------------------------------------------------------------- */
 
+const loadProductsPromise = new Promise (async (resolve, reject) => {
+    await loadProducts();
+    resolve();
+});
+
+async function loadProducts() {
+    return new Promise ((resolve, reject) => {
+        const request = new Request('/api/product', {
+            method: 'get', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+        fetch(request)
+        .then(function(res) {
+            if (res.status === 200) {
+            return res.json() 
+        } else {
+                alert('Could not get products')
+        }                
+        })
+        .then(async (json) => { 
+            let products = json.products;
+            await Promise.all(products.map(async (product) => {
+                await pushToList(product);
+            }));
+            resolve();
+        }).catch((error) => {
+            console.log(error)
+        })
+    });
+}
+
+function pushToList(product) {
+    return new Promise ((resolve, reject) => {
+        if (!product.designer) {
+            dupeProducts.push(new Product(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`));
+            resolve();
+        }
+        else {
+            let dupeList = []
+            const request2 = new Request(`/api/dupes/${product._id}`, {
+                method: 'get', 
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+            });
+            fetch(request2)
+            .then(function(res) {
+                if (res.status === 200) {
+                    return res.json() 
+                } else {
+                    alert('Could not get dupes')
+                }                
+            })
+            .then((json) => { 
+                let dupes = json;
+                for (let i = 0; i < dupes.length; i ++) {
+                    let dupe = dupes[i];
+                    dupeList.push([dupe.dupeProduct, dupe.cat1, dupe.cat2, dupe.cat3, dupe.cat4, dupe.overall]);
+                }
+                designerProducts.push(new DesignerProduct(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`, dupeList, product.description, product.featured, product.popular));
+                resolve();
+            })
+        }
+    });
+}

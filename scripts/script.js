@@ -131,3 +131,20 @@ function pushToList(product) {
         }
     });
 }
+
+function createWindowMessage(text, error=false) {
+    console.log(error);
+    let box = document.createElement('div');
+    box.classList.add('windowMessage');
+    box.innerText = text;
+    if (error) {
+        box.style.backgroundColor = '#FFCCCC';
+    }
+    else {
+        box.style.backgroundColor = '#BCED91';
+    }
+    document.body.appendChild(box);
+    setTimeout(function(){
+        document.body.removeChild(box);
+   }, 2000);
+}

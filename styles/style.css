@@ -212,3 +212,15 @@ a:link {
     border-radius: 22px;
     width: 100px;
 }
+
+.windowMessage {
+    position: fixed;
+    width: 40%;
+    left: 30%;
+    top: 100px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 50px;
+    border-radius: 10px;
+}

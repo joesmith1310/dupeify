@@ -256,6 +256,41 @@ app.get("/api/dupes/:id", async (req, res) => {
 	}
 });
 
+app.get("/api/dupeList/:id", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    let designerId = req.params.id;
+    try {
+        const matches = await Dupe.find({designerProduct: designerId});
+        if (!matches) {
+			res.status(404)  // could not find dupes
+		} else { 
+            dupes = [];
+            await Promise.all(matches.map((m) => {
+                return new Promise(async (resolve) => {
+                    try {
+                        const dupe = await Product.find({_id: m.dupeProduct});
+                        if (dupe) {
+                            dupes.push(dupe);
+                        }
+                    } catch(error) {
+                        console.log("Could not find one or more dupes");
+                    }
+                    resolve();
+                })
+            }))
+			res.send(dupes);
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error')  // server error
+	}
+});
+
 app.get("/api/product/:id", async (req, res) => {
     // check mongoose connection established.
     if (mongoose.connection.readyState != 1) {

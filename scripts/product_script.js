@@ -3,32 +3,129 @@ const urlParams = new URLSearchParams(queryString);
 const productId = urlParams.get('productid')
 console.log(productId);
 
-const request = new Request(`/api/product/${productId}`, {
-    method: 'get', 
-    headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-    },
+let product = null;
+let matches = [];
+let dupes = [];
+
+loadProduct()
+.then(() => {
+    return loadMatches();
+})
+.then(() => {
+    return loadDupes();
+})
+.then(() => {
+    loadPage();
+})
+.catch((e) => {
+    console.log(e);
 });
-fetch(request)
-.then(function(res) {
-    if (res.status === 200) {
-        createWindowMessage("Product Found", false);
-        return res.json() 
-   } else {
-        createWindowMessage("Error: could not find product", true);
-   }                
-})
-.then((json) => {
-    let matches = json.searchResults;
-    clearSearchResults();
-    let resultsBox = document.getElementById('searchResults');
-    for (let i = 0; i < matches.length; i++) {
-        resultsBox.appendChild(createSearchResult(matches[i]));
-    }
-}).catch((error) => {
-    console.log(error)
-})
+
+function loadProduct() {
+    return new Promise((resolve, reject) => {
+        const request = new Request(`/api/product/${productId}`, {
+            method: 'get', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+        fetch(request)
+        .then(function(res) {
+            if (res.status === 200) {
+                createWindowMessage("Product Found", false);
+                return res.json() 
+           } else {
+                createWindowMessage("Error: could not find product", true);
+                reject();
+           }                
+        })
+        .then((json) => {
+            if (json) {
+                p = json[0];
+                product = new DesignerProduct(p._id, p.name, p.price, p.brand, p.type, p.image, [], p.description, p.featured, p.popular);
+                resolve();
+            }
+        }).catch((error) => {
+            console.log(error);
+            reject();
+        });
+    });
+}
+
+function loadMatches() {
+    return new Promise((resolve, reject) => {
+        const request = new Request(`/api/dupes/${productId}`, {
+            method: 'get', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+        fetch(request)
+        .then(function(res) {
+            if (res.status === 200) {
+                createWindowMessage("Product Found", false);
+                return res.json() 
+           } else {
+                createWindowMessage("Error: could not find dupes", true);
+                reject();
+           }                
+        })
+        .then((json) => {
+            if (json) {
+                ms = json;
+                ms.map((m) => {
+                    let match = [m.dupeProduct, m.cat1, m.cat2, m.cat3, m.cat4, m.overall]
+                    matches.push(match);
+                });
+                resolve();
+            }
+        }).catch((error) => {
+            console.log(error);
+            reject();
+        });
+    });
+}
+
+function loadDupes() {
+    return Promise.all(matches.map((m) => {
+        return new Promise((resolve) => {
+            const request = new Request(`/api/product/${productId}`, {
+                method: 'get', 
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+            });
+            fetch(request)
+            .then(function(res) {
+                if (res.status === 200) {
+                    return res.json() 
+               } else {
+                    createWindowMessage("Error: could not find dupe", true);
+               }                
+            })
+            .then((json) => {
+                if (json) {
+                    p = json[0];
+                    dupe = new Product(p._id, p.name, p.price, p.brand, p.type, p.image);
+                    console.log(dupe);
+                    dupes.push(dupe);
+                    resolve();
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+        });
+    }));
+}
+
+function loadPage() {
+    console.log(product);
+    console.log(matches);
+    console.log(dupes);
+}
 
 /*product = designerProducts[0];
 

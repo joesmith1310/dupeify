@@ -9,7 +9,6 @@ searchBar.addEventListener("submit", search);
 
 function search(e) {
     e.preventDefault();
-    console.log("OK");
     sessionStorage.setItem("products", "search");
     sessionStorage.setItem(
         "search",

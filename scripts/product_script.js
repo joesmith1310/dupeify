@@ -7,6 +7,11 @@ let product = null;
 let matches = [];
 let dupes = [];
 
+const productPage = document.querySelector('.product_page');
+const dupesList = document.getElementById('dupes_list');
+productPage.style.display = 'none';
+let loader = createLoader(document.body);
+
 loadProduct()
 .then(() => {
     return loadMatches();
@@ -14,11 +19,13 @@ loadProduct()
 .then(() => {
     return loadDupes();
 })
-.then(() => {
-    loadPage();
+.catch(() => {
+    console.log("ERROR");
 })
-.catch((e) => {
-    console.log(e);
+.then(() => {
+    document.body.removeChild(loader);
+    productPage.style.display = 'block';
+    loadPage();
 });
 
 function loadProduct() {
@@ -33,7 +40,6 @@ function loadProduct() {
         fetch(request)
         .then(function(res) {
             if (res.status === 200) {
-                createWindowMessage("Product Found", false);
                 return res.json() 
            } else {
                 createWindowMessage("Error: could not find product", true);
@@ -46,8 +52,7 @@ function loadProduct() {
                 product = new DesignerProduct(p._id, p.name, p.price, p.brand, p.type, p.image, [], p.description, p.featured, p.popular);
                 resolve();
             }
-        }).catch((error) => {
-            console.log(error);
+        }).catch(() => {
             reject();
         });
     });
@@ -65,7 +70,6 @@ function loadMatches() {
         fetch(request)
         .then(function(res) {
             if (res.status === 200) {
-                createWindowMessage("Product Found", false);
                 return res.json() 
            } else {
                 createWindowMessage("Error: could not find dupes", true);
@@ -81,8 +85,7 @@ function loadMatches() {
                 });
                 resolve();
             }
-        }).catch((error) => {
-            console.log(error);
+        }).catch(() => {
             reject();
         });
     });
@@ -91,7 +94,7 @@ function loadMatches() {
 function loadDupes() {
     return Promise.all(matches.map((m) => {
         return new Promise((resolve) => {
-            const request = new Request(`/api/product/${productId}`, {
+            const request = new Request(`/api/product/${m[0]}`, {
                 method: 'get', 
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
@@ -110,21 +113,147 @@ function loadDupes() {
                 if (json) {
                     p = json[0];
                     dupe = new Product(p._id, p.name, p.price, p.brand, p.type, p.image);
-                    console.log(dupe);
                     dupes.push(dupe);
                     resolve();
                 }
-            }).catch((error) => {
-                console.log(error);
+            }).catch(() => {
+                resolve();
             });
         });
     }));
 }
 
 function loadPage() {
-    console.log(product);
-    console.log(matches);
-    console.log(dupes);
+    createProduct();
+    createDupes();
+}
+
+function createProduct() {
+    const productDiv  = document.getElementById('product');
+    productDiv.innerHTML = `
+    <div class="product_image">
+        <img src="/resources/${product.image}" alt="Product Image">
+    </div>
+    <div class="product_info">
+        <h3 id="product_title">${product.name}</h3>
+        <h2 id="product_price">$${product.price}</h2>
+        <p id="product_description">${product.description}</p>
+    </div>
+    `
+}
+
+function createDupes() {
+    dupes.map((d) => {
+        data = [d, getMatchStats(d)]
+        let sc = createSmallComparison(data);
+        dupesList.appendChild(sc);
+    });
+}
+
+function createSmallComparison(data) {
+    let dupe = data[0]
+    let stats = data[1]
+    const smallComparison = document.createElement('div');
+    smallComparison.classList.add('comparisonSmall');
+    smallComparison.innerHTML = `
+    <div class = "cSImgBox">
+        <img src="/resources/${dupe.image}">
+    </div>
+    <ul class="cSInfo">
+        <h4>${dupe.name}</h4>
+        <li>
+            <p>Color</p>
+            <div class="cSPercentageBar">
+                <div style="width:${stats[1]}%;"></div>
+            </div>
+            <p>${stats[1]}%</p>
+        </li>
+        <li>
+            <p>Texture</p>
+            <div class="cSPercentageBar">
+                <div style="width:${stats[2]}%;"></div>
+            </div>
+            <p>${stats[2]}%</p>
+        </li>
+        <li>
+            <p>Ingredients</p>
+            <div class="cSPercentageBar">
+                <div style="width:${stats[3]}%;"></div>
+            </div>
+            <p>${stats[3]}%</p>
+        </li>
+        <li>
+            <p>Longevity</p>
+            <div class="cSPercentageBar">
+                <div style="width:${stats[4]}%;"></div>
+            </div>
+            <p>${stats[4]}%</p>
+        </li>
+    </ul>
+    <p class="cSOverall">${stats[5]}%</p>
+    <p class="cSPrice">$${dupe.price}</p>
+    `
+    return smallComparison;
+
+}
+
+function getMatchStats(dupe) {
+    let dupeId = dupe.productID;
+    for (let i = 0; i < matches.length; i++) {
+        if (matches[i][0] == dupeId) {
+            return matches[i];
+        }
+    }
+}
+
+function sortByPrice(desc = false) {
+    let prices = []
+    dupes.map((d) => {
+        if (!prices.includes(d.price)) {
+            prices.push(d.price);
+        }
+    });
+    prices.sort();
+    if (desc) {
+        prices.reverse();
+    }
+    let newDupes = [];
+    prices.map((p) => {
+        dupes.map((d) => {
+            if (d.price == p) {
+                newDupes.push(d);
+            };
+        });
+    });
+    dupes = newDupes;
+    reloadDupes();
+}
+
+function sortByMatch() {
+    let matchPercentages = []
+    matches.map((m) => {
+        if (!matchPercentages.includes(m[5])) {
+            matchPercentages.push(m[5]);
+        }
+    });
+    matchPercentages.sort();
+    matchPercentages.reverse();
+    let newDupes = [];
+    matchPercentages.map((m) => {
+        dupes.map((d) => {
+            let stats = getMatchStats(d);
+            if (stats[5] == m) {
+                newDupes.push(d);
+            };
+        });
+    });
+    dupes = newDupes;
+    reloadDupes();
+}
+
+function reloadDupes() {
+    dupesList.innerHTML = ''
+    createDupes();
 }
 
 /*product = designerProducts[0];

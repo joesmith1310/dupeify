@@ -133,7 +133,6 @@ function pushToList(product) {
 }
 
 function createWindowMessage(text, error=false) {
-    console.log(error);
     let box = document.createElement('div');
     box.classList.add('windowMessage');
     box.innerText = text;
@@ -148,3 +147,14 @@ function createWindowMessage(text, error=false) {
         document.body.removeChild(box);
    }, 2000);
 }
+
+function createLoader(parent) {
+    let loaderBox = document.createElement('div');
+    let loader = document.createElement('div');
+    loaderBox.classList.add('loaderBox');
+    loader.classList.add('loader');
+    loaderBox.appendChild(loader);
+    parent.appendChild(loaderBox);
+    return loaderBox;
+}
+

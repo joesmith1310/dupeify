@@ -1,3 +1,8 @@
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const productId = urlParams.get('productid')
+console.log(productId);
+
 /*product = designerProducts[0];
 
 let dupes = dupeProducts;

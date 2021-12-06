@@ -22,11 +22,13 @@ let featuredProducts = [];
 let popularProducts = [];
 
 function getFeaturedProducts() {
-    featuredProducts = designerProducts.filter((f) => f.featured);
+    let featured = designerProducts.filter((f) => f.featured);
+    featuredProducts = featured.filter((f) => f.matchingProducts.length > 0);
 }
 
 function getPopularProducts() {
-    popularProducts = designerProducts.filter((p) => p.popular);
+    let popular = designerProducts.filter((p) => p.popular);
+    popularProducts = popular.filter((p) => p.matchingProducts.length > 0);
 }
 
 function loadProducts() {
@@ -41,72 +43,75 @@ function loadProducts() {
 }
 
 function loadMainFeature() {
-    const randomFeature1 = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
-    const randomFeature2 = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
-    const randomFeature3 = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
-    createLargeComparison(randomFeature1);
-    createLargeComparison(randomFeature2);
-    createLargeComparison(randomFeature3);
+    const numberOfSlides = 3;
+    let count = 0;
+    while (count < numberOfSlides) {
+        let randomFeature = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
+        createLargeComparison(randomFeature);
+        count += 1;
+    }
 }
 
 function createLargeComparison(product) {
-    try {
-        const dupeID = product.matchingProducts[0][0];
-        let dupe = null;
-        dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];
-
-        const comparisonLarge = document.querySelector("#mainFeature");
-
-        const slide = document.createElement("a");
-        slide.setAttribute("href", "/pages/product_page.html");
-        slide.classList.add("mySlides");
-        slide.classList.add("fade");
-        slide.classList.add("comparisonLarge");
-
-        const cLProduct1 = document.createElement("div");
-        cLProduct1.classList.add("cLProduct");
-        const cLImage1 = document.createElement("img");
-        cLImage1.setAttribute("src", product.image);
-        const cLText1 = document.createElement("div");
-        cLText1.classList.add("cLText");
-        const cLPrice1 = document.createElement("h2");
-        cLPrice1.innerText = `$${product.price}`;
-        const cLName1 = document.createElement("h3");
-        cLName1.innerText = product.name;
-        cLProduct1.appendChild(cLImage1);
-        cLProduct1.appendChild(cLText1);
-        cLText1.appendChild(cLPrice1);
-        cLText1.appendChild(cLName1);
-
-        const cLMatch = document.createElement("div");
-        cLMatch.classList.add("cLMatch");
-        const percentageMatch = document.createElement("p");
-        percentageMatch.classList.add("percentageMatch");
-        percentageMatch.innerText = `${product.matchingProducts[0][3]}%`;
-        cLMatch.appendChild(percentageMatch);
-
-        const cLProduct2 = document.createElement("div");
-        cLProduct2.classList.add("cLProduct");
-        const cLImage2 = document.createElement("img");
-        cLImage2.setAttribute("src", dupe.image);
-        const cLText2 = document.createElement("div");
-        cLText2.classList.add("cLText");
-        const cLPrice2 = document.createElement("h2");
-        cLPrice2.innerText = `$${dupe.price}`;
-        const cLName2 = document.createElement("h3");
-        cLName2.innerText = dupe.name;
-        cLProduct2.appendChild(cLImage2);
-        cLProduct2.appendChild(cLText2);
-        cLText2.appendChild(cLPrice2);
-        cLText2.appendChild(cLName2);
-
-        slide.appendChild(cLProduct1);
-        slide.appendChild(cLMatch);
-        slide.appendChild(cLProduct2);
-        comparisonLarge.appendChild(slide);
-    } catch (err) {
-        console.log("Error loading large comparison!");
+    
+    if (product.matchingProducts[0].length < 1) {
+        return false;
     }
+    const dupeID = product.matchingProducts[0][0];
+
+    let dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];    
+
+    const comparisonLarge = document.querySelector("#mainFeature");
+
+    const slide = document.createElement("a");
+    slide.setAttribute("href", `/pages/product_page.html?productid=${product.productID}`);
+    slide.classList.add("mySlides");
+    slide.classList.add("fade");
+    slide.classList.add("comparisonLarge");
+
+    const cLProduct1 = document.createElement("div");
+    cLProduct1.classList.add("cLProduct");
+    const cLImage1 = document.createElement("img");
+    cLImage1.setAttribute("src", product.image);
+    const cLText1 = document.createElement("div");
+    cLText1.classList.add("cLText");
+    const cLPrice1 = document.createElement("h2");
+    cLPrice1.innerText = `$${product.price}`;
+    const cLName1 = document.createElement("h3");
+    cLName1.innerText = product.name;
+    cLProduct1.appendChild(cLImage1);
+    cLProduct1.appendChild(cLText1);
+    cLText1.appendChild(cLPrice1);
+    cLText1.appendChild(cLName1);
+
+    const cLMatch = document.createElement("div");
+    cLMatch.classList.add("cLMatch");
+    const percentageMatch = document.createElement("p");
+    percentageMatch.classList.add("percentageMatch");
+    percentageMatch.innerText = `${product.matchingProducts[0][3]}%`;
+    cLMatch.appendChild(percentageMatch);
+
+    const cLProduct2 = document.createElement("div");
+    cLProduct2.classList.add("cLProduct");
+    const cLImage2 = document.createElement("img");
+    cLImage2.setAttribute("src", dupe.image);
+    const cLText2 = document.createElement("div");
+    cLText2.classList.add("cLText");
+    const cLPrice2 = document.createElement("h2");
+    cLPrice2.innerText = `$${dupe.price}`;
+    const cLName2 = document.createElement("h3");
+    cLName2.innerText = dupe.name;
+    cLProduct2.appendChild(cLImage2);
+    cLProduct2.appendChild(cLText2);
+    cLText2.appendChild(cLPrice2);
+    cLText2.appendChild(cLName2);
+
+    slide.appendChild(cLProduct1);
+    slide.appendChild(cLMatch);
+    slide.appendChild(cLProduct2);
+    comparisonLarge.appendChild(slide);
+    
+    return true;
 }
 
 var slideIndex = 0;
@@ -143,8 +148,8 @@ function createSmallComparison(product) {
     let dupe = null;
     dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];
 
-    const comparisonSmall = document.createElement("a"); //Temp should be div
-    comparisonSmall.setAttribute("href", "/pages/product_page.html");
+    const comparisonSmall = document.createElement("a");
+    comparisonSmall.setAttribute("href", `/pages/product_page.html?productid=${product.productID}`);
     comparisonSmall.classList.add("comparisonSmall");
 
     const cSImgBox = document.createElement("div");

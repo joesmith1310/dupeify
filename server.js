@@ -180,6 +180,8 @@ app.post('/api/link', async (req, res) => {
 
 	if (!ObjectID.isValid(req.body.designerProduct) || !ObjectID.isValid(req.body.dupeProduct)) {
         console.log("ERROR1");
+        console.log(req.body.designerProduct);
+        console.log(req.body.dupeProduct);
 		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
 		return;
 	}
@@ -251,6 +253,27 @@ app.get("/api/dupes/:id", async (req, res) => {
 	} catch(error) {
 		log(error)
 		res.status(500).send('Internal Server Error')  // server error
+	}
+});
+
+app.get("/api/product/:id", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    let productId = req.params.id;
+    try {
+        const match = await Product.find({_id: productId})
+        if (!match) {
+			res.status(404);
+		} else { 
+			res.send(match)
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error');
 	}
 });
 

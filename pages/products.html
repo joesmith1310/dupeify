@@ -35,11 +35,11 @@
 
         <!-- code goes here-->
         <div class="searchDiv">
-            <form id="searchBar">
+            <form onsubmit="productSearch();return false" id="searchBar">
                 <input
                     id="searchInput"
                     type="text"
-                    name=""
+                    name="search"
                     placeholder="Search for a product"
                 />
                 <input id="searchButton" type="submit" value="Search" />
@@ -62,6 +62,7 @@
                     <div>Mascara</div>
                     <div>Lipstick</div>
                     <div>Foundation</div>
+                    <div>Eyeliner</div>
                     </div>
                 </div>
             </div>

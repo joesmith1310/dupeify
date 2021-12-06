@@ -1,34 +1,50 @@
 window.onload = async function () {
     await loadProductsPromise;
-    console.log("LOADING PRODUCTS PAGE");
-    loadProducts();
+    console.log("LOADING PRODUCTS PAGE")
+    init();
 };
 
-function loadProducts() {
-    const parent = document.getElementById("product_list");
-    let title = "All Products";
-    let products = designerProducts.concat(dupeProducts);
-    if (sessionStorage.getItem("products")) {
-        if (sessionStorage.getItem("products") === "featured") {
-            products = designerProducts.filter((e) => e.featured);
-            title = "Featured Products";
-        } else if (sessionStorage.getItem("products") === "popular") {
-            products = designerProducts.filter((e) => e.popular);
-            title = "Popular Products";
-        } else if (sessionStorage.getItem("products") === "search") {
-            products = products.filter((e) =>
-                e.name
-                    .toLowerCase()
-                    .includes(sessionStorage.getItem("search").toLowerCase().trim())
-            );
-            title = "Search Results";
+const productList = document.getElementById("product_list");
+
+let products = []
+
+function init() {
+    products = designerProducts;
+    loadProducts(products);
+}
+
+function productSearch() {
+    const form = document.getElementById('searchBar');
+    const key = form.search.value;
+    key.toUpperCase()
+    products = designerProducts;
+    results = []
+    products.map((p) => {
+        const name = p.name.toUpperCase();
+        const brand = p.brand.toUpperCase();
+        const type = p.type.toUpperCase();
+        if (name.includes(key) || key.includes(name)) {
+            results.push(p);
         }
-    }
+        else if (brand.includes(key) || key.includes(brand)) {
+            results.push(p);
+        }
+        else if (type.includes(key) || key.includes(type)) {
+            results.push(p);
+        }
+    });
+    products = results;
+    productList.innerHTML = '';
+    loadProducts();
+}
+
+function loadProducts(products) {
+    let title = "All Products";
     document.getElementById("title").innerHTML = title;
     products.forEach((product) => {
         const div = document.createElement("div");
         div.className = "product_entry";
-        parent.appendChild(div);
+        productList.appendChild(div);
 
         div.innerHTML = `
             <div class="product_image">
@@ -41,7 +57,7 @@ function loadProducts() {
             </div>
         `;
 
-        div.onclick = () => (window.location.href = "/pages/product_page.html");
+        div.onclick = () => (window.location.href = `/pages/product_page.html?productid=${product.productID}`);
 
     });
 }

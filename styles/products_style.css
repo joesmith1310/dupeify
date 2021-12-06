@@ -34,6 +34,10 @@ rgb(51, 51, 51) - text
     height: 150px;
 }
 
+.product_info h4 {
+    width: 300px;
+}
+
 .product_image img {
     width: 100%;
 }

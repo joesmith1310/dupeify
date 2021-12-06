@@ -353,5 +353,32 @@ app.patch('/api/users/:id', async (req, res) => {
 	}
 })
 
+app.get('/api/users/:id', async (req, res) => {
+	// Add code here
+	const id = req.params.id
+
+	// Good practise: Validate id immediately.
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+		return;  // so that we don't run the rest of the handler.
+	}
+
+	// If id valid, findById
+	try {
+		const user = await User.findById(id)
+		if (!user) {
+			res.status(404).send('Resource not found')  // could not find this restaurant
+		} else { 
+			res.send(user)
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error')  // server error
+	}
+
+
+})
+
+
 
 app.listen(app.get("port"));

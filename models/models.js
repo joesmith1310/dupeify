@@ -11,6 +11,31 @@ const User = mongoose.model("User", {
         type: String,
         required: true,
     },
+
+    age: {
+        type: Number,
+        required: true,
+        trim: true,
+    },
+
+    skintype: {
+        type: String,
+        required: true,
+        minLength: 1,
+        trim: true,
+    },
+    eyecolor: {
+        type: String,
+        required: true,
+        minLength: 1,
+        trim: true,
+    },
+    birthday: {
+        type: Date,
+        required: true,
+        minLength: 1,
+        trim: true,
+    },
     admin: Boolean,
 });
 

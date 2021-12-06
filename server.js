@@ -312,7 +312,46 @@ app.get("/api/product/:id", async (req, res) => {
 	}
 });
 
+app.patch('/api/users/:id', async (req, res) => {
+	const id = req.params.id
 
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()
+		return;  // so that we don't run the rest of the handler.
+	}
+
+	// check mongoose connection established.
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	// Find the fields to update and their values.
+	const fieldsToUpdate = {}
+	req.body.map((change) => {
+		const propertyToChange = change.path.substr(1) // getting rid of the '/' character
+		fieldsToUpdate[propertyToChange] = change.value
+	})
+	
+
+	// Update the student by their id.
+	try {
+		const user = await User.findOneAndUpdate({_id: id}, {$set: fieldsToUpdate}, {new: true, useFindAndModify: false})
+		if (!user) {
+			res.status(404).send('Resource not found')
+		} else {   
+			res.send(user)
+		}
+	} catch (error) {
+		log(error)
+		if (isMongoError(error)) { // check for if mongo server suddenly dissconnected before this request.
+			res.status(500).send('Internal server error')
+		} else {
+			res.status(400).send('Bad Request') // bad request for changing the user.
+		}
+	}
+})
 
 
 app.listen(app.get("port"));

@@ -19,11 +19,52 @@ function myAccountEdit() {
     document.getElementById("myP5").contentEditable = false;
     document.getElementById("myP2").contentEditable = false;
     b.innerText = "Edit";
-    
-  }
-}
-  
 
+    updateUser();
+    }
+
+}
+
+function updateUser() {
+  const url = '/api/users/61a7fcdf2924f422f8094475';
+
+  let data = [
+    {"op":"replace", "path":"/age", "value":document.getElementById("myP2").innerText},
+    {"op":"replace", "path":"/eyecolor", "value":document.getElementById("myP4").innerText},
+    {"op":"replace", "path":"/birthday", "value":document.getElementById("myP5").innerText}
+  ]
+  
+  // let data = [
+  //   {"op":"replace", "path":"/username", "value":"Youyi"},
+  //   {"op":"replace", "path":"/age", "value":"100"}
+  // ]
+
+
+  const request = new Request(url, {
+      method: 'PATCH', 
+      body: JSON.stringify(data),
+      headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+      },
+  });
+
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          console.log('User updated')
+          alert('Successfully updated User');           
+      } else {
+          console.log('ERROR')
+          alert('ERROR');
+   
+      }
+      console.log(res)  // log the result in the console for development purposes,
+                        //  users are not expected to see this.
+  }).catch((error) => {
+      console.log(error)
+  })
+}
 const redHeart = '\u2764';
 const whiteHeart = '\u2661';
 

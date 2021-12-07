@@ -13,6 +13,16 @@ rgb(51, 51, 51) - text
     position: relative;
 }
 
+.featureBadge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px;
+    background-color: #b197fc;
+    color: white;
+    border-bottom-left-radius: 10px;
+}
+
 .dot {
     height: 15px;
     width: 15px;

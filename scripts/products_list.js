@@ -1,7 +1,14 @@
+const content = document.getElementById('productsContent');
+content.style.display="none";
+const loader = createLoader(document.body);
+
+
 window.onload = async function () {
     await loadProductsPromise;
     console.log("LOADING PRODUCTS PAGE")
     init();
+    document.body.removeChild(loader);
+    content.style.display = 'initial';
 };
 
 const queryString = window.location.search;

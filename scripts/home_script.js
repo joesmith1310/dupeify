@@ -4,10 +4,9 @@ const loader = createLoader(document.body);
 
 window.onload = async function () {
     await loadProductsPromise;
-    console.log("LOADING HOME PAGE");
     loadProducts();
     document.body.removeChild(loader);
-    content.style.display = 'initial'
+    content.style.display = 'initial';
 };
 
 function searchProduct() {
@@ -103,6 +102,11 @@ function createLargeComparison(product) {
     cLProduct2.appendChild(cLText2);
     cLText2.appendChild(cLPrice2);
     cLText2.appendChild(cLName2);
+
+    const featureBadge = document.createElement('div');
+    featureBadge.innerHTML = 'Featured &#9733;'
+    featureBadge.classList.add('featureBadge');
+    comparisonLarge.appendChild(featureBadge);
 
     slide.appendChild(cLProduct1);
     slide.appendChild(cLMatch);

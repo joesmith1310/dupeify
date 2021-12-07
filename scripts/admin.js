@@ -111,7 +111,11 @@ function addDupe() {
     })
 }
 
-async function getCodes(search) {
+async function getCodes(search, callingForm) {
+    if (search == "") {
+        console.log("EMPTY");
+        search = "all";
+    }
     const request = new Request(`/api/search/${search}`, {
         method: 'get', 
         headers: {
@@ -130,19 +134,14 @@ async function getCodes(search) {
     })
     .then((json) => {  // the resolved promise with the JSON body
         let matches = json.searchResults;
-        clearSearchResults();
-        let resultsBox = document.getElementById('searchResults');
+        let resultsBox = callingForm.children[2];
+        resultsBox.innerHTML = "";
         for (let i = 0; i < matches.length; i++) {
             resultsBox.appendChild(createSearchResult(matches[i]));
         }
     }).catch((error) => {
         console.log(error)
     })
-}
-
-function clearSearchResults() {
-    let resultsBox = document.getElementById('searchResults');
-    resultsBox.innerHTML = "";
 }
 
 function createSearchResult(product) {
@@ -174,4 +173,24 @@ function createSearchResult(product) {
 function toggleDupes() {
     const dupesField = document.querySelector('#dupesField');
     dupesField.classList.toggle('expand');
+}
+
+async function toggleFeature(id, feature) {
+    const request = new Request(`/api/product/${id}/${feature}`, {
+        method: 'PATCH', 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            createWindowMessage("Product successfully updated");
+       } else {
+            createWindowMessage("Could not update product", true);
+       }                
+    }).catch((error) => {
+        console.log(error)
+    })
 }

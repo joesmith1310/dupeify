@@ -148,13 +148,14 @@ app.get("/api/search/:key", async (req, res) => {
         if (products != null) {
             for (let i = 0; i < products.length; i++) {
                 let search = req.params.key.toUpperCase();
-                console.log(search);
                 let productName = products[i].name.toUpperCase();
                 let productBrand = products[i].brand.toUpperCase();
                 let productType = products[i].type.toUpperCase();
-                console.log(productType);
                 let productDescription = products[i].description.toUpperCase();
-                if (productName.includes(search)) {
+                if (req.params.key == "all") {
+                    searchResults.push(products[i]);
+                }
+                else if (productName.includes(search)) {
                     searchResults.push(products[i]);
                 }
                 else if (productBrand.includes(search)) {
@@ -370,6 +371,53 @@ app.get('/api/users/:id', async (req, res) => {
 			res.status(404).send('Resource not found')  // could not find this restaurant
 		} else { 
 			res.send(user)
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error')  // server error
+	}
+
+
+})
+
+app.patch('/api/product/:id/:feature', async (req, res) => {
+	// Add code here
+	const id = req.params.id
+    const feature = req.params.feature
+
+	// Good practise: Validate id immediately.
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+		return;  // so that we don't run the rest of the handler.
+	}
+
+	// If id valid, findById
+	try {
+		const product = await Product.findById(id)
+		if (!product) {
+			res.status(404).send('Resource not found')  // could not find this restaurant
+		} else {
+            if (!product.designer) {
+                res.status(400).send('Only designer products can be popular or featured.')
+            }
+            let update = null;
+            if (feature == 'featured') {
+                if (product.featured) {
+                    update = await Product.updateOne({"_id" : id},{$set: { "featured" : false}});
+                }
+                else {
+                    update = await Product.updateOne({"_id" : id},{$set: { "featured" : true}});
+                }
+            }
+            else if (feature == 'popular') {
+                if (product.popular) {
+                    update = await Product.updateOne({"_id" : id},{$set: { "popular" : false}});
+                }
+                else {
+                    update = await Product.updateOne({"_id" : id},{$set: { "popular" : true}});
+                }
+            }
+			res.send();
 		}
 	} catch(error) {
 		log(error)

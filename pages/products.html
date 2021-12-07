@@ -35,14 +35,14 @@
 
         <!-- code goes here-->
         <div class="searchDiv">
-            <form onsubmit="productSearch();return false" id="searchBar">
+            <form onsubmit="filterBySearch();return false" id="searchBar">
                 <input
                     id="searchInput"
                     type="text"
                     name="search"
                     placeholder="Search for a product"
                 />
-                <input id="searchButton" type="submit" value="Search" />
+                <input type="submit" id="searchButton" value="Search">
             </form>
         </div>
         <div class="section">
@@ -51,18 +51,22 @@
                 <div class="dropdown">
                     <div class="dropbtn">Sort by</div>
                     <div class="dropdown-content">
-                    <div>Price</div>
-                    <div>Name</div>
+                    <div onclick="sortByPrice()">Price Asc</div>
+                    <div onclick="sortByPrice(true)">Price Desc</div>
+                    <div onclick="sortByName()">Name Asc</div>
+                    <div onclick="sortByName(true)">Name Desc</div>
                     </div>
                 </div>
                 <div class="dropdown">
                     <div class="dropbtn">Filter by</div>
                     <div class="dropdown-content">
-                    <div>Popular</div>
-                    <div>Mascara</div>
-                    <div>Lipstick</div>
-                    <div>Foundation</div>
-                    <div>Eyeliner</div>
+                    <div onclick="showAll()">All</div>
+                    <div onclick="filterByPopular()">Popular</div>
+                    <div onclick="filterByFeatured()">Featured</div>
+                    <div onclick="filterByType('Mascara')">Mascara</div>
+                    <div onclick="filterByType('Lipstick')">Lipstick</div>
+                    <div onclick="filterByType('Foundation')">Foundation</div>
+                    <div onclick="filterByType('Eyeliner')">Eyeliner</div>
                     </div>
                 </div>
             </div>

@@ -1,20 +1,19 @@
+const content = document.getElementById('homeContent');
+content.style.display="none";
+const loader = createLoader(document.body);
+
 window.onload = async function () {
     await loadProductsPromise;
     console.log("LOADING HOME PAGE");
     loadProducts();
+    document.body.removeChild(loader);
+    content.style.display = 'initial'
 };
 
-const searchBar = document.querySelector("#searchBar");
-searchBar.addEventListener("submit", search);
-
-function search(e) {
-    e.preventDefault();
-    sessionStorage.setItem("products", "search");
-    sessionStorage.setItem(
-        "search",
-        document.getElementById("searchInput").value
-    );
-    window.location.href = "/pages/products.html";
+function searchProduct() {
+    const form = document.getElementById('searchBar');
+    let key = form.search.value;
+    window.location.href = `/pages/products.html?search=${key}`;
 }
 
 let featuredProducts = [];

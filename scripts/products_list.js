@@ -4,44 +4,162 @@ window.onload = async function () {
     init();
 };
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
 const productList = document.getElementById("product_list");
 
 let products = []
 
 function init() {
     products = designerProducts;
-    loadProducts(products);
+    if(urlParams.get('featured')) {
+        filterByFeatured();
+    }
+    else if(urlParams.get('popular')) {
+        filterByPopular();
+    }
+    else if(urlParams.get('search')) {
+        let key = urlParams.get('search');
+        productSearch(key);
+    }
+    else {
+        showAll();
+    }
 }
 
-function productSearch() {
+function filterBySearch() {
     const form = document.getElementById('searchBar');
-    const key = form.search.value;
-    key.toUpperCase()
+    let key = form.search.value;
+    productSearch(key);
+}
+
+function productSearch(key) {
+    k = key.toUpperCase()
     products = designerProducts;
     results = []
     products.map((p) => {
         const name = p.name.toUpperCase();
         const brand = p.brand.toUpperCase();
         const type = p.type.toUpperCase();
-        if (name.includes(key) || key.includes(name)) {
+        console.log(name);
+        if (name.includes(k) || k.includes(name)) {
             results.push(p);
         }
-        else if (brand.includes(key) || key.includes(brand)) {
+        else if (brand.includes(k) || k.includes(brand)) {
             results.push(p);
         }
-        else if (type.includes(key) || key.includes(type)) {
+        else if (type.includes(k) || k.includes(type)) {
             results.push(p);
         }
     });
     products = results;
-    productList.innerHTML = '';
-    loadProducts();
+    productList.innerHTML = `<h3 id="title">Search results for "${key}"</h3>`;
+    loadProducts(products);
 }
 
-function loadProducts(products) {
-    let title = "All Products";
-    document.getElementById("title").innerHTML = title;
-    products.forEach((product) => {
+function sortByPrice(desc = false) {
+    let prices = []
+    products.map((p) => {
+        if (!prices.includes(p.price)) {
+            prices.push(p.price);
+        }
+    });
+    prices.sort();
+    if (desc) {
+        prices.reverse();
+    }
+    let newProducts = [];
+    prices.map((pr) => {
+        products.map((p) => {
+            if (p.price == pr) {
+                newProducts.push(p);
+            };
+        });
+    });
+    products = newProducts;
+    let currTitle = productList.children[0].innerText;
+    productList.innerHTML = `<h3>${currTitle}</h3>`;
+    loadProducts(products);
+}
+
+function sortByName(desc = false) {
+    let names = []
+    products.map((p) => {
+        if (!names.includes(p.name)) {
+            names.push(p.name);
+        }
+    });
+    names.sort();
+    if (desc) {
+        names.reverse();
+    }
+    let newProducts = [];
+    names.map((n) => {
+        products.map((p) => {
+            if (p.name == n) {
+                newProducts.push(p);
+            };
+        });
+    });
+    products = newProducts;
+    let currTitle = productList.children[0].innerText;
+    productList.innerHTML = `<h3>${currTitle}</h3>`;
+    loadProducts(products);
+}
+
+function filterByType(type) {
+    products = designerProducts;
+    let newProducts = [];
+    products.map((p) => {
+        if (p.type == type) {
+            newProducts.push(p);
+        }
+    });
+    products = newProducts;
+    productList.innerHTML = `<h3 id="title">${type}</h3>`;
+    loadProducts(products);
+}
+
+function showAll() {
+    productList.innerHTML = `<h3 id="title">All Products</h3>`;
+    products = designerProducts;
+    loadProducts(products);
+}
+
+function filterByPopular() {
+    products = designerProducts;
+    let newProducts = [];
+    products.map((p) => {
+        if (p.popular) {
+            newProducts.push(p);
+        }
+    });
+    products = newProducts;
+    productList.innerHTML = `<h3 id="title">Popular</h3>`;
+    loadProducts(products);
+}
+
+function filterByFeatured() {
+    products = designerProducts;
+    let newProducts = [];
+    products.map((p) => {
+        if (p.featured) {
+            newProducts.push(p);
+        }
+    });
+    products = newProducts;
+    productList.innerHTML = `<h3 id="title">Featured</h3>`;
+    loadProducts(products);
+}
+
+function loadProducts(ps) {
+    if (ps.length == 0) {
+        let msg = document.createElement('div')
+        msg.innerText = 'No products found'
+        productList.appendChild(msg);
+    }
+    ps.forEach((product) => {
         const div = document.createElement("div");
         div.className = "product_entry";
         productList.appendChild(div);

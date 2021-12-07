@@ -112,7 +112,7 @@ function loadDupes() {
             .then((json) => {
                 if (json) {
                     p = json[0];
-                    dupe = new Product(p._id, p.name, p.price, p.brand, p.type, p.image);
+                    let dupe = new Product(p._id, p.name, p.price, p.brand, p.type, p.image);
                     dupes.push(dupe);
                     resolve();
                 }

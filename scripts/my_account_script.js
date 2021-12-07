@@ -30,6 +30,7 @@ function updateUser() {
 
   let data = [
     {"op":"replace", "path":"/age", "value":document.getElementById("myP2").innerText},
+    {"op":"replace", "path":"/skintype", "value":document.getElementById("myP3").innerText},
     {"op":"replace", "path":"/eyecolor", "value":document.getElementById("myP4").innerText},
     {"op":"replace", "path":"/birthday", "value":document.getElementById("myP5").innerText}
   ]
@@ -186,8 +187,6 @@ function addBirthday(){
 
 }
 
-
-
 function addAllInfo(){
   addName();
   addAge();
@@ -195,6 +194,7 @@ function addAllInfo(){
   addEyeC();
   addBirthday();
 
+  fillUserInfo();
 }
 
 
@@ -206,8 +206,39 @@ function myOnLoad(){
   document.addEventListener("DOMContentLoaded", addAllInfo());
   document.getElementById("submitSuggestion").addEventListener('click', function(){
     var suggestForm = document.getElementById('newProductForm');
-    toggleDropdown(suggestForm);
+    toggleDropdown(suggestForm);    
   });
+}
+
+function fillUserInfo() {
+  const url = '/api/users/61a7fcdf2924f422f8094475';
+
+  const request = new Request(url, {
+    method: 'get', 
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+  });
+
+  fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            // return a promise that resolves with the JSON body
+           return res.json() 
+       } else {
+            alert('Could not get user')
+       }                
+    })
+    .then((json) => {  // the resolved promise with the JSON body
+      document.getElementById("myP").innerHTML = json.username;
+      document.getElementById("myP2").innerHTML = json.age;
+      document.getElementById("myP3").innerHTML = json.skintype;
+      document.getElementById("myP4").innerHTML = json.eyecolor;
+      document.getElementById("myP5").innerHTML = json.birthday.substring(0,10);
+    }).catch((error) => {
+        console.log(error)
+    })  
 }
 
 function toggleDropdown(dropdown) {

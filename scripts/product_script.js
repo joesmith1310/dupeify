@@ -148,6 +148,9 @@ function createDupes() {
         let sc = createSmallComparison(data);
         dupesList.appendChild(sc);
     });
+    if (dupes.length == 0) {
+        dupesList.innerHTML = "<br>This product doesn't have any dupes"
+    }
 }
 
 function createSmallComparison(data) {

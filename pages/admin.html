@@ -92,7 +92,7 @@
                 </div>
                 <div class="adminOption">
                     <h4>PRODUCT TOGGLES</h4>
-                    <a class="button" href="">SEE</a>
+                    <div class="button">EDIT</div>
                 </div>
                 <div class="expandable">
                     <form onsubmit="toggleFeature(this.code.value, 'featured');return false">
@@ -104,6 +104,23 @@
                         <label>Toggle popular:</label>
                         <input type="text" name="code" placeholder="Product Code" class="formInput" required>
                         <input type="submit" value="Toggle" class="button">
+                    </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for a product code:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
+                    </form>
+                </div>
+                <div class="adminOption">
+                    <h4>DELETE PRODUCTS</h4>
+                    <div class="button">DELETE</div>
+                </div>
+                <div class="expandable">
+                    <form onsubmit="deleteProduct(this.code.value, 'featured');return false">
+                        <label>Delete:</label>
+                        <input type="text" name="code" placeholder="Product Code" class="formInput" required>
+                        <input type="submit" value="Delete" class="button">
                     </form>
                     <form onsubmit="getCodes(this.search.value, this);return false">
                         Search for a product code:

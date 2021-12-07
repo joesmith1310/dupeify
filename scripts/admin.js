@@ -186,11 +186,39 @@ async function toggleFeature(id, feature) {
     fetch(request)
     .then(function(res) {
         if (res.status === 200) {
-            createWindowMessage("Product successfully updated");
-       } else {
-            createWindowMessage("Could not update product", true);
-       }                
+           return res.json() 
+        } else {
+            createWindowMessage("Could not update product.", true);
+        }                
+    })
+    .then((json) => {  // the resolved promise with the JSON body
+        let msg = json.msg;
+        createWindowMessage(msg);
+             
     }).catch((error) => {
         console.log(error)
     })
 }
+
+async function deleteProduct(id) {
+    const request = new Request(`/api/product/${id}`, {
+        method: 'DELETE', 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            createWindowMessage("Product deleted."); 
+        } else {
+            createWindowMessage("Could not update product.", true);
+        }                
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
+

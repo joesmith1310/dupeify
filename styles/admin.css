@@ -111,6 +111,7 @@ body {
 }
 
 .resultEntry {
+    width: 98%;
     display: flex;
     align-items: center;
     height: 40px;

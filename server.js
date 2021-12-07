@@ -313,6 +313,39 @@ app.get("/api/product/:id", async (req, res) => {
 	}
 });
 
+app.delete("/api/product/:id", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    let productId = req.params.id;
+    try {
+        const del = await Product.findOneAndDelete({_id: productId})
+        if (!del) {
+			res.status(404);
+		} else { 
+            try {
+                const del2 = await Dupe.deleteMany({$or:[ {'designerProduct':productId}, {'dupeProduct':productId} ]})
+                if (!del2) {
+                    res.status(404);
+                }
+                else {
+                    res.send();
+                }
+            }
+            catch(error) {
+                console.log(error);
+                res.status(500).send('Internal Server Error');
+            }
+        }
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error');
+	}
+});
+
 app.patch('/api/users/:id', async (req, res) => {
 	const id = req.params.id
 
@@ -404,20 +437,24 @@ app.patch('/api/product/:id/:feature', async (req, res) => {
             if (feature == 'featured') {
                 if (product.featured) {
                     update = await Product.updateOne({"_id" : id},{$set: { "featured" : false}});
+                    res.send({msg : 'Product is no longer featured.'});
                 }
                 else {
                     update = await Product.updateOne({"_id" : id},{$set: { "featured" : true}});
+                    res.send({msg : 'Product is now featured!'});
                 }
             }
             else if (feature == 'popular') {
                 if (product.popular) {
                     update = await Product.updateOne({"_id" : id},{$set: { "popular" : false}});
+                    res.send({msg : 'Product is no longer popular.'});
                 }
                 else {
                     update = await Product.updateOne({"_id" : id},{$set: { "popular" : true}});
+                    res.send({msg : 'Product is now popular!'});
                 }
+                res.send();
             }
-			res.send();
 		}
 	} catch(error) {
 		log(error)

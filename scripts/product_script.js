@@ -1,126 +1,159 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const productId = urlParams.get('productid')
+const productId = urlParams.get("productid");
 console.log(productId);
 
 let product = null;
 let matches = [];
 let dupes = [];
 
-const productPage = document.querySelector('.product_page');
-const dupesList = document.getElementById('dupes_list');
-productPage.style.display = 'none';
+const productPage = document.querySelector(".product_page");
+const dupesList = document.getElementById("dupes_list");
+productPage.style.display = "none";
 let loader = createLoader(document.body);
 
 loadProduct()
-.then(() => {
-    return loadMatches();
-})
-.then(() => {
-    return loadDupes();
-})
-.catch(() => {
-    console.log("ERROR");
-})
-.then(() => {
-    document.body.removeChild(loader);
-    productPage.style.display = 'block';
-    loadPage();
-});
+    .then(() => {
+        return loadMatches();
+    })
+    .then(() => {
+        return loadDupes();
+    })
+    .catch(() => {
+        console.log("ERROR");
+    })
+    .then(() => {
+        document.body.removeChild(loader);
+        productPage.style.display = "block";
+        loadPage();
+    });
 
 function loadProduct() {
     return new Promise((resolve, reject) => {
         const request = new Request(`/api/product/${productId}`, {
-            method: 'get', 
+            method: "get",
             headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
             },
         });
         fetch(request)
-        .then(function(res) {
-            if (res.status === 200) {
-                return res.json() 
-           } else {
-                createWindowMessage("Error: could not find product", true);
+            .then(function (res) {
+                if (res.status === 200) {
+                    return res.json();
+                } else {
+                    createWindowMessage("Error: could not find product", true);
+                    reject();
+                }
+            })
+            .then((json) => {
+                if (json) {
+                    p = json[0];
+                    product = new DesignerProduct(
+                        p._id,
+                        p.name,
+                        p.price,
+                        p.brand,
+                        p.type,
+                        p.image,
+                        [],
+                        p.description,
+                        p.featured,
+                        p.popular
+                    );
+                    resolve();
+                }
+            })
+            .catch(() => {
                 reject();
-           }                
-        })
-        .then((json) => {
-            if (json) {
-                p = json[0];
-                product = new DesignerProduct(p._id, p.name, p.price, p.brand, p.type, p.image, [], p.description, p.featured, p.popular);
-                resolve();
-            }
-        }).catch(() => {
-            reject();
-        });
+            });
     });
 }
 
 function loadMatches() {
     return new Promise((resolve, reject) => {
         const request = new Request(`/api/dupes/${productId}`, {
-            method: 'get', 
+            method: "get",
             headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
             },
         });
         fetch(request)
-        .then(function(res) {
-            if (res.status === 200) {
-                return res.json() 
-           } else {
-                createWindowMessage("Error: could not find dupes", true);
+            .then(function (res) {
+                if (res.status === 200) {
+                    return res.json();
+                } else {
+                    createWindowMessage("Error: could not find dupes", true);
+                    reject();
+                }
+            })
+            .then((json) => {
+                if (json) {
+                    ms = json;
+                    ms.map((m) => {
+                        let match = [
+                            m.dupeProduct,
+                            m.cat1,
+                            m.cat2,
+                            m.cat3,
+                            m.cat4,
+                            m.overall,
+                        ];
+                        matches.push(match);
+                    });
+                    resolve();
+                }
+            })
+            .catch(() => {
                 reject();
-           }                
-        })
-        .then((json) => {
-            if (json) {
-                ms = json;
-                ms.map((m) => {
-                    let match = [m.dupeProduct, m.cat1, m.cat2, m.cat3, m.cat4, m.overall]
-                    matches.push(match);
-                });
-                resolve();
-            }
-        }).catch(() => {
-            reject();
-        });
+            });
     });
 }
 
 function loadDupes() {
-    return Promise.all(matches.map((m) => {
-        return new Promise((resolve) => {
-            const request = new Request(`/api/product/${m[0]}`, {
-                method: 'get', 
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
+    return Promise.all(
+        matches.map((m) => {
+            return new Promise((resolve) => {
+                const request = new Request(`/api/product/${m[0]}`, {
+                    method: "get",
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json",
+                    },
+                });
+                fetch(request)
+                    .then(function (res) {
+                        if (res.status === 200) {
+                            return res.json();
+                        } else {
+                            createWindowMessage(
+                                "Error: could not find dupe",
+                                true
+                            );
+                        }
+                    })
+                    .then((json) => {
+                        if (json) {
+                            p = json[0];
+                            let dupe = new Product(
+                                p._id,
+                                p.name,
+                                p.price,
+                                p.brand,
+                                p.type,
+                                p.image
+                            );
+                            dupes.push(dupe);
+                            resolve();
+                        }
+                    })
+                    .catch(() => {
+                        resolve();
+                    });
             });
-            fetch(request)
-            .then(function(res) {
-                if (res.status === 200) {
-                    return res.json() 
-               } else {
-                    createWindowMessage("Error: could not find dupe", true);
-               }                
-            })
-            .then((json) => {
-                if (json) {
-                    p = json[0];
-                    let dupe = new Product(p._id, p.name, p.price, p.brand, p.type, p.image);
-                    dupes.push(dupe);
-                    resolve();
-                }
-            }).catch(() => {
-                resolve();
-            });
-        });
-    }));
+        })
+    );
 }
 
 function loadPage() {
@@ -129,7 +162,7 @@ function loadPage() {
 }
 
 function createProduct() {
-    const productDiv  = document.getElementById('product');
+    const productDiv = document.getElementById("product");
     productDiv.innerHTML = `
     <div class="product_image">
         <img src="/resources/${product.image}" alt="Product Image">
@@ -139,25 +172,26 @@ function createProduct() {
         <h2 id="product_price">$${product.price}</h2>
         <p id="product_description">${product.description}</p>
     </div>
-    `
+    `;
+    $("#thumbs").detach().appendTo(".product_info");
 }
 
 function createDupes() {
     dupes.map((d) => {
-        data = [d, getMatchStats(d)]
+        data = [d, getMatchStats(d)];
         let sc = createSmallComparison(data);
         dupesList.appendChild(sc);
     });
     if (dupes.length == 0) {
-        dupesList.innerHTML = "<br>This product doesn't have any dupes"
+        dupesList.innerHTML = "<br>This product doesn't have any dupes";
     }
 }
 
 function createSmallComparison(data) {
-    let dupe = data[0]
-    let stats = data[1]
-    const smallComparison = document.createElement('div');
-    smallComparison.classList.add('comparisonSmall');
+    let dupe = data[0];
+    let stats = data[1];
+    const smallComparison = document.createElement("div");
+    smallComparison.classList.add("comparisonSmall");
     smallComparison.innerHTML = `
     <div class = "cSImgBox">
         <img src="/resources/${dupe.image}">
@@ -195,9 +229,8 @@ function createSmallComparison(data) {
     </ul>
     <p class="cSOverall">${stats[5]}%</p>
     <p class="cSPrice">$${dupe.price}</p>
-    `
+    `;
     return smallComparison;
-
 }
 
 function getMatchStats(dupe) {
@@ -210,7 +243,7 @@ function getMatchStats(dupe) {
 }
 
 function sortByPrice(desc = false) {
-    let prices = []
+    let prices = [];
     dupes.map((d) => {
         if (!prices.includes(d.price)) {
             prices.push(d.price);
@@ -225,7 +258,7 @@ function sortByPrice(desc = false) {
         dupes.map((d) => {
             if (d.price == p) {
                 newDupes.push(d);
-            };
+            }
         });
     });
     dupes = newDupes;
@@ -233,7 +266,7 @@ function sortByPrice(desc = false) {
 }
 
 function sortByMatch() {
-    let matchPercentages = []
+    let matchPercentages = [];
     matches.map((m) => {
         if (!matchPercentages.includes(m[5])) {
             matchPercentages.push(m[5]);
@@ -247,7 +280,7 @@ function sortByMatch() {
             let stats = getMatchStats(d);
             if (stats[5] == m) {
                 newDupes.push(d);
-            };
+            }
         });
     });
     dupes = newDupes;
@@ -255,12 +288,12 @@ function sortByMatch() {
 }
 
 function reloadDupes() {
-    dupesList.innerHTML = ''
+    dupesList.innerHTML = "";
     createDupes();
 }
 
 function suggest() {
-    const form = document.getElementById('suggestDupeForm');
+    const form = document.getElementById("suggestDupeForm");
     const type = form.productType.value;
     const brand = form.productBrand.value;
     const name = form.productName.value;
@@ -306,3 +339,58 @@ function createDupes() {
         }
     }
 }*/
+
+$.ajax({
+    url: "/api/get-like",
+    data: JSON.stringify({
+        user: localStorage.getItem("objid"),
+        product: productId,
+    }),
+    dataType: "json",
+    type: "POST",
+    contentType: "application/json",
+    success: (response) => {
+        if (response.like) {
+            $("#like-button").addClass("selected");
+        } else {
+            $("#dislike-button").addClass("selected");
+        }
+    },
+    error: (e) => console.log(e),
+});
+
+$("#like-button").click(function () {
+    $("#like-button").addClass("selected");
+    $("#dislike-button").removeClass("selected");
+    $.ajax({
+        url: "/api/like",
+        data: JSON.stringify({
+            user: localStorage.getItem("objid"),
+            product: productId,
+            like: true,
+        }),
+        dataType: "json",
+        type: "POST",
+        contentType: "application/json",
+        success: (response) => console.log(response),
+        error: (e) => console.log(e),
+    });
+});
+
+$("#dislike-button").click(function () {
+    $("#dislike-button").addClass("selected");
+    $("#like-button").removeClass("selected");
+    $.ajax({
+        url: "/api/like",
+        data: JSON.stringify({
+            user: localStorage.getItem("objid"),
+            product: productId,
+            like: false,
+        }),
+        dataType: "json",
+        type: "POST",
+        contentType: "application/json",
+        success: (response) => console.log(response),
+        error: (e) => console.log(e),
+    });
+});

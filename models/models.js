@@ -39,6 +39,12 @@ const User = mongoose.model("User", {
     admin: Boolean,
 });
 
+const Like = mongoose.model("Like", {
+    user: { type: mongoose.ObjectId, required: true },
+    product: { type: mongoose.ObjectId, required: true },
+    like: { type: Boolean, required: true },
+});
+
 const Product = mongoose.model("Product", {
     name: {
         type: String,
@@ -122,7 +128,7 @@ const Suggestion = mongoose.model("Suggestion", {
     approved: {
         type: Number,
         required: true,
-    }
+    },
 });
 
 const Dupe = mongoose.model("Dupe", {
@@ -160,5 +166,4 @@ const Dupe = mongoose.model("Dupe", {
     },
 });
 
-
-module.exports = { User, Product, Suggestion, Dupe };
+module.exports = { User, Product, Suggestion, Dupe, Like };

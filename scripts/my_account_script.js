@@ -211,7 +211,8 @@ function myOnLoad(){
 }
 
 function fillUserInfo() {
-  const url = '/api/users/61a7fcdf2924f422f8094475';
+  const objid = localStorage.getItem("objid");
+  const url = '/api/users/' + objid;
 
   const request = new Request(url, {
     method: 'get', 

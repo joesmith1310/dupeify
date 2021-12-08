@@ -188,11 +188,11 @@ function addBirthday(){
 }
 
 function addAllInfo(){
-  addName();
-  addAge();
-  AddSkinType();
-  addEyeC();
-  addBirthday();
+  // addName();
+  // addAge();
+  // AddSkinType();
+  // addEyeC();
+  // addBirthday();
 
   fillUserInfo();
 }

@@ -375,9 +375,30 @@ app.get('/api/users/:id', async (req, res) => {
 		log(error)
 		res.status(500).send('Internal Server Error')  // server error
 	}
-
-
 })
+
+app.post('/api/login', async (req, res) => {
+	uname = req.body.username
+    pword = req.body.password   
+
+    try {
+        
+        log(uname)
+        log(pword)
+		const user = await User.findOne({username: uname, password: pword}).lean()	
+		if (!user) {
+            return res.json({ status: 'error', error: 'Not found!' })
+        }	
+        return res.json({ status: 'ok', uid: user._id, admin: user.admin })
+	} catch(error) {
+		log(error)
+		res.status(500).send("Internal Server Error")
+	}
+	
+})
+
+
+
 
 
 

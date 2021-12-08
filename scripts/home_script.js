@@ -173,7 +173,18 @@ function createSmallComparison(product) {
     for (let i = 1; i < product.matchingProducts[0].length - 1; i++) {
         const li1 = document.createElement("li");
         const cat1 = document.createElement("p");
-        cat1.innerText = "Attribute 1";
+        if (i == 1) {
+            cat1.innerText = "Color";
+        }
+        if (i == 2) {
+            cat1.innerText = "Texture";
+        }
+        if (i == 3) {
+            cat1.innerText = "Ingredients";
+        }
+        if (i == 4) {
+            cat1.innerText = "Longevity";
+        }
         const percentageBar = document.createElement("div");
         percentageBar.classList.add("cSPercentageBar");
         const percentageFill = document.createElement("div");

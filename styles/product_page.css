@@ -43,7 +43,7 @@ rgb(51, 51, 51) - text
 
 #dupes_list {
     width: 68%;
-    max-height: 600px;
+    height: 600px;
     overflow-x: hidden;
     overflow-y: scroll;
     padding-bottom: 50px;
@@ -83,7 +83,7 @@ rgb(51, 51, 51) - text
 }
 
 .comparisonSmall {
-    width: 100%;
+    width: 98%;
     height: 200px;
     position: relative;
     float: left;

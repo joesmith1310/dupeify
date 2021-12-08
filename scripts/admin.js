@@ -30,6 +30,8 @@ function addProduct() {
         description: description.value,
         image: image.value,
         designer: true,
+        featured: true,
+        popular: false,
     }
 
     const request = new Request(url, {
@@ -46,11 +48,11 @@ function addProduct() {
 
         if (res.status === 200) {
             console.log('Added product')
-            alert('Successfully added product');
+            createWindowMessage('Successfully added product');
            
         } else {
             console.log('ERROR')
-            alert('ERROR');
+            createWindowMessage('Could not add product');
      
         }
         console.log(res)  // log the result in the console for development purposes,
@@ -61,6 +63,56 @@ function addProduct() {
 }
 
 function addDupe() {
+    const url = '/api/product';
+
+    const form = document.getElementById('addDupeForm');
+    const name = form.productName;
+    const price = form.productPrice;
+    const brand = form.productBrand;
+    const type = form.productType;
+    const image = form.productImage;
+
+    let data = {
+        name: name.value,
+        price: price.value,
+        brand: brand.value,
+        type: type.value,
+        description: "",
+        image: image.value,
+        designer: false,
+        featured: false,
+        popular: false,
+    }
+
+    const request = new Request(url, {
+        method: 'post', 
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    fetch(request)
+    .then(function(res) {
+
+        if (res.status === 200) {
+            console.log('Added product')
+            createWindowMessage('Successfully added product');
+           
+        } else {
+            console.log('ERROR')
+            createWindowMessage('Could not add product');
+     
+        }
+        console.log(res)  // log the result in the console for development purposes,
+                          //  users are not expected to see this.
+    }).catch((error) => {
+        console.log(error)
+    })
+}
+
+function link() {
 
     const form = document.getElementById('linkDupeForm');
     const cat1 = parseInt(form.colorMatch.value);
@@ -97,11 +149,11 @@ function addDupe() {
 
         if (res.status === 200) {
             console.log('Linked products')
-            alert('Successfully linked products');
+            createWindowMessage('Successfully linked products');
            
         } else {
             console.log('ERROR')
-            alert('ERROR');
+            createWindowMessage('Could not link products');
      
         }
         console.log(res)  // log the result in the console for development purposes,

@@ -115,8 +115,8 @@ app.post("/api/product", async (req, res) => {
         image: req.body.image,
         matches: [],
         designer: req.body.designer,
-        featured: true,
-        popular: true,
+        featured: req.body.featured,
+        popular: req.body.popular,
     });
 
     log(product);
@@ -247,7 +247,7 @@ app.get("/api/dupes/:id", async (req, res) => {
     try {
         const matches = await Dupe.find({designerProduct: designerId})
         if (!matches) {
-			res.status({})  // could not find this restaurant
+			res.send([])
 		} else { 
 			res.send(matches)
 		}
@@ -270,7 +270,7 @@ app.get("/api/dupeList/:id", async (req, res) => {
         if (!matches) {
 			res.status(404)  // could not find dupes
 		} else { 
-            dupes = [];
+            let dupes = [];
             await Promise.all(matches.map((m) => {
                 return new Promise(async (resolve) => {
                     try {
@@ -529,7 +529,108 @@ app.post('/api/register', async (req, res) => {
 	//res.json({ status: 'ok' })
 })
 
+app.post("/api/suggestion", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
 
+    let suggestion = null;
+
+    if (req.body.isDesigner) {
+        suggestion = new Suggestion({
+            userid: req.body.userid,
+            type: req.body.type,
+            brand: req.body.brand,
+            name: req.body.name,
+            comment: req.body.comment,
+            isDesigner: true,
+            approved: 0,
+        });
+    }
+    else {
+        suggestion = new Suggestion({
+            userid: req.body.userid,
+            type: req.body.type,
+            brand: req.body.brand,
+            name: req.body.name,
+            comment: req.body.comment,
+            isDesigner: false,
+            dupeof: req.body.dupeof,
+            approved: 0,
+        });
+    }
+
+    try {
+        const result = await suggestion.save();
+        res.status(200).send(result);
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+        }
+    }
+});
+
+app.get("/api/sugestion/:uid", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    let uid = req.params.uid;
+    try {
+        const matches = await Suggestion.find({userid: uid})
+        if (!matches) {
+			res.send([]) 
+		} else { 
+			res.send(matches)
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error')  // server error
+	}
+});
+
+app.get('/api/suggestion', async (req, res) => {
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+	try {
+		const suggestions = await Suggestion.find({approved: 0})
+		res.send(suggestions)
+	} catch(error) {
+		log(error)
+		res.status(500).send("Internal Server Error")
+	}
+
+})
+
+app.patch('/api/suggestion', async (req, res) => {
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+    let sid = req.body.sid;
+    let decision = req.body.decision;
+	try {
+		const update = await Suggestion.updateOne({"_id" : sid},{$set: { "approved" : decision}});
+        res.send();
+	} catch(error) {
+		log(error)
+		res.status(500).send("Internal Server Error")
+	}
+
+})
 
 
 app.listen(app.get("port"));

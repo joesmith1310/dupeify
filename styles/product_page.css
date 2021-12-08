@@ -78,6 +78,11 @@ rgb(51, 51, 51) - text
     width: 100%;
 }
 
+.dupes_form select {
+    margin-bottom: 50px;
+    width: 100%;
+}
+
 .dupes_form .button {
     width: 150px;
 }

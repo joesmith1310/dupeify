@@ -84,9 +84,17 @@ const Product = mongoose.model("Product", {
 //TODO product images?
 
 const Suggestion = mongoose.model("Suggestion", {
-    product_type: {
-        //TODO what data type?
-        // required: true,
+    userid: {
+        type: String,
+        required: true,
+        minLength: 1,
+        trim: true,
+    },
+    type: {
+        type: String,
+        required: true,
+        minLength: 1,
+        trim: true,
     },
     brand: {
         type: String,
@@ -101,6 +109,20 @@ const Suggestion = mongoose.model("Suggestion", {
         trim: true,
     },
     comment: String,
+    isDesigner: {
+        type: Boolean,
+        required: true,
+    },
+    dupeof: {
+        type: String,
+        required: false,
+        minLength: 1,
+        trim: true,
+    },
+    approved: {
+        type: Number,
+        required: true,
+    }
 });
 
 const Dupe = mongoose.model("Dupe", {

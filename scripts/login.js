@@ -20,19 +20,17 @@ async function validatelogin(event) {
       console.log('admin: ', result.admin)
       localStorage.setItem('objid', result.uid)
       if (result.admin){
-        alert("Logged in as admin!");
         window.localStorage.setItem('role', 'admin');
         window.location.href = "/index.html";
         return true;
       }
       else{
-        alert("Logged in as user!");
         window.localStorage.setItem('role', 'user');
         window.location.href = "/index.html";
         return true;
       }
     } else {
-      alert(result.error)
+      createWindowMessage("Username or password not recognised.", true);
     }
   }
 

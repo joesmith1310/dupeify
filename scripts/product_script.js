@@ -259,6 +259,15 @@ function reloadDupes() {
     createDupes();
 }
 
+function suggest() {
+    const form = document.getElementById('suggestDupeForm');
+    const type = form.productType.value;
+    const brand = form.productBrand.value;
+    const name = form.productName.value;
+    const comment = form.productComment.value;
+    makeSuggestion(type, brand, name, comment, productId);
+}
+
 /*product = designerProducts[0];
 
 let dupes = dupeProducts;

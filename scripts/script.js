@@ -158,3 +158,55 @@ function createLoader(parent) {
     return loaderBox;
 }
 
+function makeSuggestion(productType, productBrand, productName, productComment, dupeof=-1) {
+    const url = '/api/suggestion';
+
+    const uid = localStorage.getItem('objid');
+
+    const type = productType;
+    const brand = productBrand;
+    const name = productName;
+    const comment = productComment;
+
+    console.log(dupeof);
+
+    let isDes = false;
+    if (dupeof == -1) {
+        isDes = true;
+    }
+
+    let data = {
+        userid: uid,
+        type: type,
+        brand: brand,
+        name: name,
+        comment: comment,
+        isDesigner: isDes,
+        dupeof: dupeof,
+    }
+
+    const request = new Request(url, {
+        method: 'post', 
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    fetch(request)
+    .then(function(res) {
+
+        if (res.status === 200) {
+            createWindowMessage('Suggestion made. View admin respons in your account page.');
+           
+        } else {
+            createWindowMessage('Error making suggestion');
+        }  
+        // log the result in the console for development purposes,
+        //  users are not expected to see this.
+    }).catch((error) => {
+        createWindowMessage('Error making suggestion');
+    })
+}
+

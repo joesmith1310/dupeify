@@ -37,10 +37,15 @@
         </div>
         <div class="dupes_form">
           <h3>Suggest a dupe product</h3>
-          <form onsubmit="addProduct()">
-            <input type="text" name="productType" placeholder="Product Type" class="formInput">
-            <input type="text" name="productBrand" placeholder="Product Brand" class="formInput">
-            <input type="text" name="productName" placeholder="Product Name" class="formInput">
+          <form onsubmit="suggest();return false" id="suggestDupeForm">
+            <select name="productType" class=formInput>
+              <option value="Foundation">Foundation</option>
+              <option value="Mascara">Mascara</option>
+              <option value="Eyeliner">Eyeliner</option>
+              <option value="Lipstick">Lipstick</option>
+            </select>
+            <input type="text" name="productBrand" placeholder="Product Brand" class="formInput" required>
+            <input type="text" name="productName" placeholder="Product Name" class="formInput" required>
             <input type="text" name="productComment" placeholder="Comment" class="formInput">
             <input type="submit" value="Suggest" class="button">
         </form>

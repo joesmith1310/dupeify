@@ -477,12 +477,57 @@ app.patch('/api/product/:id/:feature', async (req, res) => {
 	} catch(error) {
 		log(error)
 		res.status(500).send('Internal Server Error')  // server error
-	}
-
-
+	}    
 })
 
+app.post('/api/register', async (req, res) => {
+    if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}  
 
+    const r_username = req.body.username
+    const r_password = req.body.password
+    const r_age = req.body.age
+    const r_skintype = req.body.skintype
+    const r_eyecolor = req.body.eyecolor
+    const r_birthday = req.body.birthday
+    const r_admin = false
+
+    if (!r_username || typeof r_username !== 'string') {
+		return res.json({ status: 'error', error: 'Invalid username' })
+	}
+
+	if (!r_password || typeof r_password !== 'string') {
+		return res.json({ status: 'error', error: 'Invalid password' })
+	}
+
+    const user = new User({
+		username: r_username,
+        password: r_password,
+        age: r_age,
+        skintype: r_skintype,
+        eyecolor: r_eyecolor,
+        birthday: r_birthday,
+        admin: r_admin
+	})
+	try {
+        const existing_user = await User.findOne({username: r_username, password: r_password}).lean()	
+		if (existing_user) {
+            return res.json({ status: 'error', error: 'username already exists!' })
+        }	
+		
+        const result = await user.save()	
+        return res.json({ status: 'ok' })
+		//res.send(result)
+		console.log('User registered successfully!')
+	} catch (error) {
+		throw error
+	}
+
+	//res.json({ status: 'ok' })
+})
 
 
 

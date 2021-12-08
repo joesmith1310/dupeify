@@ -17,14 +17,14 @@
 
         <!--Put your links and scripts here e.g. login.js, login.css-->
         <link rel="stylesheet" type="text/css" href="/styles/login.css">
-        <script defer type="text/javascript" src="/scripts/login.js"></script>
+        <script defer type="text/javascript" src="/scripts/register.js"></script>
 
    </head>
    <body>
       <div id="navbar"></div> 
       <!--This ^^^ is where JS loads navigation into page. Code below this-->
 
-      <form name="loginForm" id="loginForm">
+      <form name="registerForm" id="registerForm">
          <div class="imgContainer">
            <img src="/resources/sample-img-7.jpg" alt="Avatar" class="avatar">
          </div>
@@ -35,12 +35,23 @@
        
            <label for="psw"class="label">Password</label>
            <input type="password" placeholder="Enter Password" id="psw">
+           
+           <label for="age" class="label">Age</label>
+           <input type= "number" min="14" placeholder="Enter Age" id="age">
+           <br>
+           <br>
+           <label for="skintype" class="label">Skin Type</label>
+           <input type="text" placeholder="Enter Skin Type" id="skintype">
+           
+           <label for="eyecolor" class="label">Eye Color</label>
+           <input type="text" placeholder="Enter Eye Color" id="eyecolor">
+           
+           <label for="birthday" class="label">Birthday</label>
+           <input type="date" placeholder="Enter Birthday" id="birthday">
        
-           <button type="submit">login</button>
+           <button type="submit">register</button>
          </div>
-       
          <div class="container" style="background-color:#f1f1f1">
-            <span class="psw">Not a user? <a href="register_user.html">Register now!</a></span>
          </div>
         </form>
       

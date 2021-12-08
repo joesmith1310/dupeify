@@ -1,5 +1,7 @@
 const expandables = document.getElementsByClassName('expandable');
 
+createSuggestions();
+
 for (let i = 0; i < expandables.length; i++) {
     expandables[i].previousElementSibling.addEventListener('click', function(){
         toggleDropdown(expandables[i]);
@@ -52,7 +54,7 @@ function addProduct() {
            
         } else {
             console.log('ERROR')
-            createWindowMessage('Could not add product');
+            createWindowMessage('Could not add product', true);
      
         }
         console.log(res)  // log the result in the console for development purposes,
@@ -102,7 +104,7 @@ function addDupe() {
            
         } else {
             console.log('ERROR')
-            createWindowMessage('Could not add product');
+            createWindowMessage('Could not add product', true);
      
         }
         console.log(res)  // log the result in the console for development purposes,
@@ -181,7 +183,7 @@ async function getCodes(search, callingForm) {
             // return a promise that resolves with the JSON body
            return res.json() 
        } else {
-            alert('Could not get students')
+            createWindowMessage('Could not get search results', true);
        }                
     })
     .then((json) => {  // the resolved promise with the JSON body
@@ -272,5 +274,41 @@ async function deleteProduct(id) {
         console.log(error)
     })
 }
+
+function createSuggestions() {
+    const suggestionsBox = document.getElementById("suggestionsBox");
+    suggestionsBox.innerHTML = "";
+    const request = new Request(`/api/suggestion`, {
+        method: 'GET', 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            // return a promise that resolves with the JSON body
+           return res.json() 
+       } else {
+            createWindowMessage("Could not get suggestions", true);
+       }                
+    })
+    .then((json) => {  // the resolved promise with the JSON body
+        if (json.length == 0) {
+            suggestionsBox.innerText = "No suggestions right now."
+        }
+        else{ 
+            json.map((s) => {
+                const suggestion = buildSuggestion(s, true);
+                suggestionsBox.appendChild(suggestion);
+            });
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
 
 

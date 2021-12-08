@@ -88,7 +88,7 @@
                 </div>
                 <div class="adminOption">
                     <h4>LINK PRODUCT TO DUPE</h4>
-                    <div class="button">EDIT</div>
+                    <div class="button">LINK</div>
                 </div>
                 <div class="expandable">
                     <form onsubmit="link();return false" id="linkDupeForm">
@@ -102,7 +102,7 @@
                         <input type="number" name="longevityMatch" min="1" max="100" required>
                         <input type="text" name="designerProduct" placeholder="Designer product" class="formInput" required>
                         <input type="text" name="dupeProduct" placeholder="Dupe product" class="formInput" required>
-                        <input type="submit" value="Add" class="button">
+                        <input type="submit" value="Link" class="button">
                     </form>
                     <form onsubmit="getCodes(this.search.value, this);return false">
                         Search for a product code:
@@ -152,12 +152,20 @@
                 </div>
             </div>
         </div>
-  
         <div class="adminSection">
             <h3>USERS</h3>
-            <div class="adminOption">
-                <h4>EDIT USERS</h4>
-                <a class="button" href="/pages/users.html">EDIT</a>
+            <div class="adminOptions">
+                <div class="adminOption">
+                    <h4>EDIT USERS</h4>
+                    <a class="button" href="/pages/users.html">EDIT</a>
+                </div>
+                <div class="adminOption">
+                    <h4>USER SUGGESTIONS</h4>
+                    <div class="button">SEE</div>
+                </div>
+                <div class="expandable">
+                    <div id="suggestionsBox"></div>
+                </div>
             </div>
         </div>
     </body>

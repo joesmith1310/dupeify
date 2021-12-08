@@ -1,6 +1,6 @@
 
 console.log("Script1 loaded");
-
+const uid = localStorage.getItem('objid');
 
 //JQUERY
 $(document).ready(function(){    
@@ -63,11 +63,11 @@ const users = [user1, user2, user3];
 /* ---------------------------------------------------------------- */
 
 const loadProductsPromise = new Promise (async (resolve, reject) => {
-    await loadProducts();
+    await getProducts();
     resolve();
 });
 
-async function loadProducts() {
+async function getProducts() {
     return new Promise ((resolve, reject) => {
         const request = new Request('/api/product', {
             method: 'get', 
@@ -99,7 +99,9 @@ async function loadProducts() {
 function pushToList(product) {
     return new Promise ((resolve, reject) => {
         if (!product.designer) {
-            dupeProducts.push(new Product(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`));
+            const dupe = new Product(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`);
+            dupeProducts.push(dupe);
+            console.log(`DUPE LOADED: ${dupe}`);
             resolve();
         }
         else {
@@ -125,7 +127,9 @@ function pushToList(product) {
                     let dupe = dupes[i];
                     dupeList.push([dupe.dupeProduct, dupe.cat1, dupe.cat2, dupe.cat3, dupe.cat4, dupe.overall]);
                 }
-                designerProducts.push(new DesignerProduct(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`, dupeList, product.description, product.featured, product.popular));
+                const prod = new DesignerProduct(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`, dupeList, product.description, product.featured, product.popular);
+                designerProducts.push(prod);
+                console.log(`PRODUCT LOADED: ${prod}`);
                 resolve();
             })
         }
@@ -160,9 +164,6 @@ function createLoader(parent) {
 
 function makeSuggestion(productType, productBrand, productName, productComment, dupeof=-1) {
     const url = '/api/suggestion';
-
-    const uid = localStorage.getItem('objid');
-
     const type = productType;
     const brand = productBrand;
     const name = productName;
@@ -198,7 +199,7 @@ function makeSuggestion(productType, productBrand, productName, productComment, 
     .then(function(res) {
 
         if (res.status === 200) {
-            createWindowMessage('Suggestion made. View admin respons in your account page.');
+            createWindowMessage('Suggestion made. View admin response in your account page.');
            
         } else {
             createWindowMessage('Error making suggestion');
@@ -209,4 +210,171 @@ function makeSuggestion(productType, productBrand, productName, productComment, 
         createWindowMessage('Error making suggestion');
     })
 }
+
+function buildSuggestion(s, admin) {
+    const suggestion = document.createElement('div');
+    suggestion.classList.add('suggestion');
+    if (s.isDesigner) {
+        suggestion.innerHTML = `
+        <div class='sTypeCol'>New Product:</div>
+        <div class='psInfoColumn'>
+            <label>${s.name}</label>
+            <label>${s.brand}</label>
+            <label>${s.type}</label>
+        </div>
+        <div class='psUserColumn'>
+            <label>${s.comment}</label>
+        </div>
+        `
+        if (admin) {
+            suggestion.appendChild(createDecisionColumn(s._id));
+        }
+    }
+    else {
+        const request = new Request(`/api/product/${s.dupeof}`, {
+            method: 'get', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+        fetch(request)
+        .then(function(res) {
+            if (res.status === 200) {
+                return res.json() 
+            } else {
+                console.log("One or more suggestions could not be loaded.")
+            }                
+        })
+        .then((json) => {
+            if (json) {
+                p = json[0];
+
+                const suggestionType = document.createElement('div');
+                suggestionType.classList.add('sTypeCol');
+                suggestionType.innerText = 'New dupe for:'
+                suggestion.appendChild(suggestionType);
+
+                const image = document.createElement('img');
+                try {
+                    image.setAttribute('src', `/resources/${p.image}`);
+                } catch(e) {
+                    console.log(e);
+                    image.setAttribute('src', `/resources/error.jpg`);
+                }
+
+                const designerCol = document.createElement('div');
+                designerCol.classList.add('dsDesignerCol');
+                const designerInfo = document.createElement('div');
+                const nameLabel = document.createElement('label');
+                const idLabel = document.createElement('label');
+                nameLabel.innerText = p.name;
+                idLabel.innerText = p._id;
+                
+                designerCol.appendChild(image);
+                designerInfo.appendChild(nameLabel);
+                designerInfo.appendChild(idLabel);
+                designerCol.appendChild(designerInfo);
+                suggestion.appendChild(designerCol);
+
+                const dupeCol = document.createElement('div');
+                dupeCol.classList.add('dsDupeCol');
+                dupeCol.innerHTML = `
+                <label><b>A user suggested:</b></label>
+                <label>Name: ${s.name}</label>
+                <label>Brand: ${s.brand}</label>
+                <label>Type: ${s.type}</label>
+                <label>User comment: ${s.comment}</label>`
+                suggestion.appendChild(dupeCol);
+
+                const statusCol = document.createElement('div');
+                statusCol.classList.add('dsStatusCol');
+                if (s.approved == 0) {
+                    statusCol.innerText = 'Pending Review'
+                }
+                if (s.approved == 1) {
+                    statusCol.innerText = 'Approved'
+                }
+                if (s.approved == -1) {
+                    statusCol.innerText = 'Rejected'
+                }
+                suggestion.appendChild(statusCol);
+                if (admin) {
+                    suggestion.appendChild(createDecisionColumn(s._id));
+                }
+            }
+            else {
+                console.log("One or more suggestions could not be loaded.")
+            }
+        }).catch((e) => {
+            console.log(e);
+            console.log("One or more suggestions could not be loaded.")
+        });
+    }
+    return suggestion;
+
+}
+
+function createDecisionColumn(sid) {
+    const decisionColumn = document.createElement('div');
+    decisionColumn.classList.add('sDecisionCol');
+    const approveButton = document.createElement('div');
+    const rejectButton = document.createElement('div');
+
+    approveButton.innerHTML = '&#x2611;'
+    approveButton.style.cssText = `
+    background-color: #BCED91;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;`
+    rejectButton.innerHTML = '&#x2612;'
+    rejectButton.style.cssText = `
+    background-color: #FFCCCC;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;`
+
+    approveButton.addEventListener('click', () => {
+        resolveSuggestion(sid, 1);
+        createSuggestions();
+    });
+    rejectButton.addEventListener('click', () => {
+        resolveSuggestion(sid, -1)
+        createSuggestions();
+    });
+    decisionColumn.appendChild(approveButton);
+    decisionColumn.appendChild(rejectButton);
+    return(decisionColumn)
+}
+
+function resolveSuggestion(sid, dec) {
+    const url = '/api/suggestion';
+
+    let data = {
+        sid: sid,
+        decision: dec,
+    }
+
+    const request = new Request(url, {
+        method: 'PATCH', 
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            createWindowMessage('Resolved product suggestion');
+           
+        } else {
+            console.log('ERROR')
+            createWindowMessage('Could not resolve suggestion.', true);
+     
+        }
+    }).catch((error) => {
+        console.log(error);
+        createWindowMessage('Could not resolve suggestion.', true);
+    })
+}
+
 

@@ -131,3 +131,8 @@ body {
     overflow-x: hidden;
 }
 
+#suggestionsBox {
+    width: 90%;
+    margin: 0 5% 20px 5%;
+}
+

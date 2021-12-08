@@ -1,9 +1,10 @@
 const content = document.getElementById('homeContent');
-//content.style.display="none";
+content.style.display="none";
 const loader = createLoader(document.body);
 
 window.onload = async function () {
     await loadProductsPromise;
+    console.log('productsFetched');
     loadProducts();
     document.body.removeChild(loader);
     content.style.display = 'initial';
@@ -56,7 +57,13 @@ function createLargeComparison(product) {
     }
     const dupeID = product.matchingProducts[0][0];
 
-    let dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];    
+    console.log(dupeProducts);
+    console.log(product.productID);
+    console.log(dupeID);
+
+    let dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];
+    console.log(dupe);
+    console.log(dupe.price);    
 
     const comparisonLarge = document.querySelector("#mainFeature");
 
@@ -140,7 +147,7 @@ function showSlides() {
   for (i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
-  slides[slideIndex-1].style.display = "block";  
+  slides[slideIndex-1].style.display = "flex";  
   dots[slideIndex-1].className += " active";
   setTimeout(showSlides, 3000);
 }

@@ -1,5 +1,5 @@
 const content = document.getElementById('homeContent');
-content.style.display="none";
+//content.style.display="none";
 const loader = createLoader(document.body);
 
 window.onload = async function () {
@@ -69,7 +69,12 @@ function createLargeComparison(product) {
     const cLProduct1 = document.createElement("div");
     cLProduct1.classList.add("cLProduct");
     const cLImage1 = document.createElement("img");
-    cLImage1.setAttribute("src", product.image);
+    try {
+        cLImage1.setAttribute("src", product.image);
+    } catch(e) {
+        console.log(e);
+        cLImage1.setAttribute("src", "/resources/error.jpg");
+    }
     const cLText1 = document.createElement("div");
     cLText1.classList.add("cLText");
     const cLPrice1 = document.createElement("h2");
@@ -91,7 +96,12 @@ function createLargeComparison(product) {
     const cLProduct2 = document.createElement("div");
     cLProduct2.classList.add("cLProduct");
     const cLImage2 = document.createElement("img");
-    cLImage2.setAttribute("src", dupe.image);
+    try {
+        cLImage2.setAttribute("src", dupe.image);
+    } catch(e) {
+        console.log(e);
+        cLImage2.setAttribute("src", "/resources/error.jpg");
+    }
     const cLText2 = document.createElement("div");
     cLText2.classList.add("cLText");
     const cLPrice2 = document.createElement("h2");
@@ -157,9 +167,19 @@ function createSmallComparison(product) {
     const cSImgBox = document.createElement("div");
     cSImgBox.classList.add("cSImgBox");
     const img1 = document.createElement("img");
-    img1.setAttribute("src", product.image);
+    try {
+        img1.setAttribute("src", product.image);
+    } catch(e) {
+        console.log(e);
+        img1.setAttribute("src", "/resources/error.jpg");
+    }
     const img2 = document.createElement("img");
-    img2.setAttribute("src", dupe.image);
+    try {
+        img2.setAttribute("src", dupe.image);
+    } catch(e) {
+        console.log(e);
+        img2.setAttribute("src", "/resources/error.jpg");
+    }
 
     cSImgBox.appendChild(img1);
     cSImgBox.appendChild(img2);

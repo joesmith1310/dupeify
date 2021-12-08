@@ -180,9 +180,6 @@ app.post('/api/link', async (req, res) => {
 	// Add code here
 
 	if (!ObjectID.isValid(req.body.designerProduct) || !ObjectID.isValid(req.body.dupeProduct)) {
-        console.log("ERROR1");
-        console.log(req.body.designerProduct);
-        console.log(req.body.dupeProduct);
 		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
 		return;
 	}
@@ -193,19 +190,41 @@ app.post('/api/link', async (req, res) => {
 		return;
 	}
 
-    const dupe = new Dupe({
-        designerProduct: req.body.designerProduct,
-        dupeProduct: req.body.dupeProduct,
-        cat1: req.body.cat1,
-        cat2: req.body.cat2,
-        cat3: req.body.cat3,
-        cat4: req.body.cat4,
-        overall: req.body.overall,
-    });
-        
     try {
-        const result = await dupe.save();
-        res.status(200).send(result);
+        const prod1 = await Product.findById(req.body.designerProduct);
+        const prod2 = await Product.findById(req.body.dupeProduct);
+        if (!prod1 || !prod2) {
+            res.status(404).send('Resource not found');
+        }
+        else {
+            if (prod1.designer && !prod2.designer) {
+                const dupe = new Dupe({
+                    designerProduct: req.body.designerProduct,
+                    dupeProduct: req.body.dupeProduct,
+                    cat1: req.body.cat1,
+                    cat2: req.body.cat2,
+                    cat3: req.body.cat3,
+                    cat4: req.body.cat4,
+                    overall: req.body.overall,
+                });
+                    
+                try {
+                    const result = await dupe.save();
+                    res.status(200).send(result);
+                } catch (error) {
+                    log(error); // log server error to the console, not to the client.
+                    if (isMongoError(error)) {
+                        // check for if mongo server suddenly dissconnected before this request.
+                        res.status(500).send("Internal server error");
+                    } else {
+                        res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+                    }
+                }
+            }
+            else {
+                res.status(400).send("Can only link dupe product to designer product");
+            }
+        }
     } catch (error) {
         log(error); // log server error to the console, not to the client.
         if (isMongoError(error)) {

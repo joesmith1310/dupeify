@@ -153,7 +153,7 @@ function link() {
            
         } else {
             console.log('ERROR')
-            createWindowMessage('Could not link products');
+            createWindowMessage('Could not link products', true);
      
         }
         console.log(res)  // log the result in the console for development purposes,

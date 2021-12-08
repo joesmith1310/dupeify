@@ -49,6 +49,12 @@
                         <input type="text" name="productImage" placeholder="Product Image Name e.g. img1.jpg" class="formInput" required>
                         <input type="submit" value="Add" class="button">
                     </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for existing products:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
+                    </form>
                 </div>
                 <div class="adminOption">
                     <h4>ADD NEW DUPE</h4>
@@ -72,6 +78,12 @@
                         </select>
                         <input type="text" name="productImage" placeholder="Product Image Name e.g. img1.jpg" class="formInput" required>
                         <input type="submit" value="Add" class="button">
+                    </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for existing products:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
                     </form>
                 </div>
                 <div class="adminOption">

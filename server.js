@@ -360,10 +360,6 @@ app.delete("/api/product/:id", async (req, res) => {
                 });
                 if (!del2) {
                     res.status(404);
-<<<<<<< Updated upstream
-                } else {
-                    res.send();
-=======
                 }
                 else {
                     try {
@@ -379,7 +375,6 @@ app.delete("/api/product/:id", async (req, res) => {
                         console.log(error);
                         res.status(500).send('Internal Server Error');
                     }
->>>>>>> Stashed changes
                 }
             } catch (error) {
                 console.log(error);
@@ -688,19 +683,6 @@ app.patch("/api/suggestion", async (req, res) => {
     }
     let sid = req.body.sid;
     let decision = req.body.decision;
-<<<<<<< Updated upstream
-    try {
-        const update = await Suggestion.updateOne(
-            { _id: sid },
-            { $set: { approved: decision } }
-        );
-        res.send();
-    } catch (error) {
-        log(error);
-        res.status(500).send("Internal Server Error");
-    }
-});
-=======
 	try {
 		const update = await Suggestion.updateOne({_id : sid},{$set: {approved : decision}});
         if (!update) {
@@ -713,7 +695,7 @@ app.patch("/api/suggestion", async (req, res) => {
 		log(error)
 		res.status(500).send("Internal Server Error")
 	}
->>>>>>> Stashed changes
+});
 
 /*
 {

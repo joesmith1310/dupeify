@@ -74,11 +74,13 @@ function favouriteProduct1Toggle() {
   var b = document.getElementById("favouriteProduct1Button");
   if(b.classList.contains("redColour")) {
     b.classList.remove("redColour");
-    document.getElementById("product1").style.display = "none";
+    //document.getElementById("product1").style.display = "none";
+    document.getElementById("favouritediv").style.display = "none";
   }
   else {
     b.classList.add("redColour");
-    document.getElementById("product1").style.display = "inline-block";
+    //document.getElementById("product1").style.display = "inline-block";
+    document.getElementById("favouritediv").style.display = "inline-block";
 
   }
 }

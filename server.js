@@ -360,20 +360,19 @@ app.delete("/api/product/:id", async (req, res) => {
                 });
                 if (!del2) {
                     res.status(404);
-                }
-                else {
+                } else {
                     try {
-                        const del3 = await Suggestion.deleteMany({'dupeof':productId})
+                        const del3 = await Suggestion.deleteMany({
+                            dupeof: productId,
+                        });
                         if (!del3) {
                             res.status(404);
-                        }
-                        else {
+                        } else {
                             res.send();
                         }
-                    }
-                    catch(error) {
+                    } catch (error) {
                         console.log(error);
-                        res.status(500).send('Internal Server Error');
+                        res.status(500).send("Internal Server Error");
                     }
                 }
             } catch (error) {
@@ -683,18 +682,20 @@ app.patch("/api/suggestion", async (req, res) => {
     }
     let sid = req.body.sid;
     let decision = req.body.decision;
-	try {
-		const update = await Suggestion.updateOne({_id : sid},{$set: {approved : decision}});
+    try {
+        const update = await Suggestion.updateOne(
+            { _id: sid },
+            { $set: { approved: decision } }
+        );
         if (!update) {
-            res.status(404).send("Suggestion not found.")
-        }
-        else {
+            res.status(404).send("Suggestion not found.");
+        } else {
             res.send();
         }
-	} catch(error) {
-		log(error)
-		res.status(500).send("Internal Server Error")
-	}
+    } catch (error) {
+        log(error);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 /*
@@ -778,6 +779,39 @@ app.post("/api/like", async (req, res) => {
             //upsert means if no documents found, it will insert a new document
             res.status(200).send(document);
         }
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+        }
+    }
+});
+
+app.post("/api/get-like-percentage", async (req, res) => {
+    if (!ObjectID.isValid(req.body.product)) {
+        res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+        return;
+    }
+
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+
+    try {
+        const likes = await Like.find({ product: req.body.product });
+        let count = 0;
+        for (const doc of likes) {
+            if (doc.like) {
+                count++;
+            }
+        }
+        res.status(200).send({ percentage: count / likes.length });
+        //returns null if the product has never been rated before
     } catch (error) {
         log(error); // log server error to the console, not to the client.
         if (isMongoError(error)) {

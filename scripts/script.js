@@ -160,6 +160,10 @@ function createLoader(parent) {
 }
 
 function makeSuggestion(productType, productBrand, productName, productComment, dupeof=-1) {
+    if (uid == null) {
+        createWindowMessage("Log in to make suggestions.", true);
+        return;
+    }
     const url = '/api/suggestion';
     const type = productType;
     const brand = productBrand;
@@ -197,7 +201,7 @@ function makeSuggestion(productType, productBrand, productName, productComment, 
             createWindowMessage('Suggestion made. View admin response in your account page.');
            
         } else {
-            createWindowMessage('Error making suggestion');
+            createWindowMessage('Error making suggestion', true);
         }  
         // log the result in the console for development purposes,
         //  users are not expected to see this.

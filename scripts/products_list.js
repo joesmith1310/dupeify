@@ -72,7 +72,8 @@ function sortByPrice(desc = false) {
             prices.push(p.price);
         }
     });
-    prices.sort();
+    console.log(prices);
+    prices.sort(numSort);
     if (desc) {
         prices.reverse();
     }

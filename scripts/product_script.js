@@ -249,7 +249,7 @@ function sortByPrice(desc = false) {
             prices.push(d.price);
         }
     });
-    prices.sort();
+    prices.sort(numSort);
     if (desc) {
         prices.reverse();
     }
@@ -272,7 +272,7 @@ function sortByMatch() {
             matchPercentages.push(m[5]);
         }
     });
-    matchPercentages.sort();
+    matchPercentages.sort(numSort);
     matchPercentages.reverse();
     let newDupes = [];
     matchPercentages.map((m) => {

@@ -24,6 +24,7 @@ async function registeruser(event) {
     if (result.status === 'ok') {
       // everythign went fine
      alert("Succesfully Registered!")  
+     window.location.href = "login.html";
     } else {
       alert(result.error)
     }  

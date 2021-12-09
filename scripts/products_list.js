@@ -173,7 +173,10 @@ function loadProducts(ps) {
             <div class="product_info">
                 <h4>${product.name}</h2>
                 <h4>$${product.price}</h3>
-                <button class="like-button button">👍</button>
+                <div class="like-container">
+                    <button class="like-button button">👍</button>
+                    <button class="dislike-button button">👎</button>
+                </div>
             </div>
         `;
 
@@ -189,6 +192,8 @@ function loadProducts(ps) {
             success: (response) => {
                 if (response.like) {
                     $(div).find(".like-button").addClass("selected");
+                } else {
+                    $(div).find(".dislike-button").addClass("selected");
                 }
             },
             error: (e) => console.log(e),
@@ -197,24 +202,42 @@ function loadProducts(ps) {
         $(div)
             .find(".like-button")
             .click(function (event) {
-                //TODO ability to "unlike"?
-                if (!$(this).hasClass("selected")) {
-                    $(this).addClass("selected");
+                $(div).find(".like-button").addClass("selected");
+                $(div).find(".dislike-button").removeClass("selected");
+                $.ajax({
+                    url: "/api/like",
+                    data: JSON.stringify({
+                        user: localStorage.getItem("objid"),
+                        product: product.productID,
+                        like: true,
+                    }),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json",
+                    // success: (response) => getLikePercentage(),
+                    error: (e) => console.log(e),
+                });
+                event.stopPropagation();
+            });
 
-                    $.ajax({
-                        url: "/api/like",
-                        data: JSON.stringify({
-                            user: localStorage.getItem("objid"),
-                            product: product.productID,
-                            like: true,
-                        }),
-                        dataType: "json",
-                        type: "POST",
-                        contentType: "application/json",
-                        success: (response) => console.log(response),
-                        error: (e) => console.log(e),
-                    });
-                }
+        $(div)
+            .find(".dislike-button")
+            .click(function (event) {
+                $(div).find(".dislike-button").addClass("selected");
+                $(div).find(".like-button").removeClass("selected");
+                $.ajax({
+                    url: "/api/like",
+                    data: JSON.stringify({
+                        user: localStorage.getItem("objid"),
+                        product: product.productID,
+                        like: false,
+                    }),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json",
+                    // success: (response) => getLikePercentage(),
+                    error: (e) => console.log(e),
+                });
                 event.stopPropagation();
             });
 

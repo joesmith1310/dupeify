@@ -1,5 +1,4 @@
 
-console.log("Script1 loaded");
 const uid = localStorage.getItem('objid');
 
 //JQUERY
@@ -58,7 +57,7 @@ const user1 = new User(1, "testUser1");
 const user2 = new User(2, "testUser2");
 const user3 = new User(3, "testUser3");
 
-const users = [user1, user2, user3];
+//const users = [user1, user2, user3];
 
 /* ---------------------------------------------------------------- */
 
@@ -101,7 +100,6 @@ function pushToList(product) {
         if (!product.designer) {
             const dupe = new Product(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`);
             dupeProducts.push(dupe);
-            console.log(`DUPE LOADED: ${dupe}`);
             resolve();
         }
         else {
@@ -129,7 +127,6 @@ function pushToList(product) {
                 }
                 const prod = new DesignerProduct(product._id, product.name, product.price, product.brand, product.type, `/resources/${product.image}`, dupeList, product.description, product.featured, product.popular);
                 designerProducts.push(prod);
-                console.log(`PRODUCT LOADED: ${prod}`);
                 resolve();
             })
         }
@@ -168,8 +165,6 @@ function makeSuggestion(productType, productBrand, productName, productComment, 
     const brand = productBrand;
     const name = productName;
     const comment = productComment;
-
-    console.log(dupeof);
 
     let isDes = false;
     if (dupeof == -1) {
@@ -356,12 +351,12 @@ function createDecisionColumn(sid) {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;`
 
-    approveButton.addEventListener('click', () => {
-        resolveSuggestion(sid, 1);
+    approveButton.addEventListener('click', async () => {
+        await resolveSuggestion(sid, 1);
         createSuggestions();
     });
-    rejectButton.addEventListener('click', () => {
-        resolveSuggestion(sid, -1)
+    rejectButton.addEventListener('click', async () => {
+        await resolveSuggestion(sid, -1)
         createSuggestions();
     });
     decisionColumn.appendChild(approveButton);
@@ -370,35 +365,37 @@ function createDecisionColumn(sid) {
 }
 
 function resolveSuggestion(sid, dec) {
-    const url = '/api/suggestion';
+    return new Promise((resolve, reject) => {
+        const url = '/api/suggestion';
 
-    let data = {
-        sid: sid,
-        decision: dec,
-    }
-
-    const request = new Request(url, {
-        method: 'PATCH', 
-        body: JSON.stringify(data),
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-    });
-    fetch(request)
-    .then(function(res) {
-        if (res.status === 200) {
-            createWindowMessage('Resolved product suggestion');
-           
-        } else {
-            console.log('ERROR')
-            createWindowMessage('Could not resolve suggestion.', true);
-     
+        let data = {
+            sid: sid,
+            decision: dec,
         }
-    }).catch((error) => {
-        console.log(error);
-        createWindowMessage('Could not resolve suggestion.', true);
-    })
+
+        const request = new Request(url, {
+            method: 'PATCH', 
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+        fetch(request)
+        .then(function(res) {
+            if (res.status === 200) {
+                createWindowMessage('Resolved product suggestion');
+                resolve();
+            } else {
+                createWindowMessage('Could not resolve suggestion.', true);
+                reject();
+            }
+        }).catch((error) => {
+            console.log(error);
+            createWindowMessage('Could not resolve suggestion.', true);
+            reject();
+        })
+    });
 }
 
 function numSort(a, b) {

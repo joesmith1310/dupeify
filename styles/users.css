@@ -31,8 +31,9 @@ table {
     margin: 8px 0 8px 115px;
 }
 
-#searchBar {
+#searchBar2 {
     height: 44px;
+    width: 300px;
     border-radius: 22px;
     border: none;
     outline: 1px solid #b197fc;

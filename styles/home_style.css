@@ -9,6 +9,10 @@ rgb(51, 51, 51) - text
 
 */
 
+body {
+    margin-bottom: 200px;
+}
+
 .slideshowContainer {
     position: relative;
 }
@@ -116,7 +120,7 @@ rgb(51, 51, 51) - text
 
 .comparisonRow {
     height: 250px;
-    margin-bottom: 75px;
+    margin-bottom: 100px;
 }
 
 .comparisonRow ul {

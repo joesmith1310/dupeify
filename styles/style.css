@@ -294,6 +294,10 @@ a:link {
     overflow-y: scroll;
 }
 
+.dsRow div:nth-of-type(4) label:first-of-type {
+    padding-top: 20px;
+}
+
 .sDecisionCol {
     width: 5%;
     display: flex;

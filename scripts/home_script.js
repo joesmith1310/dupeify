@@ -4,7 +4,6 @@ const loader = createLoader(document.body);
 
 window.onload = async function () {
     await loadProductsPromise;
-    console.log('productsFetched');
     loadProducts();
     document.body.removeChild(loader);
     content.style.display = 'initial';
@@ -42,12 +41,15 @@ function loadProducts() {
 
 function loadMainFeature() {
     const numberOfSlides = 3;
-    let count = 0;
-    while (count < numberOfSlides) {
+    features = []
+    while (features.length < numberOfSlides) {
         let randomFeature = featuredProducts[Math.floor(Math.random() * featuredProducts.length)];
-        createLargeComparison(randomFeature);
-        count += 1;
+        if (!features.includes(randomFeature)) {
+            createLargeComparison(randomFeature);
+            features.push(randomFeature);
+        }
     }
+    console.log(features);
 }
 
 function createLargeComparison(product) {
@@ -57,13 +59,7 @@ function createLargeComparison(product) {
     }
     const dupeID = product.matchingProducts[0][0];
 
-    console.log(dupeProducts);
-    console.log(product.productID);
-    console.log(dupeID);
-
-    let dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];
-    console.log(dupe);
-    console.log(dupe.price);    
+    let dupe = dupeProducts.filter((d) => d.productID == dupeID)[0];  
 
     const comparisonLarge = document.querySelector("#mainFeature");
 

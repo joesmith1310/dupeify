@@ -257,6 +257,23 @@ app.get("/api/product", async (req, res) => {
     }
 });
 
+app.get("/api/user", async (req, res) => {
+    // Add code here
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    try {
+        const users = await User.find();
+        res.send({ users });
+    } catch (error) {
+        log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 app.get("/api/dupes/:id", async (req, res) => {
     // check mongoose connection established.
     if (mongoose.connection.readyState != 1) {
@@ -827,3 +844,48 @@ const port = process.env.PORT || 5000
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)
 })
+
+app.delete("/api/user/:id", async (req, res) => {
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+    let uid = req.params.id;
+    try {
+        const del = await User.findOneAndDelete({ _id: uid });
+        if (!del) {
+            res.status(404);
+        } else {
+            try {
+                const del2 = await Like.deleteMany({
+                    user: uid,
+                });
+                if (!del2) {
+                    res.status(404);
+                } else {
+                    try {
+                        const del3 = await Suggestion.deleteMany({
+                            userid: uid,
+                        });
+                        if (!del3) {
+                            res.status(404);
+                        } else {
+                            res.send();
+                        }
+                    } catch (error) {
+                        console.log(error);
+                        res.status(500).send("Internal Server Error");
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+                res.status(500).send("Internal Server Error");
+            }
+        }
+    } catch (error) {
+        log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});

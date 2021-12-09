@@ -1,14 +1,13 @@
-const content = document.getElementById('productsContent');
-content.style.display="none";
+const content = document.getElementById("productsContent");
+content.style.display = "none";
 const loader = createLoader(document.body);
-
 
 window.onload = async function () {
     await loadProductsPromise;
-    console.log("LOADING PRODUCTS PAGE")
+    console.log("LOADING PRODUCTS PAGE");
     init();
     document.body.removeChild(loader);
-    content.style.display = 'initial';
+    content.style.display = "initial";
 };
 
 const queryString = window.location.search;
@@ -16,35 +15,32 @@ const urlParams = new URLSearchParams(queryString);
 
 const productList = document.getElementById("product_list");
 
-let products = []
+let products = [];
 
 function init() {
     products = designerProducts;
-    if(urlParams.get('featured')) {
+    if (urlParams.get("featured")) {
         filterByFeatured();
-    }
-    else if(urlParams.get('popular')) {
+    } else if (urlParams.get("popular")) {
         filterByPopular();
-    }
-    else if(urlParams.get('search')) {
-        let key = urlParams.get('search');
+    } else if (urlParams.get("search")) {
+        let key = urlParams.get("search");
         productSearch(key);
-    }
-    else {
+    } else {
         showAll();
     }
 }
 
 function filterBySearch() {
-    const form = document.getElementById('searchBar');
+    const form = document.getElementById("searchBar");
     let key = form.search.value;
     productSearch(key);
 }
 
 function productSearch(key) {
-    k = key.toUpperCase()
+    k = key.toUpperCase();
     products = designerProducts;
-    results = []
+    results = [];
     products.map((p) => {
         const name = p.name.toUpperCase();
         const brand = p.brand.toUpperCase();
@@ -52,11 +48,9 @@ function productSearch(key) {
         console.log(name);
         if (name.includes(k) || k.includes(name)) {
             results.push(p);
-        }
-        else if (brand.includes(k) || k.includes(brand)) {
+        } else if (brand.includes(k) || k.includes(brand)) {
             results.push(p);
-        }
-        else if (type.includes(k) || k.includes(type)) {
+        } else if (type.includes(k) || k.includes(type)) {
             results.push(p);
         }
     });
@@ -66,7 +60,7 @@ function productSearch(key) {
 }
 
 function sortByPrice(desc = false) {
-    let prices = []
+    let prices = [];
     products.map((p) => {
         if (!prices.includes(p.price)) {
             prices.push(p.price);
@@ -82,7 +76,7 @@ function sortByPrice(desc = false) {
         products.map((p) => {
             if (p.price == pr) {
                 newProducts.push(p);
-            };
+            }
         });
     });
     products = newProducts;
@@ -92,7 +86,7 @@ function sortByPrice(desc = false) {
 }
 
 function sortByName(desc = false) {
-    let names = []
+    let names = [];
     products.map((p) => {
         if (!names.includes(p.name)) {
             names.push(p.name);
@@ -107,7 +101,7 @@ function sortByName(desc = false) {
         products.map((p) => {
             if (p.name == n) {
                 newProducts.push(p);
-            };
+            }
         });
     });
     products = newProducts;
@@ -163,8 +157,8 @@ function filterByFeatured() {
 
 function loadProducts(ps) {
     if (ps.length == 0) {
-        let msg = document.createElement('div')
-        msg.innerText = 'No products found'
+        let msg = document.createElement("div");
+        msg.innerText = "No products found";
         productList.appendChild(msg);
     }
     ps.forEach((product) => {
@@ -179,12 +173,53 @@ function loadProducts(ps) {
             <div class="product_info">
                 <h4>${product.name}</h2>
                 <h4>$${product.price}</h3>
-                <div class="button favouriteButton">&hearts;</div>
+                <button class="like-button button">👍</button>
             </div>
         `;
 
-        div.onclick = () => (window.location.href = `/pages/product_page.html?productid=${product.productID}`);
+        $.ajax({
+            url: "/api/get-like",
+            data: JSON.stringify({
+                user: localStorage.getItem("objid"),
+                product: product.productID,
+            }),
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            success: (response) => {
+                if (response.like) {
+                    $(div).find(".like-button").addClass("selected");
+                }
+            },
+            error: (e) => console.log(e),
+        });
 
+        $(div)
+            .find(".like-button")
+            .click(function (event) {
+                //TODO ability to "unlike"?
+                if (!$(this).hasClass("selected")) {
+                    $(this).addClass("selected");
+
+                    $.ajax({
+                        url: "/api/like",
+                        data: JSON.stringify({
+                            user: localStorage.getItem("objid"),
+                            product: product.productID,
+                            like: true,
+                        }),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json",
+                        success: (response) => console.log(response),
+                        error: (e) => console.log(e),
+                    });
+                }
+                event.stopPropagation();
+            });
+
+        div.onclick = () => {
+            window.location.href = `/pages/product_page.html?productid=${product.productID}`;
+        };
     });
 }
-

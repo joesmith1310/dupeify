@@ -840,10 +840,31 @@ app.post("/api/get-like-percentage", async (req, res) => {
     }
 });
 
-const port = process.env.PORT || 5000
-app.listen(port, () => {
-	log(`Listening on port ${port}...`)
-})
+app.post("/api/get-like-user", async (req, res) => {
+    if (!ObjectID.isValid(req.body.user)) {
+        res.status(404).send(); // if invalid id, definitely can't find resource, 404.
+        return;
+    }
+
+    if (mongoose.connection.readyState != 1) {
+        log("Issue with mongoose connection");
+        res.status(500).send("Internal server error");
+        return;
+    }
+
+    try {
+        const likes = await Like.find({ user: req.body.user, like: true });
+        res.status(200).send(likes.map((document) => document.product));
+    } catch (error) {
+        log(error); // log server error to the console, not to the client.
+        if (isMongoError(error)) {
+            // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send("Internal server error");
+        } else {
+            res.status(400).send("Bad Request"); // 400 for bad request gets sent to client.
+        }
+    }
+});
 
 app.delete("/api/user/:id", async (req, res) => {
     // check mongoose connection established.
@@ -889,3 +910,8 @@ app.delete("/api/user/:id", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+	log(`Listening on port ${port}...`)
+})

@@ -57,7 +57,7 @@
     </div>
     
    <div class="section">
-      <h3 class="label">Favourites</h3>
+      <h3 class="label">Your Likes</h3>
       <button id="favouriteSeeAll" class="buttonRight editButton" onclick="seeAllFavourite()">See All</button>
    </div>
    
@@ -113,7 +113,7 @@
       </div>
    </div>
 
-   <div class="section">
+   <!-- <div class="section">
       <h3 class="label">My Reviews</h3>
       <button id="reviewSeeAll" class="buttonRight editButton" onclick="seeAllReviews()">See All</button>
    </div>
@@ -136,14 +136,14 @@
          </ul>
       </div>
       <div class="column4" >
-         <!-- <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
-         src="/resources/pencil.png" > -->
+         <input type="image" id="image" alt="ToggleFavourite" class= "resizePencil"
+         src="/resources/pencil.png" > 
          <button id="review1Button" onclick="myReview1Edit()" class="editButton">Edit</button>
          <button class="editButton" onclick="location.href='/pages/product_page.html'" type="button">
             See Product</button>
       </div>
    </div>
-   
+    -->
 
    <div  class='seperateBorder'></div>
    <div id="review2"  class="row noDisplay">
@@ -200,8 +200,17 @@
  	<h3> Submit your own Suggestion with our form!</h3>
    <div id="suggestProduct">
          <form onsubmit="suggestProd();return false" id="suggestProductForm">
-            <input type="text" name="productType" placeholder="Product Name" class="formInput" required>
-            <input type="text" name="productBrand" placeholder="Product Name" class="formInput" required>
+            <select name="productType" class="formInput">
+               <option value="Foundation">Foundation</option>
+               <option value="Mascara">Mascara</option>
+               <option value="Eyeliner">Eyeliner</option>
+               <option value="Lipstick">Lipstick</option>
+               <option value="Blush">Blush</option>
+               <option value="Bronzer">Bronzer</option>
+               <option value="Highlight">Highlight</option>
+               <option value="Eyeshadow">Eyeshadow</option>
+           </select>
+            <input type="text" name="productBrand" placeholder="Product Brand" class="formInput" required>
             <input type="text" name="productName" placeholder="Product Name" class="formInput" required>
             <input type="text" name="productComment" placeholder="Description" class="formInput">
             <input type="submit" value="Add" class="button">

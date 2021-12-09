@@ -1,8 +1,13 @@
 # team55
 
-## Logging In
+We received an extension from Mark as one of our Team members dropped this course last minute. 
 
-You can log in as a user using credentials username = `user` and password = `user`. For admin use username = `admin` and password = `admin`. As admin you are able to add new products, edit existing ones, see user recommendations and remove users.
+## Logging In As an User
+You can log in as a user using credentials username = `user` and password = `user`.
+
+## Logging In As an Admin
+
+ For admin use username = `admin` and password = `admin`. As admin you are able to add new products, edit existing ones, see user recommendations and remove users.
 
 ## Using the Home Page
 

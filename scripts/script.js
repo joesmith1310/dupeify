@@ -216,7 +216,7 @@ function buildSuggestion(s, admin) {
     suggestion.classList.add('suggestion');
     if (s.isDesigner) {
         suggestion.innerHTML = `
-        <div class='sTypeCol'>New Product:</div>
+        <!-- <div class='sTypeCol'>New Product:</div> -->
         <div class='psInfoCol'>
             <label>${s.name}</label>
             <label>${s.brand}</label>

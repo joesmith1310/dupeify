@@ -205,6 +205,7 @@ function addAllInfo(){
 
 
 function myOnLoad(){
+  fillUserInfo();
   loadMySuggestions();
   /*document.getElementById("submitSuggestion").addEventListener('click', function(){
     var suggestForm = document.getElementById('newProductForm');
@@ -213,7 +214,9 @@ function myOnLoad(){
 }
 
 function fillUserInfo() {
+  //event.preventDefault()
   const objid = localStorage.getItem("objid");
+  
   const url = '/api/users/' + objid;
 
   const request = new Request(url, {

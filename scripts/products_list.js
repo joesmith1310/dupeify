@@ -180,66 +180,70 @@ function loadProducts(ps) {
             </div>
         `;
 
-        $.ajax({
-            url: "/api/get-like",
-            data: JSON.stringify({
-                user: localStorage.getItem("objid"),
-                product: product.productID,
-            }),
-            dataType: "json",
-            type: "POST",
-            contentType: "application/json",
-            success: (response) => {
-                if (response.like) {
+        if (localStorage.getItem("objid") === null) {
+            $(div).find(".like-container").css("display", "none");
+        } else {
+            $.ajax({
+                url: "/api/get-like",
+                data: JSON.stringify({
+                    user: localStorage.getItem("objid"),
+                    product: product.productID,
+                }),
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json",
+                success: (response) => {
+                    if (response.like) {
+                        $(div).find(".like-button").addClass("selected");
+                    } else {
+                        $(div).find(".dislike-button").addClass("selected");
+                    }
+                },
+                error: (e) => console.log(e),
+            });
+
+            $(div)
+                .find(".like-button")
+                .click(function (event) {
                     $(div).find(".like-button").addClass("selected");
-                } else {
+                    $(div).find(".dislike-button").removeClass("selected");
+                    $.ajax({
+                        url: "/api/like",
+                        data: JSON.stringify({
+                            user: localStorage.getItem("objid"),
+                            product: product.productID,
+                            like: true,
+                        }),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json",
+                        // success: (response) => getLikePercentage(),
+                        error: (e) => console.log(e),
+                    });
+                    event.stopPropagation();
+                });
+
+            $(div)
+                .find(".dislike-button")
+                .click(function (event) {
                     $(div).find(".dislike-button").addClass("selected");
-                }
-            },
-            error: (e) => console.log(e),
-        });
-
-        $(div)
-            .find(".like-button")
-            .click(function (event) {
-                $(div).find(".like-button").addClass("selected");
-                $(div).find(".dislike-button").removeClass("selected");
-                $.ajax({
-                    url: "/api/like",
-                    data: JSON.stringify({
-                        user: localStorage.getItem("objid"),
-                        product: product.productID,
-                        like: true,
-                    }),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json",
-                    // success: (response) => getLikePercentage(),
-                    error: (e) => console.log(e),
+                    $(div).find(".like-button").removeClass("selected");
+                    $.ajax({
+                        url: "/api/like",
+                        data: JSON.stringify({
+                            user: localStorage.getItem("objid"),
+                            product: product.productID,
+                            like: false,
+                        }),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json",
+                        // success: (response) => getLikePercentage(),
+                        error: (e) => console.log(e),
+                    });
+                    event.stopPropagation();
                 });
-                event.stopPropagation();
-            });
-
-        $(div)
-            .find(".dislike-button")
-            .click(function (event) {
-                $(div).find(".dislike-button").addClass("selected");
-                $(div).find(".like-button").removeClass("selected");
-                $.ajax({
-                    url: "/api/like",
-                    data: JSON.stringify({
-                        user: localStorage.getItem("objid"),
-                        product: product.productID,
-                        like: false,
-                    }),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json",
-                    // success: (response) => getLikePercentage(),
-                    error: (e) => console.log(e),
-                });
-                event.stopPropagation();
-            });
+        }
 
         div.onclick = () => {
             window.location.href = `/pages/product_page.html?productid=${product.productID}`;

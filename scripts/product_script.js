@@ -340,25 +340,6 @@ function createDupes() {
     }
 }*/
 
-$.ajax({
-    url: "/api/get-like",
-    data: JSON.stringify({
-        user: localStorage.getItem("objid"),
-        product: productId,
-    }),
-    dataType: "json",
-    type: "POST",
-    contentType: "application/json",
-    success: (response) => {
-        if (response.like) {
-            $("#like-button").addClass("selected");
-        } else {
-            $("#dislike-button").addClass("selected");
-        }
-    },
-    error: (e) => console.log(e),
-});
-
 function getLikePercentage() {
     $.ajax({
         url: "/api/get-like-percentage",
@@ -385,38 +366,62 @@ function getLikePercentage() {
 
 getLikePercentage();
 
-$("#like-button").click(function () {
-    $("#like-button").addClass("selected");
-    $("#dislike-button").removeClass("selected");
+if (localStorage.getItem("objid") === null) {
+    $("#like-button").css("display", "none");
+    $("#dislike-button").css("display", "none");
+} else {
     $.ajax({
-        url: "/api/like",
+        url: "/api/get-like",
         data: JSON.stringify({
             user: localStorage.getItem("objid"),
             product: productId,
-            like: true,
         }),
         dataType: "json",
         type: "POST",
         contentType: "application/json",
-        success: (response) => getLikePercentage(),
+        success: (response) => {
+            if (response.like) {
+                $("#like-button").addClass("selected");
+            } else {
+                $("#dislike-button").addClass("selected");
+            }
+        },
         error: (e) => console.log(e),
     });
-});
 
-$("#dislike-button").click(function () {
-    $("#dislike-button").addClass("selected");
-    $("#like-button").removeClass("selected");
-    $.ajax({
-        url: "/api/like",
-        data: JSON.stringify({
-            user: localStorage.getItem("objid"),
-            product: productId,
-            like: false,
-        }),
-        dataType: "json",
-        type: "POST",
-        contentType: "application/json",
-        success: (response) => getLikePercentage(),
-        error: (e) => console.log(e),
+    $("#like-button").click(function () {
+        $("#like-button").addClass("selected");
+        $("#dislike-button").removeClass("selected");
+        $.ajax({
+            url: "/api/like",
+            data: JSON.stringify({
+                user: localStorage.getItem("objid"),
+                product: productId,
+                like: true,
+            }),
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            success: (response) => getLikePercentage(),
+            error: (e) => console.log(e),
+        });
     });
-});
+
+    $("#dislike-button").click(function () {
+        $("#dislike-button").addClass("selected");
+        $("#like-button").removeClass("selected");
+        $.ajax({
+            url: "/api/like",
+            data: JSON.stringify({
+                user: localStorage.getItem("objid"),
+                product: productId,
+                like: false,
+            }),
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json",
+            success: (response) => getLikePercentage(),
+            error: (e) => console.log(e),
+        });
+    });
+}

@@ -24,26 +24,23 @@
       <div id="navbar"></div> 
       <!--This ^^^ is where JS loads navigation into page. Code below this-->
 
-      <form name="loginForm" action="/index.html" onsubmit="validateLogin()">
+      <form name="loginForm" id="loginForm">
          <div class="imgContainer">
            <img src="/resources/sample-img-7.jpg" alt="Avatar" class="avatar">
          </div>
        
          <div class="container">
            <label for="uname" class="label">Username</label>
-           <input type="text" placeholder="Enter Username" name="uname">
+           <input type="text" placeholder="Enter Username" id="uname">
        
            <label for="psw"class="label">Password</label>
-           <input type="password" placeholder="Enter Password" name="psw">
+           <input type="password" placeholder="Enter Password" id="psw">
        
-           <button type="submit">Login</button>
-           <label>
-             <input type="checkbox" checked="checked" name="remember"> Remember me
-           </label>
+           <button type="submit">login</button>
          </div>
        
          <div class="container" style="background-color:#f1f1f1">
-           <span class="psw">Forgot <a href="#">password?</a></span>
+            <span class="psw">Not a user? <a href="register_user.html">Register now!</a></span>
          </div>
         </form>
       

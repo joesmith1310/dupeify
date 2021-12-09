@@ -18,7 +18,6 @@
             type="text/css"
             href="/styles/products_style.css"
         />
-
         <script
             defer
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
@@ -35,8 +34,51 @@
         <div id="navbar"></div>
 
         <!-- code goes here-->
-        <h1 id="title">Products</h1>
-
-        <div id="product_list"></div>
+        <div id="productsContent">
+            <div class="searchDiv">
+                <form onsubmit="filterBySearch();return false" id="searchBar">
+                    <input
+                        id="searchInput"
+                        type="text"
+                        name="search"
+                        placeholder="Search for a product"
+                    />
+                    <input type="submit" id="searchButton" value="Search">
+                </form>
+            </div>
+            <div class="section">
+                <h3>Products</h3>
+                <div class="sectionDropdowns">
+                    <div class="dropdown">
+                        <div class="dropbtn">Sort by</div>
+                        <div class="dropdown-content">
+                        <div onclick="sortByPrice()">Price Asc</div>
+                        <div onclick="sortByPrice(true)">Price Desc</div>
+                        <div onclick="sortByName()">Name Asc</div>
+                        <div onclick="sortByName(true)">Name Desc</div>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <div class="dropbtn">Filter by</div>
+                        <div class="dropdown-content">
+                        <div onclick="showAll()">All</div>
+                        <div onclick="filterByPopular()">Popular</div>
+                        <div onclick="filterByFeatured()">Featured</div>
+                        <div onclick="filterByType('Mascara')">Mascara</div>
+                        <div onclick="filterByType('Lipstick')">Lipstick</div>
+                        <div onclick="filterByType('Foundation')">Foundation</div>
+                        <div onclick="filterByType('Eyeliner')">Eyeliner</div>
+                        <div onclick="filterByType('Blush')">Blush</div>
+                        <div onclick="filterByType('Bronzer')">Bronzer</div>
+                        <div onclick="filterByType('Highlight')">Highlight</div>
+                        <div onclick="filterByType('Eyeshadow')">Eyeshadow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="product_list">
+                <h3 id="title">Products</h3>
+            </div>
+        </div>
     </body>
 </html>

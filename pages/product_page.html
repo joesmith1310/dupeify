@@ -1,35 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Individual Product Page</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Individual Product Page</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer type="text/javascript" src="/scripts/script.js"></script>
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/product_page.css">
-    
-  </head>
-  <body>
-    <!-- Uses jquery to load navigation header -->
-    <div id="navbar"></div>
-	  <div class="main_page">
-      <div class="product_image">
-          <img src="/resources/main_image.jpg" alt="Makeup Palette Product">
-      </div>
-
-      <div class="product_description">
-          <p><span class="product_key">Product Title:</span> <span class="product_title">Makeup Palette</span></p>
-          <p><span class="product_key">Product Price:</span> <span class="product_data">$20</span></p>
-          <p><span class="product_key">Similar Products:</span> <span class="product_data"><ul><li>New Makeup Palette</li><li>Mixed Palette</li></ul></span></p>
-          <p><span class="product_key">Featured:</span> <span class="product_data">Yes</span></p>
-          <p><span class="product_key">Popular:</span> <span class="product_data">Yes</span></p>
-      </div>
-    </div>
-  </body>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <script
+            defer
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        ></script>
+        <script defer type="text/javascript" src="/scripts/script.js"></script>
+        <script
+            defer
+            type="text/javascript"
+            src="/scripts/product_script.js"
+        ></script>
+        <link rel="stylesheet" href="/styles/style.css" />
+        <link rel="stylesheet" href="/styles/product_page.css" />
+    </head>
+    <body>
+        <!-- Uses jquery to load navigation header -->
+        <div id="navbar"></div>
+        <div class="product_page">
+            <div id="product"></div>
+            <div id="like-container">
+                <button id="like-button" class="button">👍</button>
+                <button id="dislike-button" class="button">👎</button>
+            </div>
+            <h3>Dupes</h3>
+            <div class="optionsBox">
+                <div class="dropdown">
+                    <div class="dropbtn">Sort by</div>
+                    <div class="dropdown-content">
+                        <div onclick="sortByPrice(true)">Price Desc</div>
+                        <div onclick="sortByPrice()">Price Asc</div>
+                        <div onclick="sortByMatch()">Match</div>
+                    </div>
+                </div>
+            </div>
+            <div class="dupes">
+                <div id="dupes_list"></div>
+                <div class="dupes_form">
+                    <h3>Suggest a dupe product</h3>
+                    <form
+                        onsubmit="suggest();return false"
+                        id="suggestDupeForm"
+                    >
+                        <select name="productType" class="formInput">
+                            <option value="Foundation">Foundation</option>
+                            <option value="Mascara">Mascara</option>
+                            <option value="Eyeliner">Eyeliner</option>
+                            <option value="Lipstick">Lipstick</option>
+                            <option value="Blush">Blush</option>
+                            <option value="Bronzer">Bronzer</option>
+                            <option value="Highlight">Highlight</option>
+                            <option value="Eyeshadow">Eyeshadow</option>
+                        </select>
+                        <input
+                            type="text"
+                            name="productBrand"
+                            placeholder="Product Brand"
+                            class="formInput"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="productName"
+                            placeholder="Product Name"
+                            class="formInput"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="productComment"
+                            placeholder="Comment"
+                            class="formInput"
+                        />
+                        <input type="submit" value="Suggest" class="button" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

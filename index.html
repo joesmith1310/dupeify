@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>App Title</title>
+        <title>Dupeify</title>
 
         <link rel="stylesheet" type="text/css" href="/styles/style.css" />
         <link rel="stylesheet" type="text/css" href="/styles/home_style.css" />
@@ -27,100 +27,104 @@
     </head>
     <body>
         <div id="navbar"></div>
-        <div class="searchDiv">
-            <form id="searchBar">
-                <input
-                    id="searchInput"
-                    type="text"
-                    name=""
-                    placeholder="Search for a product"
-                />
-                <input id="searchButton" type="submit" value="Search" />
-            </form>
-        </div>
-        <div class="comparisonLarge" id="mainFeature">
-            <!--<div class="cLProduct">
-            <img src="/resources/sample-img-1.jpg">
-            <div class="cLText">
-               <h2 class="cLPrice">$49.99</h2>
-               <h3 class="cLName">Example Product</h3>
+        <div id="homeContent">
+            <div class="searchDiv">
+                <form onsubmit="searchProduct();return false" id="searchBar">
+                    <input
+                        id="searchInput"
+                        type="text"
+                        name="search"
+                        placeholder="Search for a product"
+                    />
+                    <input id="searchButton" type="submit" value="Search" />
+                </form>
             </div>
-         </div>
-         <div class="cLMatch">
-            <p class="percentageMatch">87%</p>
-         </div>
-         <div class="cLProduct">
-            <img src="/resources/sample-img-2.jpg">
-            <div class="cLText">
-               <h2 class="cLPrice">$29.99</h2>
-               <h3 class="cLName">Example Product</h3>
+            <div id="mainFeature" class="slideshowContainer">
+                <!--<div class="cLProduct">
+                <img src="/resources/sample-img-1.jpg">
+                <div class="cLText">
+                <h2 class="cLPrice">$49.99</h2>
+                <h3 class="cLName">Example Product</h3>
+                </div>
             </div>
-         </div>-->
-        </div>
-        <div class="comparisonRow" id="featuredRow">
-            <div class="section">
-                <h3 class="label">Featured</h3>
-                <a
-                    href="/pages/products.html"
-                    onclick="sessionStorage.setItem('products', 'featured');"
-                    >See All</a
-                >
+            <div class="cLMatch">
+                <p class="percentageMatch">87%</p>
             </div>
-            <ul>
-                <li>
-                    <!--<div class="comparisonSmall">
-                  <div class = "cSImgBox">
-                     <img src="/resources/sample-img-3.jpg">
-                     <img src="/resources/sample-img-4.jpg">
-                  </div>
-                  <ul class="cSInfo">
-                     <h3>Example product title</h3>
-                     <li>
-                        <p>Catgeory 1</p>
-                        <div class="cSPercentageBar">
-                           <div></div>
-                        </div>
-                        <p>87%</p>
-                     </li>
-                     <li>
-                        <p>Catgeory 2</p>
-                        <div class="cSPercentageBar">
-                           <div></div>
-                        </div>
-                        <p>87%</p>
-                     </li>
-                     <li>
-                        <p>Catgeory 3</p>
-                        <div class="cSPercentageBar">
-                           <div></div>
-                        </div>
-                        <p>87%</p>
-                     </li>
-                     <li>
-                        <p>Catgeory 4</p>
-                        <div class="cSPercentageBar">
-                           <div></div>
-                        </div>
-                        <p>87%</p>
-                     </li>
-                  </ul>
-                  <p class="cLOverall">87%</p>
-               </div>-->
-                </li>
-            </ul>
-        </div>
-        <div class="comparisonRow" id="popularRow">
-            <div class="section">
-                <h3 class="label">Popular</h3>
-                <a
-                    href="/pages/products.html"
-                    onclick="sessionStorage.setItem('products', 'popular');"
-                    >See All</a
-                >
+            <div class="cLProduct">
+                <img src="/resources/sample-img-2.jpg">
+                <div class="cLText">
+                <h2 class="cLPrice">$29.99</h2>
+                <h3 class="cLName">Example Product</h3>
+                </div>
+            </div>-->
             </div>
-            <ul>
-                <li></li>
-            </ul>
+            <div class="slideshowDots">
+                <span class="dot"></span> 
+                <span class="dot"></span> 
+                <span class="dot"></span> 
+            </div>
+            <div class="comparisonRow" id="featuredRow">
+                <div class="section">
+                    <h3 class="label">Featured</h3>
+                    <a
+                        href="/pages/products.html?featured=true"
+                        >See All</a>
+                </div>
+                <ul>
+                    <li>
+                        <!--<div class="comparisonSmall">
+                    <div class = "cSImgBox">
+                        <img src="/resources/sample-img-3.jpg">
+                        <img src="/resources/sample-img-4.jpg">
+                    </div>
+                    <ul class="cSInfo">
+                        <h3>Example product title</h3>
+                        <li>
+                            <p>Catgeory 1</p>
+                            <div class="cSPercentageBar">
+                            <div></div>
+                            </div>
+                            <p>87%</p>
+                        </li>
+                        <li>
+                            <p>Catgeory 2</p>
+                            <div class="cSPercentageBar">
+                            <div></div>
+                            </div>
+                            <p>87%</p>
+                        </li>
+                        <li>
+                            <p>Catgeory 3</p>
+                            <div class="cSPercentageBar">
+                            <div></div>
+                            </div>
+                            <p>87%</p>
+                        </li>
+                        <li>
+                            <p>Catgeory 4</p>
+                            <div class="cSPercentageBar">
+                            <div></div>
+                            </div>
+                            <p>87%</p>
+                        </li>
+                    </ul>
+                    <p class="cLOverall">87%</p>
+                </div>-->
+                    </li>
+                </ul>
+            </div>
+            <div class="comparisonRow" id="popularRow">
+                <div class="section">
+                    <h3 class="label">Popular</h3>
+                    <a
+                        href="/pages/products.html?popular=true"
+                        onclick="sessionStorage.setItem('products', 'popular');"
+                        >See All</a>
+                </div>
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
         </div>
     </body>
 </html>

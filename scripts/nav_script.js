@@ -32,7 +32,7 @@ function updateControls() {
     }
     else if (role == 'admin') {
         controlButton.setAttribute('href', '/pages/admin.html');
-        controlButton.innerText = 'Admin Controls';
+        controlButton.innerText = 'Admin Centre';
         logoutButton.classList.remove('hide');
     }
     else {

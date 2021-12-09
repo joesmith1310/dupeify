@@ -18,14 +18,9 @@ body {
     margin: 100px 10%;
 }
 
-.adminOption:nth-child(2) {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-}
-
-.adminOption:last-child {
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+.adminOptions {
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .adminOption {
@@ -48,7 +43,7 @@ body {
     right: 50px
 }
 
-#newProductForm {
+.expandable {
     background-color: white;
     width: 100%;
     transition: all 0.4s ease;
@@ -56,32 +51,21 @@ body {
     overflow: hidden;
 }
 
-#newProductForm form {
-    padding: 50px;
+.expandable form {
+    padding: 0 50px;
 }
 
-#newProductForm input {
+.expandable input {
     display: block;
-    margin-bottom: 40px;
+    margin: 30px 0;
 }
 
-#newProductForm.expand {
-    max-height: 700px;
+.expandable input[type=number] {
+    margin: 5px 0;
 }
 
-.formInput {
-    width: 50%;
-    height: 44px;
-    border-radius: 22px;
-    outline: 1px solid #b197fc;
-    padding-left: 25px;
-    border: none;
-}
-
-.formButton {
-    height: 44px;
-    border-radius: 22px;
-    width: 100px;
+.expandable.expand {
+    max-height: 1000px;
 }
 
 .customFileUpload {
@@ -125,3 +109,30 @@ body {
 #uploadLabel {
     display: block;
 }
+
+.resultEntry {
+    width: 98%;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    border-top: solid 1px #ebebeb;
+}
+
+.resultEntry label {
+    width: 20%;
+    padding-right: 2px;
+    overflow: visible;
+}
+
+.searchResults {
+    margin-bottom: 20px;
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#suggestionsBox {
+    width: 90%;
+    margin: 0 5% 20px 5%;
+}
+

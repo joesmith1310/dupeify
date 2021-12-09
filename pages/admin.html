@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>App Title</title>
+        <title>Dupeify Admin</title>
 
         <!--*******THESE LINKS AND SCRIPTS SHOULD BE IN ALL PAGES*******-->
 
@@ -24,41 +24,148 @@
         <!--This ^^^ is where JS loads navigation into page. Code below this-->
         <div class="adminSection">
             <h3>PRODUCTS</h3>
-            <div class="adminOption">
-                <h4>ADD NEW PRODUCT</h4>
-                <div class="button" id="addProductButton">ADD</div>
-            </div>
-            <div id="newProductForm">
-                <form onsubmit="addProduct()">
-                    <input type="text" name="productID" placeholder="Product ID" class="formInput">
-                    <input type="text" name="productName" placeholder="Product Name" class="formInput">
-                    <input type="text" name="productDescription" placeholder="Description" class="formInput">
-                    <label for="isDesigner">Is Designer</label>
-                    <input type="checkbox" id="isDesigner" name="isDesigner" onclick="toggleDupes()">
-                    <input type="text" name="dupeIDs" placeholder="Dupe IDs e.g. 1,2,3" class="formInput" id="dupesField">
-                    <label id="uploadLabel">Upload Image:</label>
-                    <label class="customFileUpload">
-                        Select
-                        <input type="file" name="img" class="fileUpload">
-                    </label>
-                    <input type="submit" value="Add" class="button">
-                </form>
-            </div>
-            <div class="adminOption">
-                <h4>EDIT EXISTING PRODUCTS</h4>
-                <a class="button" href="/pages/products.html">EDIT</a>
-            </div>
-            <div class="adminOption">
-                <h4>USER SUGGESTIONS</h4>
-                <a class="button" href="">SEE</a>
+            <div class="adminOptions">
+                <div class="adminOption">
+                    <h4>ADD NEW PRODUCT</h4>
+                    <div class="button" class="expandButton">ADD</div>
+                </div>
+                <div class="expandable">
+                    <form onsubmit="addProduct();return false" id="addProductForm">
+                        <input type="text" name="productName" placeholder="Product Name" class="formInput" required>
+                        <input type="text" name="productPrice" placeholder="Product Price" class="formInput" required>
+                        <input type="text" name="productBrand" placeholder="Product Brand" class="formInput" required>
+                        <label>Select type:</label>
+                        <select name="productType">
+                            <option value="Foundation">Foundation</option>
+                            <option value="Mascara">Mascara</option>
+                            <option value="Eyeliner">Eyeliner</option>
+                            <option value="Lipstick">Lipstick</option>
+                            <option value="Blush">Blush</option>
+                            <option value="Bronzer">Bronzer</option>
+                            <option value="Highlight">Highlight</option>
+                            <option value="Eyeshadow">Eyeshadow</option>
+                        </select>
+                        <input type="text" name="productDescription" placeholder="Description" class="formInput">
+                        <input type="text" name="productImage" placeholder="Product Image Name e.g. img1.jpg" class="formInput" required>
+                        <input type="submit" value="Add" class="button">
+                    </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for existing products:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
+                    </form>
+                </div>
+                <div class="adminOption">
+                    <h4>ADD NEW DUPE</h4>
+                    <div class="button" class="expandButton">ADD</div>
+                </div>
+                <div class="expandable">
+                    <form onsubmit="addDupe();return false" id="addDupeForm">
+                        <input type="text" name="productName" placeholder="Product Name" class="formInput" required>
+                        <input type="text" name="productPrice" placeholder="Product Price" class="formInput" required>
+                        <input type="text" name="productBrand" placeholder="Product Brand" class="formInput" required>
+                        <label>Select type:</label>
+                        <select name="productType">
+                            <option value="Foundation">Foundation</option>
+                            <option value="Mascara">Mascara</option>
+                            <option value="Eyeliner">Eyeliner</option>
+                            <option value="Lipstick">Lipstick</option>
+                            <option value="Blush">Blush</option>
+                            <option value="Bronzer">Bronzer</option>
+                            <option value="Highlight">Highlight</option>
+                            <option value="Eyeshadow">Eyeshadow</option>
+                        </select>
+                        <input type="text" name="productImage" placeholder="Product Image Name e.g. img1.jpg" class="formInput" required>
+                        <input type="submit" value="Add" class="button">
+                    </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for existing products:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
+                    </form>
+                </div>
+                <div class="adminOption">
+                    <h4>LINK PRODUCT TO DUPE</h4>
+                    <div class="button">LINK</div>
+                </div>
+                <div class="expandable">
+                    <form onsubmit="link();return false" id="linkDupeForm">
+                        <label>Color:</label>
+                        <input type="number" name="colorMatch" min="1" max="100" required>
+                        <label>Texture:</label>
+                        <input type="number" name="textureMatch" min="1" max="100" required>
+                        <label>Ingredients:</label>
+                        <input type="number" name="ingredientsMatch" min="1" max="100" required>
+                        <label>Longevity:</label>
+                        <input type="number" name="longevityMatch" min="1" max="100" required>
+                        <input type="text" name="designerProduct" placeholder="Designer product" class="formInput" required>
+                        <input type="text" name="dupeProduct" placeholder="Dupe product" class="formInput" required>
+                        <input type="submit" value="Link" class="button">
+                    </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for a product code:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
+                    </form>
+                </div>
+                <div class="adminOption">
+                    <h4>PRODUCT TOGGLES</h4>
+                    <div class="button">EDIT</div>
+                </div>
+                <div class="expandable">
+                    <form onsubmit="toggleFeature(this.code.value, 'featured');return false">
+                        <label>Toggle featured:</label>
+                        <input type="text" name="code" placeholder="Product Code" class="formInput" required>
+                        <input type="submit" value="Toggle" class="button">
+                    </form>
+                    <form onsubmit="toggleFeature(this.code.value, 'popular');return false">
+                        <label>Toggle popular:</label>
+                        <input type="text" name="code" placeholder="Product Code" class="formInput" required>
+                        <input type="submit" value="Toggle" class="button">
+                    </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for a product code:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
+                    </form>
+                </div>
+                <div class="adminOption">
+                    <h4>DELETE PRODUCTS</h4>
+                    <div class="button">DELETE</div>
+                </div>
+                <div class="expandable">
+                    <form onsubmit="deleteProduct(this.code.value, 'featured');return false">
+                        <label>Delete:</label>
+                        <input type="text" name="code" placeholder="Product Code" class="formInput" required>
+                        <input type="submit" value="Delete" class="button">
+                    </form>
+                    <form onsubmit="getCodes(this.search.value, this);return false">
+                        Search for a product code:
+                        <input type="text" name="search" placeholder="Search by name, brand, type..." class="formInput">
+                        <input type="submit" value="Search" class="button">
+                        <div class="searchResults"></div>
+                    </form>
+                </div>
             </div>
         </div>
-  
         <div class="adminSection">
             <h3>USERS</h3>
-            <div class="adminOption">
-                <h4>EDIT USERS</h4>
-                <a class="button" href="/pages/users.html">EDIT</a>
+            <div class="adminOptions">
+                <div class="adminOption">
+                    <h4>EDIT USERS</h4>
+                    <a class="button" href="/pages/users.html">EDIT</a>
+                </div>
+                <div class="adminOption">
+                    <h4>USER SUGGESTIONS</h4>
+                    <div class="button">SEE</div>
+                </div>
+                <div class="expandable">
+                    <div id="suggestionsBox"></div>
+                </div>
             </div>
         </div>
     </body>

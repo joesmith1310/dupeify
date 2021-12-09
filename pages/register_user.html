@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+        <meta charset="utf-8">
+        <title>App Title</title>
+
+        <!--*******THESE LINKS AND SCRIPTS SHOULD BE IN ALL PAGES*******-->
+
+        <link rel="stylesheet" type="text/css" href="/styles/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+        <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script defer type="text/javascript" src="/scripts/script.js"></script>
+        
+        <!--**********LINKS AND SCRIPTS SPECIFIC TO THIS PAGE**********-->
+
+        <!--Put your links and scripts here e.g. login.js, login.css-->
+        <link rel="stylesheet" type="text/css" href="/styles/login.css">
+        <script defer type="text/javascript" src="/scripts/register.js"></script>
+
+   </head>
+   <body>
+      <div id="navbar"></div> 
+      <!--This ^^^ is where JS loads navigation into page. Code below this-->
+
+      <form name="registerForm" id="registerForm">
+         <div class="imgContainer">
+           <img src="/resources/sample-img-7.jpg" alt="Avatar" class="avatar">
+         </div>
+       
+         <div class="container">
+           <label for="uname" class="label">Username</label>
+           <input type="text" placeholder="Enter Username" id="uname">
+       
+           <label for="psw"class="label">Password</label>
+           <input type="password" placeholder="Enter Password" id="psw">
+           
+           <label for="age" class="label">Age</label>
+           <input type= "number" min="14" placeholder="Enter Age" id="age">
+           <br>
+           <br>
+           <label for="skintype" class="label">Skin Type</label>
+           <input type="text" placeholder="Enter Skin Type" id="skintype">
+           
+           <label for="eyecolor" class="label">Eye Color</label>
+           <input type="text" placeholder="Enter Eye Color" id="eyecolor">
+           
+           <label for="birthday" class="label">Birthday</label>
+           <input type="date" placeholder="Enter Birthday" id="birthday">
+       
+           <button type="submit">register</button>
+         </div>
+         <div class="container" style="background-color:#f1f1f1">
+         </div>
+        </form>
+      
+   </body>
+</html>

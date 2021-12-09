@@ -205,11 +205,11 @@ function addAllInfo(){
 
 
 function myOnLoad(){
-  document.addEventListener("DOMContentLoaded", addAllInfo());
-  document.getElementById("submitSuggestion").addEventListener('click', function(){
+  loadMySuggestions();
+  /*document.getElementById("submitSuggestion").addEventListener('click', function(){
     var suggestForm = document.getElementById('newProductForm');
     toggleDropdown(suggestForm);    
-  });
+  });*/
 }
 
 function fillUserInfo() {
@@ -255,4 +255,49 @@ function toggleDropdown(dropdown) {
   // } else {
   //   b.textContent = redHeart;
   // }
+
+function suggestProd() {
+  const form = document.getElementById("suggestProductForm");
+  const type = form.productType.value;
+  const brand = form.productBrand.value;
+  const name = form.productName.value;
+  const comment = form.productComment.value;
+  makeSuggestion(type, brand, name, comment);
+}
+
+
+function loadMySuggestions() {
+  const suggestionsBox = document.getElementById("mySuggestions");
+  suggestionsBox.innerHTML = "";
+  const request = new Request(`/api/suggestion/${localStorage.getItem('objid')}`, {
+      method: 'GET', 
+      headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+      },
+  });
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          // return a promise that resolves with the JSON body
+         return res.json() 
+     } else {
+          createWindowMessage("Could not get suggestions", true);
+     }                
+  })
+  .then((json) => {  // the resolved promise with the JSON body
+      if (json.length == 0) {
+          suggestionsBox.innerText = "No suggestions right now."
+      }
+      else{ 
+          json.map((s) => {
+              const suggestion = buildSuggestion(s, false);
+              suggestionsBox.appendChild(suggestion);
+          });
+      }
+  })
+  .catch((error) => {
+      console.log(error)
+  })
+}
 

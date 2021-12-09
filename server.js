@@ -639,7 +639,7 @@ app.post("/api/suggestion", async (req, res) => {
     }
 });
 
-app.get("/api/sugestion/:uid", async (req, res) => {
+app.get("/api/suggestion/:uid", async (req, res) => {
     // check mongoose connection established.
     if (mongoose.connection.readyState != 1) {
         log("Issue with mongoose connection");

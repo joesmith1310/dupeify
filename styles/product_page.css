@@ -129,6 +129,10 @@ rgb(51, 51, 51) - text
     height: 20%;
 }
 
+.cSInfo h4:first-child {
+    max-width: 90%;
+}
+
 .cSInfo li {
     float: left;
     height: 20%;

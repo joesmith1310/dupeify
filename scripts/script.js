@@ -217,15 +217,29 @@ function buildSuggestion(s, admin) {
     if (s.isDesigner) {
         suggestion.innerHTML = `
         <div class='sTypeCol'>New Product:</div>
-        <div class='psInfoColumn'>
+        <div class='psInfoCol'>
             <label>${s.name}</label>
             <label>${s.brand}</label>
             <label>${s.type}</label>
         </div>
-        <div class='psUserColumn'>
+        <div class='psUserCol'>
             <label>${s.comment}</label>
         </div>
         `
+        const statusCol = document.createElement('div');
+        statusCol.classList.add('sStatusCol');
+        if (s.approved == 0) {
+            statusCol.innerText = 'Pending Review'
+        }
+        if (s.approved == 1) {
+            statusCol.innerText = 'Approved';
+            statusCol.style.color = 'green';
+        }
+        if (s.approved == -1) {
+            statusCol.innerText = 'Rejected';
+            statusCol.style.color = 'red';
+        }
+        suggestion.appendChild(statusCol);
         if (admin) {
             suggestion.appendChild(createDecisionColumn(s._id));
         }
@@ -280,7 +294,7 @@ function buildSuggestion(s, admin) {
                 const dupeCol = document.createElement('div');
                 dupeCol.classList.add('dsDupeCol');
                 dupeCol.innerHTML = `
-                <label><b>A user suggested:</b></label>
+                <label><b>Suggestion:</b></label>
                 <label>Name: ${s.name}</label>
                 <label>Brand: ${s.brand}</label>
                 <label>Type: ${s.type}</label>
@@ -288,15 +302,17 @@ function buildSuggestion(s, admin) {
                 suggestion.appendChild(dupeCol);
 
                 const statusCol = document.createElement('div');
-                statusCol.classList.add('dsStatusCol');
+                statusCol.classList.add('sStatusCol');
                 if (s.approved == 0) {
                     statusCol.innerText = 'Pending Review'
                 }
                 if (s.approved == 1) {
                     statusCol.innerText = 'Approved'
+                    statusCol.style.color = 'green';
                 }
                 if (s.approved == -1) {
                     statusCol.innerText = 'Rejected'
+                    statusCol.style.color = 'red';
                 }
                 suggestion.appendChild(statusCol);
                 if (admin) {

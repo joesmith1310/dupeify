@@ -151,7 +151,8 @@ rgb(51, 51, 51) - text
 }
 
 .comparisonSmall img {
-    height: 40%;
+    max-height: 40%;
+    max-width: 100%;
     padding: 5%;
 }
 
@@ -166,6 +167,10 @@ rgb(51, 51, 51) - text
     align-items: center;
     margin: 0;
     height: 20%;
+}
+
+.cSInfo h4:first-of-type {
+    max-width: 90%;
 }
 
 .cSInfo li {

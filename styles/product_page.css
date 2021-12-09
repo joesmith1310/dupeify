@@ -192,11 +192,28 @@ rgb(51, 51, 51) - text
     margin-bottom: 20px;
 }
 
-#thumbs .button {
+#like-container {
+    display: flex;
+    gap: 10px;
+}
+
+#like-container .button {
     font-size: 20px;
     width: 50px;
 }
 
-#thumbs .button.selected {
+#like-container .button.selected {
     background-color: #5f3dc4;
+}
+
+#like-percentage {
+    height: 40px;
+    width: 40px;
+    margin: 0;
+    border-radius: 50%;
+    color: white;
+    background-color: #b197fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

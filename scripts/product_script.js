@@ -173,7 +173,7 @@ function createProduct() {
         <p id="product_description">${product.description}</p>
     </div>
     `;
-    $("#thumbs").detach().appendTo(".product_info");
+    $("#like-container").detach().appendTo(".product_info");
 }
 
 function createDupes() {
@@ -359,6 +359,32 @@ $.ajax({
     error: (e) => console.log(e),
 });
 
+function getLikePercentage() {
+    $.ajax({
+        url: "/api/get-like-percentage",
+        data: JSON.stringify({
+            product: productId,
+        }),
+        dataType: "json",
+        type: "POST",
+        contentType: "application/json",
+        success: (response) => {
+            if (response.percentage !== null) {
+                let p = document.getElementById("like-percentage");
+                if (p === null) {
+                    p = document.createElement("p");
+                    p.id = "like-percentage";
+                    $("#like-container").append(p);
+                }
+                p.innerHTML = Math.round(response.percentage * 100) + "%";
+            }
+        },
+        error: (e) => console.log(e),
+    });
+}
+
+getLikePercentage();
+
 $("#like-button").click(function () {
     $("#like-button").addClass("selected");
     $("#dislike-button").removeClass("selected");
@@ -372,7 +398,7 @@ $("#like-button").click(function () {
         dataType: "json",
         type: "POST",
         contentType: "application/json",
-        success: (response) => console.log(response),
+        success: (response) => getLikePercentage(),
         error: (e) => console.log(e),
     });
 });
@@ -390,7 +416,7 @@ $("#dislike-button").click(function () {
         dataType: "json",
         type: "POST",
         contentType: "application/json",
-        success: (response) => console.log(response),
+        success: (response) => getLikePercentage(),
         error: (e) => console.log(e),
     });
 });

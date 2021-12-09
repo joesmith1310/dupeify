@@ -401,4 +401,7 @@ function resolveSuggestion(sid, dec) {
     })
 }
 
+function numSort(a, b) {
+    return a - b;
+}
 

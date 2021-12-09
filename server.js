@@ -823,4 +823,7 @@ app.post("/api/get-like-percentage", async (req, res) => {
     }
 });
 
-app.listen(app.get("port"));
+const port = process.env.PORT || 5000
+app.listen(port, () => {
+	log(`Listening on port ${port}...`)
+})

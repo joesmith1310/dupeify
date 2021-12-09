@@ -215,19 +215,16 @@ function buildSuggestion(s, admin) {
     const suggestion = document.createElement('div');
     suggestion.classList.add('suggestion');
     if (s.isDesigner) {
-        suggestion.innerHTML = `
-        <!-- <div class='sTypeCol'>New Product:</div> -->
-        <div class='psInfoCol'>
-            <label>${s.name}</label>
-            <label>${s.brand}</label>
-            <label>${s.type}</label>
-        </div>
-        <div class='psUserCol'>
-            <label>${s.comment}</label>
-        </div>
+        const row = document.createElement('div');
+        row.classList.add('psRow');
+        row.innerHTML = `
+        <label>New Product:</label>
+        <label><b>Name</b>: ${s.name}</label>
+        <label><b>Brand</b>: ${s.brand}</label>
+        <label><b>Type</b>: ${s.type}</label>
+        <label><b>User comment</b>: ${s.comment}</label>
         `
-        const statusCol = document.createElement('div');
-        statusCol.classList.add('sStatusCol');
+        const statusCol = document.createElement('label');
         if (s.approved == 0) {
             statusCol.innerText = 'Pending Review'
         }
@@ -239,7 +236,8 @@ function buildSuggestion(s, admin) {
             statusCol.innerText = 'Rejected';
             statusCol.style.color = 'red';
         }
-        suggestion.appendChild(statusCol);
+        row.appendChild(statusCol);
+        suggestion.appendChild(row);
         if (admin) {
             suggestion.appendChild(createDecisionColumn(s._id));
         }
@@ -264,10 +262,15 @@ function buildSuggestion(s, admin) {
             if (json) {
                 p = json[0];
 
+                const dsRow = document.createElement('div');
+                dsRow.classList.add('dsRow');
+
                 const suggestionType = document.createElement('div');
                 suggestionType.classList.add('sTypeCol');
-                suggestionType.innerText = 'New dupe for:'
-                suggestion.appendChild(suggestionType);
+                const typeLabel = document.createElement('label');
+                typeLabel.innerText = 'New dupe for:';
+                suggestionType.appendChild(typeLabel);
+                dsRow.appendChild(suggestionType);
 
                 const image = document.createElement('img');
                 try {
@@ -277,19 +280,20 @@ function buildSuggestion(s, admin) {
                     image.setAttribute('src', `/resources/error.jpg`);
                 }
 
+                const imageCol = document.createElement('div');
+                imageCol.appendChild(image);
+                dsRow.appendChild(imageCol);
+
                 const designerCol = document.createElement('div');
                 designerCol.classList.add('dsDesignerCol');
-                const designerInfo = document.createElement('div');
                 const nameLabel = document.createElement('label');
                 const idLabel = document.createElement('label');
-                nameLabel.innerText = p.name;
+                nameLabel.innerHTML = `<b>Designer product</b>: ${p.name}`;
                 idLabel.innerText = p._id;
                 
-                designerCol.appendChild(image);
-                designerInfo.appendChild(nameLabel);
-                designerInfo.appendChild(idLabel);
-                designerCol.appendChild(designerInfo);
-                suggestion.appendChild(designerCol);
+                designerCol.appendChild(nameLabel);
+                designerCol.appendChild(idLabel);
+                dsRow.appendChild(designerCol);
 
                 const dupeCol = document.createElement('div');
                 dupeCol.classList.add('dsDupeCol');
@@ -299,22 +303,26 @@ function buildSuggestion(s, admin) {
                 <label>Brand: ${s.brand}</label>
                 <label>Type: ${s.type}</label>
                 <label>User comment: ${s.comment}</label>`
-                suggestion.appendChild(dupeCol);
+                dsRow.appendChild(dupeCol);
 
                 const statusCol = document.createElement('div');
+                const statusLabel = document.createElement('label');
+                
                 statusCol.classList.add('sStatusCol');
                 if (s.approved == 0) {
-                    statusCol.innerText = 'Pending Review'
+                    statusLabel.innerText = 'Pending Review';
                 }
                 if (s.approved == 1) {
-                    statusCol.innerText = 'Approved'
-                    statusCol.style.color = 'green';
+                    statusLabel.innerText = 'Approved';
+                    statusLabel.style.color = 'green';
                 }
                 if (s.approved == -1) {
-                    statusCol.innerText = 'Rejected'
-                    statusCol.style.color = 'red';
+                    statusLabel.innerText = 'Rejected';
+                    statusLabel.style.color = 'red';
                 }
-                suggestion.appendChild(statusCol);
+                statusCol.appendChild(statusLabel);
+                dsRow.appendChild(statusCol);
+                suggestion.appendChild(dsRow);
                 if (admin) {
                     suggestion.appendChild(createDecisionColumn(s._id));
                 }

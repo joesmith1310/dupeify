@@ -836,8 +836,8 @@ app.post("/api/get-like-user", async (req, res) => {
     }
 
     try {
-        const likes = await Like.find({ user: req.body.user });
-        res.status(200).send(likes);
+        const likes = await Like.find({ user: req.body.user, like: true });
+        res.status(200).send(likes.map((document) => document.product));
     } catch (error) {
         log(error); // log server error to the console, not to the client.
         if (isMongoError(error)) {

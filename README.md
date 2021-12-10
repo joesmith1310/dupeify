@@ -61,3 +61,55 @@ The suggestion form is for the User to suggest Designer products that they wish 
 ## Products List Page
 
 The page simply displays a list of products. Each product entry can be clicked on which will lead to the product's specific page. The list of products can be sorted by price and name. It can also filter the product list by which category of products they wish to see. If they click on "Nars Blush", They will be able to see a list of dupes. This list can be sorted by price. The User will also be able to thumbs up or thumbs down a product. The thumbs up will add it to their "likes" list which can be found in the "My Account" page. The thumbs up and down will showcase how much a product is liked by the users on our website. The User can also suggest a dupe on each product page and fill out the form. The suggestion will be sent to Admin and the User will be able to see their pending suggestion in their Account page. 
+
+## Express Routes
+
+### POST /api/product
+
+Expects a json object in the request body with the following structure:
+
+{
+    "name": String,
+    "price": Number,
+    "brand": String,
+    "type": String,
+    "description": String,
+    "image": String,
+    "designer": Boolean,
+    "featured": Boolean,
+    "popular": Boolean,
+}           
+
+Creates a document and saves the product in the Product database. Responds with the JSON representing the document you have just created.
+
+### GET /api/search/:key
+
+Expects the search term as a url parameter. Searches through products in the database to see if search term is in the name, brand or type of any product. Returns the array of JSON objects representing products that match the search term.
+
+### POST /api/link
+
+Expects a json object in the request body with the following structure:
+
+{
+    "cat1": Number,
+    "cat2": Number,
+    "cat3": Number,
+    "cat4": Number,
+    "overall": Number,
+    "designerProduct": String, (Mongoose product id)
+    "dupeProduct": String, (Mongoose produt id)
+}
+
+Creates a document in the Dupe database which represents the relationship between a designer product and a dupe product. Responds with the JSON representing the document you have just created.
+
+### GET /api/product
+
+Responds with an array of JSON objects representing all products Product in the database.
+
+### GET /api/user
+
+Responds with an array of JSON objects representing all users User in the database.
+
+### GET /api/dupes/:id
+
+Expects the mongoose id of a designer product as a url parameter. Responds with a list of JSON objects each representing a dupe product that is a match with the specified designer product.

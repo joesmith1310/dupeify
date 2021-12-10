@@ -112,4 +112,4 @@ Responds with an array of JSON objects representing all users in the User databa
 
 ### GET /api/dupes/:id
 
-Expects the mongoose id of a designer product as a url parameter. Responds with a list of JSON objects each representing a dupe product that is a match with the specified designer product.
+Expects the mongoose id of a designer product as a url parameter. Responds with a list of JSON objects each representing a product match from the Dupe database. Note: This does not return a list of the dupe products themselves but a list of match information objects i.e. designerid, dupeid, category 1 match, category 2 match etc.

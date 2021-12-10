@@ -115,3 +115,55 @@ Responds with an array of JSON objects representing all users in the User databa
 ### GET /api/dupes/:id
 
 Expects the mongoose id of a designer product as a url parameter. Responds with a list of JSON objects each representing a product match from the Dupe database. Note: This does not return a list of the dupe products themselves but a list of match information objects i.e. designerid, dupeid, category 1 match, category 2 match etc.
+
+
+### GET /api/dupesList/:id
+Expects the mongoose id of a designer product as a url parameter. Repsonds with a list of JSON objects each representing a dupe match of the designer product. So this returns an array of dupe products of that specific designer product. 
+
+### GET /api/product/:id
+
+Expects the mongoose id of a product as a url parameter. Responds with the product that matches the product ID. 
+
+### DELETE /api/product/:id
+
+Expects the mongoose id of a product as a url parameter. The corresponding product gets deleted from the database. 
+
+### PATCH /api/product/:id/:feature
+Expects the moongoose id of a product as url parameter and feature as the second parameter. ( i.e either as featured or popular). This toggles the product feature and popular status so that the featured one become unfeatured and the popular one become unpopular and vice versa. 
+
+### POST /api/register
+
+### POST /api/suggestion
+Expects a json object in the request body with the following structure:
+
+{
+    "userid": ObjectId,
+    "type": String,
+    "brand": String,
+    "name": String,
+    "comment": String,
+    "isdesigner": Boolean,
+    "approved": int (0,1,-1)
+}
+
+Creates a suggestion in the database with the above fields. 
+
+### GET /api/suggestion/:uid
+Expects the mongoose id of a User as a url parameter. Responds with all the suggestions that the User created. 
+
+### GET /api/suggestion
+Returns a list of  pending suggestions. 
+
+### PATCH /api/suggestion
+Update suggestion based on suggestion id and changes the status to either approved(1), pending(0) or rejected (-1).
+
+### /api/get-like
+
+### POST /api/like
+
+### POST /api/get-like-percentage
+
+### POST /api/get-like-user
+
+### DELETE /api/user/:id
+Expects the mongoose id of a User as a url parameter and deletes the user from the database. 

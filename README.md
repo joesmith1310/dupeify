@@ -79,7 +79,7 @@ The page simply displays a list of products. Each product entry can be clicked o
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "name": String,
     "price": Number,
@@ -103,7 +103,7 @@ Expects the search term as a url parameter. Searches through products in the dat
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "cat1": Number,
     "cat2": Number,
@@ -149,7 +149,7 @@ Expects the moongoose id of a product as url parameter and feature as the second
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "username": String,
     "password": String,
@@ -166,7 +166,7 @@ Creates a user in the database with the above fields. Returns a json of `{ statu
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "userid": ObjectId,
     "type": String,
@@ -196,7 +196,7 @@ Update suggestion based on suggestion id and changes the status to either approv
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "user": ObjectId,
     "product": ObjectId,
@@ -219,7 +219,7 @@ Gets whether or not the specified user gave a thumbs up or thumbs down for the p
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "user": ObjectId,
     "product": ObjectId,
@@ -233,7 +233,7 @@ Sets whether or not the specified user gave a thumbs up or thumbs down for the p
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "product": ObjectId,
 }
@@ -245,7 +245,7 @@ Returns the like percentage of the product in a json: `{ percentage: 0.4 }`. `pe
 
 Expects a json object in the request body with the following structure:
 
-```json
+```js
 {
     "user": ObjectId,
 }

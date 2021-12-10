@@ -23,6 +23,8 @@ function init() {
         filterByFeatured();
     } else if (urlParams.get("popular")) {
         filterByPopular();
+    } else if (urlParams.get("likes")) {
+        filterByLikes();
     } else if (urlParams.get("search")) {
         let key = urlParams.get("search");
         productSearch(key);
@@ -45,7 +47,6 @@ function productSearch(key) {
         const name = p.name.toUpperCase();
         const brand = p.brand.toUpperCase();
         const type = p.type.toUpperCase();
-        console.log(name);
         if (name.includes(k) || k.includes(name)) {
             results.push(p);
         } else if (brand.includes(k) || k.includes(brand)) {
@@ -66,7 +67,6 @@ function sortByPrice(desc = false) {
             prices.push(p.price);
         }
     });
-    console.log(prices);
     prices.sort(numSort);
     if (desc) {
         prices.reverse();
@@ -139,6 +139,12 @@ function filterByPopular() {
     });
     products = newProducts;
     productList.innerHTML = `<h3 id="title">Popular</h3>`;
+    loadProducts(products);
+}
+
+function filterByLikes() {
+    products = myLikedProducts;
+    productList.innerHTML = `<h3 id="title">Products I've Liked</h3>`;
     loadProducts(products);
 }
 

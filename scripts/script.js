@@ -1,4 +1,3 @@
-
 const uid = localStorage.getItem('objid');
 
 //JQUERY
@@ -52,6 +51,7 @@ const testDupe3 = new Product(6, "Test Product 6", 32.99, "/resources/sample-img
 //const dupeProducts = [testDupe1, testDupe2, testDupe3];
 let designerProducts = [];
 let dupeProducts = [];
+let myLikedProducts = [];
 
 const user1 = new User(1, "testUser1");
 const user2 = new User(2, "testUser2");
@@ -63,6 +63,7 @@ const user3 = new User(3, "testUser3");
 
 const loadProductsPromise = new Promise (async (resolve, reject) => {
     await getProducts();
+    await getUserLikes();
     resolve();
 });
 
@@ -132,6 +133,50 @@ function pushToList(product) {
         }
     });
 }
+
+async function getUserLikes() {
+    return new Promise((resolve, reject) => {
+        if (localStorage.getItem('objid') == null) {
+            resolve();
+            return;
+        }
+        let likes = []
+        data = {
+          "user" : localStorage.getItem('objid'),
+        }
+        const request = new Request('/api/get-like-user', {
+            method: 'post',
+            body: JSON.stringify(data), 
+            headers: {
+                'Accept': 'application/json, text/plain, /',
+                'Content-Type': 'application/json'
+            },
+        });
+        fetch(request)
+        .then(function(res) {
+            if (res.status === 200) {
+                return res.json() 
+            } else {
+                createWindowMessage('Could not get likes', true);
+                reject();
+            }
+        })
+        .then((l) => {  // the resolved promise with the JSON body
+            l.map((id) => {
+            designerProducts.map((p) => {
+                if (p.productID == id) {
+                likes.push(p);
+                }
+            });
+            });
+            myLikedProducts = likes;
+            resolve();
+        }).catch((error) => {
+            console.log(error)
+            reject()
+        })
+    })
+} 
 
 function createWindowMessage(text, error=false) {
     let box = document.createElement('div');

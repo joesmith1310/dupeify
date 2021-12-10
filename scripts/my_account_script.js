@@ -128,16 +128,8 @@ function favouriteProduct1Toggle() {
     }
   }
 
-function seeAllFavourite(){
-  var b = document.getElementById("favouriteSeeAll");    
-  if(b.innerText=="See All"){     
-    document.getElementById("favourite2").style.display = "inline";
-    b.innerText = "See Less";
-  }
-  else if(b.innerText=="See Less"){
-    document.getElementById("favourite2").style.display = "none";
-    b.innerText = "See All";
-  }  
+async function seeAllFavourite(){
+  window.location.href = `/pages/products.html?likes=true`;
 }
 
 function seeAllReviews(){
@@ -204,7 +196,8 @@ function addAllInfo(){
 
 
 
-function myOnLoad(){
+async function myOnLoad(){
+  await loadProductsPromise;
   fillUserInfo();
   loadMySuggestions();
   /*document.getElementById("submitSuggestion").addEventListener('click', function(){
@@ -303,4 +296,7 @@ function loadMySuggestions() {
       console.log(error)
   })
 }
+
+
+
 

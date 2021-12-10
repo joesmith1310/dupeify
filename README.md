@@ -104,11 +104,11 @@ Creates a document in the Dupe database which represents the relationship betwee
 
 ### GET /api/product
 
-Responds with an array of JSON objects representing all products Product in the database.
+Responds with an array of JSON objects representing all products in the Product database.
 
 ### GET /api/user
 
-Responds with an array of JSON objects representing all users User in the database.
+Responds with an array of JSON objects representing all users in the User database.
 
 ### GET /api/dupes/:id
 

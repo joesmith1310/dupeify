@@ -2,6 +2,8 @@
 
 We received an extension from Mark as one of our Team members dropped this course last minute. 
 
+Out Deployment link  https://glacial-sands-13192.herokuapp.com/
+
 ### Setup instructions
 ## (must install mongodb first.)
 
@@ -113,3 +115,21 @@ Responds with an array of JSON objects representing all users in the User databa
 ### GET /api/dupes/:id
 
 Expects the mongoose id of a designer product as a url parameter. Responds with a list of JSON objects each representing a dupe product that is a match with the specified designer product.
+
+### GET /api/dupeList/:id
+
+### GET /api/product/:id
+
+### DELETE /api/product/:id
+
+### PATCH /api/product/:id/:feature
+
+### POST /api/suggestion/
+
+### GET /api/suggestion/:uid
+
+### GET /api/suggestion
+
+### PATCH /api/suggestion
+
+### DELETE /api/user/:id

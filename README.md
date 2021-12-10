@@ -2,31 +2,39 @@
 
 We received an extension from Mark as one of our Team members dropped this course last minute.
 
-Out Deployment link https://glacial-sands-13192.herokuapp.com/
+Our Deployment link https://glacial-sands-13192.herokuapp.com/
 
-### Setup instructions
+## Setup instructions
 
-## (must install mongodb first.)
+**(must install mongodb first.)**
 
 ## Install all modules
 
+```
 $ npm install
+```
 
 ## Start a mongo server
 
+```
 $ mkdir mongo-data
 $ mongod --dbpath ./mongo-data
+```
 
 ## Start web server
 
+```
 $ npm start
+```
 
 ## Registration for a User
 
 The current users in our database are
-Username: user, Password: user
-Username: user1 , Password: user
-Username: user2, Password:user
+| Username | Password |
+|----------|----------|
+| `user`   | `user`   |
+| `user1`  | `user`   |
+| `user2`  | `user`   |
 
 If a User does not have an account and wishes to create one then they can go to our Log In page and click the link below that says "Register now". In the Registration form, the User must create a Username that is not in our database and input information needed for their account. Once it says " Successfully Registered" the User will be taken to the Log In page to Log in.
 
@@ -197,7 +205,7 @@ Expects a json object in the request body with the following structure:
 
 Gets whether or not the specified user gave a thumbs up or thumbs down for the product. Returns a document with the following structure:
 
-```json
+```jsonc
 {
     "_id": { "$oid": "61b11dc343c51cd49b4891a6" },
     "product": { "$oid": "61b0e00ff165316088157be3" },
